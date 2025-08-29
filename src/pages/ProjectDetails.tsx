@@ -1,47 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Calendar, User, Tag, Download } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Calendar, User, Tag } from 'lucide-react';
 import ImageGallery from '@/components/ImageGallery';
 
 interface Project {
-  _id: string;
-  title: string;
-  description: string;
-  cover: {
-    url: string;
-    public_id: string;
-  };
-  gallery: Array<{
     _id: string;
-    url: string;
-    public_id: string;
-    caption?: string;
-  }>;
-  techStack: string[];
-  role: string;
-  year: number;
-  type: string;
-  features: string[];
-  links: {
-    github?: string;
-    demo?: string;
-    article?: string;
-    store?: string;
-  };
-  stats: {
-    downloads: number;
-    rating: number;
-    users: number;
-  };
-  caseStudy: {
-    problem: string;
-    solution: string;
-    architecture: string;
-    stateManagement: string;
-    challenges: string[];
-    results: string;
-  };
+    title: string;
+    description: string;
+    cover: {
+        url: string;
+        public_id: string;
+    };
+    gallery: Array<{
+        _id: string;
+        url: string;
+        public_id: string;
+        caption?: string;
+    }>;
+    techStack: string[];
+    role: string;
+    year: number;
+    type: string;
+    features: string[];
+    links: {
+        github?: string;
+        demo?: string;
+        article?: string;
+        store?: string;
+    };
+    stats: {
+        downloads: number;
+        rating: number;
+        users: number;
+    };
+    caseStudy: {
+        problem: string;
+        solution: string;
+        architecture: string;
+        stateManagement: string;
+        challenges: string[];
+        results: string;
+    };
 }
 
 const ProjectDetails: React.FC = () => {
@@ -56,7 +56,7 @@ const ProjectDetails: React.FC = () => {
                 setLoading(true);
                 const response = await fetch(`https://profile-fhvk.vercel.app/api/projects/${slug}`);
                 const data = await response.json();
-                
+
                 if (data.success) {
                     setProject(data.data);
                 } else {
@@ -121,7 +121,7 @@ const ProjectDetails: React.FC = () => {
                             <ArrowLeft className="w-5 h-5 mr-2" />
                             Back to Projects
                         </Link>
-                        
+
                         <div className="flex space-x-3">
                             {project.links.github && (
                                 <a
@@ -164,7 +164,7 @@ const ProjectDetails: React.FC = () => {
                     <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
                         {project.description}
                     </p>
-                    
+
                     {/* Project Meta */}
                     <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
                         <div className="flex items-center space-x-2">
@@ -313,7 +313,7 @@ const ProjectDetails: React.FC = () => {
                                         {project.caseStudy.problem}
                                     </p>
                                 </div>
-                                
+
                                 <div>
                                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                                         Solution
@@ -322,7 +322,7 @@ const ProjectDetails: React.FC = () => {
                                         {project.caseStudy.solution}
                                     </p>
                                 </div>
-                                
+
                                 <div>
                                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                                         Architecture
@@ -331,7 +331,7 @@ const ProjectDetails: React.FC = () => {
                                         {project.caseStudy.architecture}
                                     </p>
                                 </div>
-                                
+
                                 <div>
                                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                                         State Management
@@ -340,7 +340,7 @@ const ProjectDetails: React.FC = () => {
                                         {project.caseStudy.stateManagement}
                                     </p>
                                 </div>
-                                
+
                                 <div>
                                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                                         Challenges
@@ -354,7 +354,7 @@ const ProjectDetails: React.FC = () => {
                                         ))}
                                     </ul>
                                 </div>
-                                
+
                                 <div>
                                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                                         Results

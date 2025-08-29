@@ -1,13 +1,13 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Github, Linkedin, Twitter, Mail, Phone, MapPin, Calendar, ArrowUp, Heart, Code, Coffee } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, Phone, MapPin, ArrowUp, Heart, Code, Coffee } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useUserProfile } from '@/hooks/useUserProfile';
 
 const Footer: React.FC = () => {
     const { t } = useLanguage();
     const { data: userData, error } = useUserProfile();
-    
+
     if (error) {
         console.error('Error fetching user data:', error);
     }
