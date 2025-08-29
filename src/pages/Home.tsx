@@ -3,13 +3,20 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import { useUserProfile } from '@/hooks/useUserProfile';
+import { useFeaturedProjects } from '@/hooks/useFeaturedProjects';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
     const { t } = useLanguage();
     const { data: userData, isLoading: loading, error } = useUserProfile();
-    
+    const { projects: featuredProjects, loading: projectsLoading, error: projectsError } = useFeaturedProjects();
+
     if (error) {
         console.error('Error fetching user data:', error);
+    }
+
+    if (projectsError) {
+        console.error('Error fetching featured projects:', projectsError);
     }
 
     const socialLinks = [
@@ -249,98 +256,85 @@ const Home: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {/* Project Card 1 */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
-                        >
-                            <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-600 relative overflow-hidden">
-                                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="text-white text-4xl font-bold">Wanna Meal</div>
-                                </div>
-                            </div>
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Wanna Meal</h3>
-                                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                                    A comprehensive food delivery application built with Flutter. Features include user authentication, restaurant listings, and order tracking.
+                        {projectsLoading ? (
+                            // Loading skeleton
+                            Array.from({ length: 3 }).map((_, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden"
+                                >
+                                    <div className="h-48 bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+                                    <div className="p-6">
+                                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
+                                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
+                                        <div className="flex flex-wrap gap-2 mb-4">
+                                            {Array.from({ length: 3 }).map((_, i) => (
+                                                <div key={i} className="h-6 w-16 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"></div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))
+                        ) : featuredProjects.length > 0 ? (
+                            featuredProjects.slice(0, 3).map((project, index) => (
+                                <motion.div
+                                    key={project._id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+                                >
+                                    <div className="h-48 relative overflow-hidden">
+                                        {project.cover?.url ? (
+                                            <img
+                                                src={project.cover.url}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+                                                <div className="text-white text-2xl font-bold">{project.title}</div>
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                                    </div>
+                                    <div className="p-6">
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
+                                        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                                            {project.description}
+                                        </p>
+                                        <div className="flex flex-wrap gap-2 mb-4">
+                                            {project.techStack.slice(0, 3).map((tech, techIndex) => (
+                                                <span
+                                                    key={techIndex}
+                                                    className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
+                                                >
+                                                    {tech}
+                                                </span>
+                                            ))}
+                                        </div>
+                                        <div className="flex space-x-3">
+                                            <Link
+                                                to={`/projects/${project.slug}`}
+                                                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium"
+                                            >
+                                                View Details →
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))
+                        ) : (
+                            // No projects message
+                            <div className="col-span-full text-center py-12">
+                                <p className="text-gray-600 dark:text-gray-400 text-lg">
+                                    No featured projects available at the moment.
                                 </p>
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full">Flutter</span>
-                                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm rounded-full">Firebase</span>
-                                    <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-sm rounded-full">Provider</span>
-                                </div>
-                                <div className="flex space-x-3">
-                                    <a href="/projects" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium">
-                                        View Details →
-                                    </a>
-                                </div>
                             </div>
-                        </motion.div>
-
-                        {/* Project Card 2 */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
-                        >
-                            <div className="h-48 bg-gradient-to-br from-green-400 to-blue-600 relative overflow-hidden">
-                                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="text-white text-4xl font-bold">Movie Explorer</div>
-                                </div>
-                            </div>
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Movie & TV Explorer</h3>
-                                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                                    A movie and TV show discovery app that allows users to browse, search, and get detailed information about movies and TV series.
-                                </p>
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full">Flutter</span>
-                                    <span className="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-sm rounded-full">TMDB API</span>
-                                    <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-sm rounded-full">Bloc</span>
-                                </div>
-                                <div className="flex space-x-3">
-                                    <a href="/projects" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium">
-                                        View Details →
-                                    </a>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        {/* Project Card 3 */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
-                        >
-                            <div className="h-48 bg-gradient-to-br from-yellow-400 to-red-600 relative overflow-hidden">
-                                <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="text-white text-4xl font-bold">Bookly</div>
-                                </div>
-                            </div>
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Bookly</h3>
-                                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                                    A book reading and management app that helps users discover, organize, and track their reading progress.
-                                </p>
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full">Flutter</span>
-                                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm rounded-full">Firebase</span>
-                                    <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-sm rounded-full">Cubit</span>
-                                </div>
-                                <div className="flex space-x-3">
-                                    <a href="/projects" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium">
-                                        View Details →
-                                    </a>
-                                </div>
-                            </div>
-                        </motion.div>
+                        )}
                     </div>
 
                     <motion.div
