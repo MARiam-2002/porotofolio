@@ -523,6 +523,7 @@ const Projects: React.FC = () => {
                                             </motion.div>
                                         </motion.div>
                                     </div>
+                                </div>
                             </motion.div>
                         ))}
                     </div>
