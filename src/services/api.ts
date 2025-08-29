@@ -37,7 +37,7 @@ api.interceptors.response.use(
       localStorage.removeItem('token');
       window.location.href = '/';
     }
-    
+
     return Promise.reject(error);
   }
 );
@@ -144,7 +144,14 @@ export const userApi = {
 export const projectApi = {
   getAll: (params?: any) => apiService.get<PaginatedResponse<any>>('/projects', params),
   getFeatured: () => apiService.get<any[]>('/projects/featured'),
-  getBySlug: (slug: string) => apiService.get<any>(`/projects/${slug}`),
+  getBySlug: async (slug: string) => {
+    try {
+      const response = await api.get(`/projects/${slug}`);
+      return response.data;
+    } catch (error: any) {
+      throw handleApiError(error);
+    }
+  },
   create: (data: any) => apiService.post<any>('/projects', data),
   update: (id: string, data: any) => apiService.put<any>(`/projects/${id}`, data),
   delete: (id: string) => apiService.delete<any>(`/projects/${id}`),
@@ -155,7 +162,7 @@ export const projectApi = {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
-  deleteGalleryImage: (projectId: string, imageId: string) => 
+  deleteGalleryImage: (projectId: string, imageId: string) =>
     apiService.delete<any>(`/projects/${projectId}/gallery/${imageId}`),
 };
 
@@ -204,12 +211,12 @@ export const contactApi = {
 };
 
 export const authApi = {
-  login: (credentials: { email: string; password: string }) => 
+  login: (credentials: { email: string; password: string }) =>
     apiService.post<any>('/auth/login', credentials),
-  register: (userData: { name: string; email: string; password: string }) => 
+  register: (userData: { name: string; email: string; password: string }) =>
     apiService.post<any>('/auth/register', userData),
   getMe: () => apiService.get<any>('/auth/me'),
-  updatePassword: (data: { currentPassword: string; newPassword: string }) => 
+  updatePassword: (data: { currentPassword: string; newPassword: string }) =>
     apiService.put<any>('/auth/update-password', data),
 };
 

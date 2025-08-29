@@ -55,16 +55,27 @@ const ProjectDetails: React.FC = () => {
         const fetchProject = async () => {
             try {
                 setLoading(true);
+                console.log('Fetching project with slug:', slug);
 
                 // محاولة جلب المشروع باستخدام slug أولاً
-                let response = await projectApi.getBySlug(slug as string);
+                let response;
+                try {
+                    console.log('Trying to fetch by slug...');
+                    response = await projectApi.getBySlug(slug as string);
+                    console.log('Response from slug API:', response);
+                } catch (error) {
+                    console.error('Error fetching by slug:', error);
+                    response = null;
+                }
 
                 // إذا فشل، جرب استخدام _id
-                if (!response.success && slug && slug.length === 24) { // MongoDB ObjectId length
+                if (!response && slug && slug.length === 24) { // MongoDB ObjectId length
                     try {
+                        console.log('Trying to fetch by ID...');
                         // استخدام fetch مباشر للـ _id
                         const idResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/projects/id/${slug}`);
                         const idData = await idResponse.json();
+                        console.log('Response from ID API:', idData);
                         if (idData.success) {
                             response = idData;
                         }
@@ -73,14 +84,16 @@ const ProjectDetails: React.FC = () => {
                     }
                 }
 
-                if (response.success) {
+                if (response && response.success) {
+                    console.log('Setting project data:', response.data);
                     setProject(response.data);
                 } else {
-                    setError(response.message || 'Project not found');
+                    console.log('No valid response found');
+                    setError(response?.message || 'Project not found');
                 }
             } catch (error: any) {
+                console.error('General error:', error);
                 setError('Failed to fetch project');
-                console.error('Error fetching project:', error);
             } finally {
                 setLoading(false);
             }
