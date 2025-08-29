@@ -43,7 +43,7 @@ const Projects: React.FC = () => {
         const fetchProjects = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('https://profile-fhvk.vercel.app/api/projects');
+                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/projects`);
                 const data = await response.json();
 
                 if (data.success) {
