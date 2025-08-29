@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Calendar, User, Tag } from 'lucide-react';
 import ImageGallery from '@/components/ImageGallery';
+import { projectApi } from '@/services/api';
 
 interface Project {
     _id: string;
@@ -54,15 +55,15 @@ const ProjectDetails: React.FC = () => {
         const fetchProject = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`https://profile-fhvk.vercel.app/api/projects/${slug}`);
-                const data = await response.json();
+                // استخدام خدمة API بدلاً من fetch المباشر
+                const { data, success, message } = await projectApi.getBySlug(slug as string);
 
-                if (data.success) {
-                    setProject(data.data);
+                if (success) {
+                    setProject(data);
                 } else {
-                    setError(data.message || 'Project not found');
+                    setError(message || 'Project not found');
                 }
-            } catch (error) {
+            } catch (error: any) {
                 setError('Failed to fetch project');
                 console.error('Error fetching project:', error);
             } finally {
