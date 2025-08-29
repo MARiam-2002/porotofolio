@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github, Calendar, User, Tag } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, ExternalLink, Github, Calendar, User, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import ImageGallery from '@/components/ImageGallery';
 import { projectApi } from '@/services/api';
 
@@ -50,6 +50,8 @@ const ProjectDetails: React.FC = () => {
     const [project, setProject] = useState<Project | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [showGalleryModal, setShowGalleryModal] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
         const fetchProject = async () => {
@@ -104,12 +106,80 @@ const ProjectDetails: React.FC = () => {
         }
     }, [slug]);
 
+    // Keyboard navigation for modal
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!showGalleryModal) return;
+
+            switch (e.key) {
+                case 'Escape':
+                    closeGalleryModal();
+                    break;
+                case 'ArrowRight':
+                    nextImage();
+                    break;
+                case 'ArrowLeft':
+                    prevImage();
+                    break;
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [showGalleryModal]);
+
+    // Helper functions for gallery modal
+    const openGalleryModal = (index: number = 0) => {
+        setCurrentImageIndex(index);
+        setShowGalleryModal(true);
+    };
+
+    const closeGalleryModal = () => {
+        setShowGalleryModal(false);
+    };
+
+    const nextImage = () => {
+        if (project?.gallery) {
+            setCurrentImageIndex((prev) =>
+                prev === project.gallery.length - 1 ? 0 : prev + 1
+            );
+        }
+    };
+
+    const prevImage = () => {
+        if (project?.gallery) {
+            setCurrentImageIndex((prev) =>
+                prev === 0 ? project.gallery.length - 1 : prev - 1
+            );
+        }
+    };
+
+    // Get all images (cover + gallery)
+    const getAllImages = () => {
+        if (!project) return [];
+        return [
+            { url: project.cover.url, caption: 'Main Cover', _id: 'cover' },
+            ...project.gallery
+        ];
+    };
+
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600 dark:text-gray-400">Loading project...</p>
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        className="w-32 h-32 border-4 border-blue-200 border-t-blue-600 rounded-full mx-auto"
+                    />
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="mt-6 text-gray-600 dark:text-gray-400 text-lg font-medium"
+                    >
+                        Loading project details...
+                    </motion.p>
                 </div>
             </div>
         );
@@ -117,21 +187,45 @@ const ProjectDetails: React.FC = () => {
 
     if (error || !project) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                        Project Not Found
-                    </h1>
-                    <p className="text-gray-600 dark:text-gray-400 mb-8">
-                        {error || 'The project you are looking for does not exist.'}
-                    </p>
-                    <Link
-                        to="/projects"
-                        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                    <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", damping: 15, stiffness: 300 }}
+                        className="mb-8"
                     >
-                        <ArrowLeft className="w-5 h-5 mr-2" />
-                        Back to Projects
-                    </Link>
+                        <div className="text-8xl mb-4">😕</div>
+                    </motion.div>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-4xl font-bold text-gray-900 dark:text-white mb-4"
+                    >
+                        Project Not Found
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="text-gray-600 dark:text-gray-400 mb-8 text-lg"
+                    >
+                        {error || 'The project you are looking for does not exist.'}
+                    </motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 }}
+                    >
+                        <Link
+                            to="/projects"
+                            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                            <ArrowLeft className="w-5 h-5 mr-2" />
+                            Back to Projects
+                        </Link>
+                    </motion.div>
                 </div>
             </div>
         );
@@ -249,56 +343,143 @@ const ProjectDetails: React.FC = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Project Cover Image */}
+                {/* Project Images Section */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="mb-12 sm:mb-16"
+                    className="mb-16"
                 >
-                    <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl group">
-                        <motion.img
-                            src={project.cover.url}
-                            alt={project.title}
-                            className="w-full h-72 sm:h-96 md:h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-110"
-                            whileHover={{ scale: 1.02 }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 1.2 }}
-                                className="text-white"
-                            >
-                                <h2 className="text-2xl sm:text-3xl font-bold mb-2">{project.title}</h2>
-                                <p className="text-white/90 text-sm sm:text-base">{project.description}</p>
-                            </motion.div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Project Gallery */}
-                {project.gallery && project.gallery.length > 0 && (
-                    <motion.div
+                    <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.0 }}
-                        className="mb-16"
+                        className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent"
                     >
-                        <motion.h2
+                        Project Gallery
+                    </motion.h2>
+
+                    {/* Combined Images Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {/* Cover Image - Large */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 1.2 }}
+                            className="md:col-span-2 lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-2xl cursor-pointer"
+                            onClick={() => openGalleryModal(0)}
+                        >
+                            <motion.img
+                                src={project.cover.url}
+                                alt={`${project.title} - Cover`}
+                                className="w-full h-80 md:h-96 lg:h-[500px] object-cover transition-all duration-700 group-hover:scale-110"
+                                whileHover={{ scale: 1.02 }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <div className="text-white">
+                                    <h3 className="text-xl font-bold mb-2">Main Cover</h3>
+                                    <p className="text-white/90 text-sm">{project.title}</p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Gallery Images */}
+                        {project.gallery && project.gallery.slice(0, 4).map((image, index) => (
+                            <motion.div
+                                key={image._id}
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.6,
+                                    delay: 1.4 + (index * 0.1),
+                                    type: "spring",
+                                    stiffness: 100
+                                }}
+                                className="relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
+                                onClick={() => openGalleryModal(index + 1)}
+                            >
+                                <motion.img
+                                    src={image.url}
+                                    alt={image.caption || `${project.title} - Gallery ${index + 1}`}
+                                    className="w-full h-48 md:h-56 lg:h-64 object-cover transition-all duration-500 group-hover:scale-110"
+                                    whileHover={{ scale: 1.05 }}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                                {/* Image Info Overlay */}
+                                <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                    <div className="text-white">
+                                        <h4 className="text-sm font-semibold mb-1">
+                                            {image.caption || `Gallery ${index + 1}`}
+                                        </h4>
+                                        <p className="text-white/80 text-xs">
+                                            {project.title}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Image Number Badge */}
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 0.3, delay: 1.8 + (index * 0.1) }}
+                                    className="absolute top-3 right-3 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg"
+                                >
+                                    {index + 1}
+                                </motion.div>
+                            </motion.div>
+                        ))}
+
+                        {/* Show More Button if there are more images */}
+                        {project.gallery && project.gallery.length > 5 && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.6, delay: 1.8 }}
+                                className="relative group overflow-hidden rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-purple-600"
+                            >
+                                <div className="w-full h-48 md:h-56 lg:h-64 flex items-center justify-center">
+                                    <div className="text-center text-white">
+                                        <motion.div
+                                            animate={{ scale: [1, 1.1, 1] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
+                                            className="text-4xl mb-2"
+                                        >
+                                            📸
+                                        </motion.div>
+                                        <h4 className="text-lg font-semibold mb-1">
+                                            +{project.gallery.length - 4} More
+                                        </h4>
+                                        <p className="text-white/80 text-sm">
+                                            View all images
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </div>
+
+                    {/* Full Gallery Modal Trigger */}
+                    {project.gallery && project.gallery.length > 0 && (
+                        <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 1.2 }}
-                            className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent"
+                            transition={{ duration: 0.6, delay: 2.0 }}
+                            className="text-center mt-8"
                         >
-                            Project Gallery
-                        </motion.h2>
-                        <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-                            <ImageGallery images={project.gallery} projectTitle={project.title} />
-                        </div>
-                    </motion.div>
-                )}
+                            <motion.button
+                                onClick={() => openGalleryModal(0)}
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                            >
+                                <span className="mr-2">📷</span>
+                                View Full Gallery
+                            </motion.button>
+                        </motion.div>
+                    )}
+                </motion.div>
 
                 {/* Project Details Grid */}
                 <motion.div
@@ -473,6 +654,103 @@ const ProjectDetails: React.FC = () => {
                     </motion.div>
                 </motion.div>
             </div>
+
+            {/* Gallery Modal */}
+            <AnimatePresence>
+                {showGalleryModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                        onClick={closeGalleryModal}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="relative max-w-7xl w-full h-full flex flex-col"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Close Button */}
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={closeGalleryModal}
+                                className="absolute top-4 right-4 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
+                            >
+                                <X className="w-6 h-6" />
+                            </motion.button>
+
+                            {/* Navigation Buttons */}
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={prevImage}
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
+                            >
+                                <ChevronLeft className="w-6 h-6" />
+                            </motion.button>
+
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={nextImage}
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300"
+                            >
+                                <ChevronRight className="w-6 h-6" />
+                            </motion.button>
+
+                            {/* Main Image */}
+                            <div className="flex-1 flex items-center justify-center">
+                                <motion.img
+                                    key={currentImageIndex}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.8 }}
+                                    transition={{ duration: 0.3 }}
+                                    src={getAllImages()[currentImageIndex]?.url}
+                                    alt={getAllImages()[currentImageIndex]?.caption || 'Gallery Image'}
+                                    className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                                />
+                            </div>
+
+                            {/* Image Info */}
+                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-full px-6 py-2">
+                                <p className="text-white text-sm font-medium">
+                                    {getAllImages()[currentImageIndex]?.caption || 'Gallery Image'}
+                                    <span className="ml-2 text-white/70">
+                                        ({currentImageIndex + 1} of {getAllImages().length})
+                                    </span>
+                                </p>
+                            </div>
+
+                            {/* Thumbnail Navigation */}
+                            <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                                {getAllImages().map((image, index) => (
+                                    <motion.button
+                                        key={image._id}
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        onClick={() => setCurrentImageIndex(index)}
+                                        className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 ${index === currentImageIndex
+                                            ? 'border-blue-500 scale-110'
+                                            : 'border-white/30 hover:border-white/60'
+                                            }`}
+                                    >
+                                        <img
+                                            src={image.url}
+                                            alt={`Thumbnail ${index + 1}`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </motion.button>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
