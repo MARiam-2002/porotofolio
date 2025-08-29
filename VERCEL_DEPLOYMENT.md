@@ -12,8 +12,15 @@ npm install -g vercel
 vercel login
 ```
 
-### 3. Deploy
+### 3. Deploy Frontend
 ```bash
+cd frontend
+vercel --prod
+```
+
+### 4. Deploy Backend (Optional)
+```bash
+cd ../backend
 vercel --prod
 ```
 
@@ -21,22 +28,55 @@ vercel --prod
 
 ## Manual Setup
 
-### 1. Connect Repository
+### Frontend Setup
 1. Go to [vercel.com](https://vercel.com)
 2. Click "New Project"
 3. Import your GitHub repository
 4. Select the `frontend` directory
 
-### 2. Configure Build Settings
+**Build Settings**:
 - **Framework Preset**: Vite
 - **Build Command**: `npm run build`
 - **Output Directory**: `dist`
 - **Install Command**: `npm install --legacy-peer-deps`
 
-### 3. Environment Variables
-Add these in Vercel dashboard:
+### Backend Setup (Optional)
+1. Create another project in Vercel
+2. Select the `backend` directory
+3. Vercel will automatically detect it as a Node.js project
+
+---
+
+## Environment Variables
+
+### Frontend Environment Variables
+Add in Vercel dashboard:
 ```
-VITE_API_BASE_URL=https://profile-fhvk.vercel.app/api
+VITE_API_BASE_URL=https://your-backend-url.vercel.app/api
+```
+
+### Backend Environment Variables
+Add in Vercel dashboard:
+```
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_cloudinary_key
+CLOUDINARY_API_SECRET=your_cloudinary_secret
+```
+
+---
+
+## Project Structure
+
+```
+portfolio-website/
+├── frontend/          # React + Vite app
+│   ├── vercel.json    # Frontend config
+│   └── ...
+└── backend/           # Node.js API
+    ├── vercel.json    # Backend config
+    └── ...
 ```
 
 ---
@@ -65,17 +105,40 @@ npm run build
 ### ESLint Issues
 The project uses ESLint v8 for compatibility. If you see warnings, they're normal and won't affect deployment.
 
+### Runtime Errors
+- Frontend: Make sure `vercel.json` doesn't have invalid runtime settings
+- Backend: Ensure all environment variables are set
+
 ---
 
 ## Configuration Files
 
-### vercel.json
+### Frontend vercel.json
 ```json
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install --legacy-peer-deps",
   "framework": "vite"
+}
+```
+
+### Backend vercel.json
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.js"
+    }
+  ]
 }
 ```
 
@@ -112,6 +175,13 @@ auto-install-peers=true
 - Add `VITE_API_BASE_URL` in Vercel dashboard
 - Ensure backend is deployed and accessible
 
+### 4. Runtime Errors
+**Problem**: `Function Runtimes must have a valid version`
+
+**Solution**:
+- Remove invalid runtime settings from `vercel.json`
+- Use correct framework presets
+
 ---
 
 ## Performance Tips
@@ -134,15 +204,26 @@ npm run build -- --analyze
 
 ## Deployment Checklist
 
+### Frontend
 - [ ] Repository is connected to Vercel
 - [ ] Build settings are configured
 - [ ] Environment variables are set
-- [ ] Backend API is deployed and accessible
 - [ ] Build completes successfully
 - [ ] All routes work correctly
 - [ ] Images and assets load properly
 - [ ] Mobile responsiveness works
-- [ ] Custom domain is configured (optional)
+
+### Backend (Optional)
+- [ ] Backend project is created in Vercel
+- [ ] All environment variables are set
+- [ ] API endpoints are working
+- [ ] Database connection is established
+- [ ] CORS is configured properly
+
+### Integration
+- [ ] Frontend can connect to backend API
+- [ ] Environment variables point to correct backend URL
+- [ ] All API calls work correctly
 
 ---
 
@@ -159,9 +240,9 @@ If you encounter issues:
 
 ## Success!
 
-Once deployed, your site will be available at:
-- `https://your-project.vercel.app`
-- Custom domain (if configured)
+Once deployed, your sites will be available at:
+- **Frontend**: `https://your-frontend-project.vercel.app`
+- **Backend**: `https://your-backend-project.vercel.app`
 
 Remember to:
 - Test all functionality
