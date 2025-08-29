@@ -221,7 +221,7 @@ const Projects: React.FC = () => {
                                     {/* Action Buttons */}
                                     <div className="flex space-x-3">
                                         <Link
-                                            to={`/projects/${project.slug}`}
+                                            to={`/projects/${project.slug || project._id}`}
                                             className="text-blue-600 dark:text-blue-400 hover:text-blue-700 font-medium"
                                         >
                                             View Details →

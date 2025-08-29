@@ -55,13 +55,28 @@ const ProjectDetails: React.FC = () => {
         const fetchProject = async () => {
             try {
                 setLoading(true);
-                // استخدام خدمة API بدلاً من fetch المباشر
-                const { data, success, message } = await projectApi.getBySlug(slug as string);
 
-                if (success) {
-                    setProject(data);
+                // محاولة جلب المشروع باستخدام slug أولاً
+                let response = await projectApi.getBySlug(slug as string);
+
+                // إذا فشل، جرب استخدام _id
+                if (!response.success && slug && slug.length === 24) { // MongoDB ObjectId length
+                    try {
+                        // استخدام fetch مباشر للـ _id
+                        const idResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/projects/id/${slug}`);
+                        const idData = await idResponse.json();
+                        if (idData.success) {
+                            response = idData;
+                        }
+                    } catch (idError) {
+                        console.error('Error fetching by ID:', idError);
+                    }
+                }
+
+                if (response.success) {
+                    setProject(response.data);
                 } else {
-                    setError(message || 'Project not found');
+                    setError(response.message || 'Project not found');
                 }
             } catch (error: any) {
                 setError('Failed to fetch project');
