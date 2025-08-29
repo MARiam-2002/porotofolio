@@ -3,7 +3,7 @@ import { ApiResponse, PaginatedResponse, ApiError } from '@/types';
 
 // Create axios instance
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: 'https://profile-fhvk.vercel.app/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -146,9 +146,14 @@ export const projectApi = {
   getFeatured: () => apiService.get<any[]>('/projects/featured'),
   getBySlug: async (slug: string) => {
     try {
+      console.log('🔍 API: Fetching project with slug:', slug);
+      console.log('🔍 API: Full URL:', `${api.defaults.baseURL}/projects/${slug}`);
+
       const response = await api.get(`/projects/${slug}`);
+      console.log('🔍 API: Response:', response.data);
       return response.data;
     } catch (error: any) {
+      console.error('🔍 API: Error:', error);
       throw handleApiError(error);
     }
   },

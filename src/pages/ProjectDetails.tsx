@@ -73,7 +73,7 @@ const ProjectDetails: React.FC = () => {
                     try {
                         console.log('Trying to fetch by ID...');
                         // استخدام fetch مباشر للـ _id
-                        const idResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/projects/id/${slug}`);
+                        const idResponse = await fetch(`https://profile-fhvk.vercel.app/api/projects/id/${slug}`);
                         const idData = await idResponse.json();
                         console.log('Response from ID API:', idData);
                         if (idData.success) {
