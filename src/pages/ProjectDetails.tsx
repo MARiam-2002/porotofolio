@@ -151,23 +151,23 @@ const ProjectDetails: React.FC = () => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12">
                 {/* Project Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="text-center mb-12"
+                    className="text-center mb-8 sm:mb-12"
                 >
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                         {project.title}
                     </h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
+                    <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
                         {project.description}
                     </p>
 
                     {/* Project Meta */}
-                    <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-sm text-gray-600 dark:text-gray-400">
                         <div className="flex items-center space-x-2">
                             <Calendar className="w-4 h-4" />
                             <span>{project.year}</span>
@@ -188,13 +188,13 @@ const ProjectDetails: React.FC = () => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="mb-12"
+                    className="mb-8 sm:mb-12"
                 >
-                    <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+                    <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl">
                         <img
                             src={project.cover.url}
                             alt={project.title}
-                            className="w-full h-96 md:h-[500px] object-cover"
+                            className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                     </div>
@@ -206,9 +206,9 @@ const ProjectDetails: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="mb-12"
+                        className="mb-8 sm:mb-12"
                     >
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 text-center">
                             Project Gallery
                         </h2>
                         <ImageGallery images={project.gallery} projectTitle={project.title} />
@@ -216,17 +216,17 @@ const ProjectDetails: React.FC = () => {
                 )}
 
                 {/* Project Details Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
                     {/* Left Column */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        className="space-y-8"
+                        className="space-y-6 sm:space-y-8 px-1 sm:px-0"
                     >
                         {/* Tech Stack */}
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                                 Technologies Used
                             </h3>
                             <div className="flex flex-wrap gap-2">
@@ -236,7 +236,7 @@ const ProjectDetails: React.FC = () => {
                                         initial={{ opacity: 0, scale: 0.8 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
-                                        className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium"
+                                        className="px-2 sm:px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs sm:text-sm font-medium"
                                     >
                                         {tech}
                                     </motion.span>
@@ -246,14 +246,14 @@ const ProjectDetails: React.FC = () => {
 
                         {/* Features */}
                         <div>
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                                 Key Features
                             </h3>
-                            <ul className="space-y-2">
+                            <ul className="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300 text-sm sm:text-base">
                                 {project.features.map((feature, index) => (
                                     <motion.li
                                         key={index}
-                                        initial={{ opacity: 0, x: -20 }}
+                                        initial={{ opacity: 0, x: -10 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                                         className="flex items-start space-x-3"
@@ -298,7 +298,7 @@ const ProjectDetails: React.FC = () => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className="space-y-8"
+                        className="space-y-8 px-1 sm:px-0"
                     >
                         {/* Case Study */}
                         <div>
