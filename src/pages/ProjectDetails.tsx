@@ -55,16 +55,16 @@ const ProjectDetails: React.FC = () => {
         const fetchProject = async () => {
             try {
                 setLoading(true);
-                console.log('Fetching project with slug:', slug);
+                console.log('🔍 ProjectDetails: Starting fetch for slug:', slug);
 
                 // محاولة جلب المشروع باستخدام slug أولاً
                 let response;
                 try {
-                    console.log('Trying to fetch by slug...');
+                    console.log('🔍 ProjectDetails: Trying to fetch by slug...');
                     response = await projectApi.getBySlug(slug as string);
-                    console.log('Response from slug API:', response);
+                    console.log('🔍 ProjectDetails: Response from slug API:', response);
                 } catch (error) {
-                    console.error('Error fetching by slug:', error);
+                    console.error('🔍 ProjectDetails: Error fetching by slug:', error);
                     response = null;
                 }
 
@@ -73,7 +73,7 @@ const ProjectDetails: React.FC = () => {
                     try {
                         console.log('Trying to fetch by ID...');
                         // استخدام fetch مباشر للـ _id
-                        const idResponse = await fetch(`https://profile-fhvk.vercel.app/api/projects/id/${slug}`);
+                        const idResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://profile-fhvk.vercel.app/api'}/projects/id/${slug}`);
                         const idData = await idResponse.json();
                         console.log('Response from ID API:', idData);
                         if (idData.success) {
