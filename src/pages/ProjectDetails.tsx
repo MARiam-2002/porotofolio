@@ -138,46 +138,60 @@ const ProjectDetails: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50"
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <div className="flex items-center justify-between">
-                        <Link
-                            to="/projects"
-                            className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                        <motion.div
+                            whileHover={{ x: -5 }}
+                            whileTap={{ scale: 0.95 }}
                         >
-                            <ArrowLeft className="w-5 h-5 mr-2" />
-                            Back to Projects
-                        </Link>
+                            <Link
+                                to="/projects"
+                                className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium"
+                            >
+                                <ArrowLeft className="w-5 h-5 mr-2" />
+                                Back to Projects
+                            </Link>
+                        </motion.div>
 
                         <div className="flex space-x-3">
                             {project.links?.github && (
-                                <a
+                                <motion.a
                                     href={project.links.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
                                 >
                                     <Github className="w-4 h-4 mr-2" />
                                     GitHub
-                                </a>
+                                </motion.a>
                             )}
                             {project.links?.demo && (
-                                <a
+                                <motion.a
                                     href={project.links.demo}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                                    whileHover={{ scale: 1.05, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
                                 >
                                     <ExternalLink className="w-4 h-4 mr-2" />
                                     Live Demo
-                                </a>
+                                </motion.a>
                             )}
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12">
                 {/* Project Header */}
@@ -185,46 +199,82 @@ const ProjectDetails: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="text-center mb-8 sm:mb-12"
+                    className="text-center mb-12 sm:mb-16"
                 >
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
+                    <motion.h1
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-6"
+                    >
                         {project.title}
-                    </h1>
-                    <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-8 px-4 leading-relaxed"
+                    >
                         {project.description}
-                    </p>
+                    </motion.p>
 
                     {/* Project Meta */}
-                    <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-sm text-gray-600 dark:text-gray-400">
-                        <div className="flex items-center space-x-2">
-                            <Calendar className="w-4 h-4" />
-                            <span>{project.year}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <User className="w-4 h-4" />
-                            <span>{project.role}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Tag className="w-4 h-4" />
-                            <span className="capitalize">{project.type}</span>
-                        </div>
-                    </div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                        className="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm"
+                    >
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center space-x-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg"
+                        >
+                            <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            <span className="font-medium text-gray-700 dark:text-gray-300">{project.year}</span>
+                        </motion.div>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center space-x-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg"
+                        >
+                            <User className="w-4 h-4 text-green-600 dark:text-green-400" />
+                            <span className="font-medium text-gray-700 dark:text-gray-300">{project.role}</span>
+                        </motion.div>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center space-x-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg"
+                        >
+                            <Tag className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                            <span className="font-medium text-gray-700 dark:text-gray-300 capitalize">{project.type}</span>
+                        </motion.div>
+                    </motion.div>
                 </motion.div>
 
                 {/* Project Cover Image */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="mb-8 sm:mb-12"
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                    className="mb-12 sm:mb-16"
                 >
-                    <div className="relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg sm:shadow-2xl">
-                        <img
+                    <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl group">
+                        <motion.img
                             src={project.cover.url}
                             alt={project.title}
-                            className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] object-cover"
+                            className="w-full h-72 sm:h-96 md:h-[500px] lg:h-[600px] object-cover transition-transform duration-700 group-hover:scale-110"
+                            whileHover={{ scale: 1.02 }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 1.2 }}
+                                className="text-white"
+                            >
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-2">{project.title}</h2>
+                                <p className="text-white/90 text-sm sm:text-base">{project.description}</p>
+                            </motion.div>
+                        </div>
                     </div>
                 </motion.div>
 
@@ -233,24 +283,36 @@ const ProjectDetails: React.FC = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="mb-8 sm:mb-12"
+                        transition={{ duration: 0.8, delay: 1.0 }}
+                        className="mb-16"
                     >
-                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 text-center">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 1.2 }}
+                            className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-gray-900 to-blue-800 dark:from-white dark:to-blue-200 bg-clip-text text-transparent"
+                        >
                             Project Gallery
-                        </h2>
-                        <ImageGallery images={project.gallery} projectTitle={project.title} />
+                        </motion.h2>
+                        <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+                            <ImageGallery images={project.gallery} projectTitle={project.title} />
+                        </div>
                     </motion.div>
                 )}
 
                 {/* Project Details Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 1.4 }}
+                    className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12"
+                >
                     {/* Left Column */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="space-y-6 sm:space-y-8 px-1 sm:px-0"
+                        transition={{ duration: 0.8, delay: 1.6 }}
+                        className="space-y-8"
                     >
                         {/* Tech Stack */}
                         <div>
@@ -409,7 +471,7 @@ const ProjectDetails: React.FC = () => {
                             </div>
                         )}
                     </motion.div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );
