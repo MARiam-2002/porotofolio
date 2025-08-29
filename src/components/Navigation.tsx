@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { cn } from '@/utils';
+import { userApi } from '@/services/api';
 
 const Navigation: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,10 +16,9 @@ const Navigation: React.FC = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch('https://profile-fhvk.vercel.app/api/users');
-                const data = await response.json();
-                if (data.success) {
-                    setUserData(data.data);
+                const response = await userApi.getProfile();
+                if (response.success) {
+                    setUserData(response.data);
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);

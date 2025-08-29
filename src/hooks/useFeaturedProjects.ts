@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { projectApi } from '@/services/api';
 
 interface Project {
     _id: string;
@@ -44,13 +45,12 @@ export const useFeaturedProjects = (): UseFeaturedProjectsReturn => {
         const fetchFeaturedProjects = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('https://profile-fhvk.vercel.app/api/projects/featured');
-                const data = await response.json();
+                const response = await projectApi.getFeatured();
 
-                if (data.success) {
-                    setProjects(data.data);
+                if (response.success) {
+                    setProjects(response.data);
                 } else {
-                    setError(data.message || 'Failed to fetch featured projects');
+                    setError(response.message || 'Failed to fetch featured projects');
                 }
             } catch (error) {
                 setError('Failed to fetch featured projects');
