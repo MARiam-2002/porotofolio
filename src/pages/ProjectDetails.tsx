@@ -24,7 +24,7 @@ interface Project {
     year: number;
     type: string;
     features: string[];
-    links: {
+    links?: {
         github?: string;
         demo?: string;
         article?: string;
@@ -35,13 +35,13 @@ interface Project {
         rating: number;
         users: number;
     };
-    caseStudy: {
-        problem: string;
-        solution: string;
-        architecture: string;
-        stateManagement: string;
-        challenges: string[];
-        results: string;
+    caseStudy?: {
+        problem?: string;
+        solution?: string;
+        architecture?: string;
+        stateManagement?: string;
+        challenges?: string[];
+        results?: string;
     };
 }
 
@@ -152,7 +152,7 @@ const ProjectDetails: React.FC = () => {
                         </Link>
 
                         <div className="flex space-x-3">
-                            {project.links.github && (
+                            {project.links?.github && (
                                 <a
                                     href={project.links.github}
                                     target="_blank"
@@ -163,7 +163,7 @@ const ProjectDetails: React.FC = () => {
                                     GitHub
                                 </a>
                             )}
-                            {project.links.demo && (
+                            {project.links?.demo && (
                                 <a
                                     href={project.links.demo}
                                     target="_blank"
@@ -329,71 +329,85 @@ const ProjectDetails: React.FC = () => {
                         className="space-y-8 px-1 sm:px-0"
                     >
                         {/* Case Study */}
-                        <div>
-                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                                Case Study
-                            </h3>
-                            <div className="space-y-6">
-                                <div>
-                                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Problem
-                                    </h4>
-                                    <p className="text-gray-600 dark:text-gray-400">
-                                        {project.caseStudy.problem}
-                                    </p>
-                                </div>
+                        {project.caseStudy && (
+                            <div>
+                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                                    Case Study
+                                </h3>
+                                <div className="space-y-6">
+                                    {project.caseStudy.problem && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                                Problem
+                                            </h4>
+                                            <p className="text-gray-600 dark:text-gray-400">
+                                                {project.caseStudy.problem}
+                                            </p>
+                                        </div>
+                                    )}
 
-                                <div>
-                                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Solution
-                                    </h4>
-                                    <p className="text-gray-600 dark:text-gray-400">
-                                        {project.caseStudy.solution}
-                                    </p>
-                                </div>
+                                    {project.caseStudy.solution && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                                Solution
+                                            </h4>
+                                            <p className="text-gray-600 dark:text-gray-400">
+                                                {project.caseStudy.solution}
+                                            </p>
+                                        </div>
+                                    )}
 
-                                <div>
-                                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Architecture
-                                    </h4>
-                                    <p className="text-gray-600 dark:text-gray-400">
-                                        {project.caseStudy.architecture}
-                                    </p>
-                                </div>
+                                    {project.caseStudy.architecture && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                                Architecture
+                                            </h4>
+                                            <p className="text-gray-600 dark:text-gray-400">
+                                                {project.caseStudy.architecture}
+                                            </p>
+                                        </div>
+                                    )}
 
-                                <div>
-                                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        State Management
-                                    </h4>
-                                    <p className="text-gray-600 dark:text-gray-400">
-                                        {project.caseStudy.stateManagement}
-                                    </p>
-                                </div>
+                                    {project.caseStudy.stateManagement && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                                State Management
+                                            </h4>
+                                            <p className="text-gray-600 dark:text-gray-400">
+                                                {project.caseStudy.stateManagement}
+                                            </p>
+                                        </div>
+                                    )}
 
-                                <div>
-                                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Challenges
-                                    </h4>
-                                    <ul className="space-y-2">
-                                        {project.caseStudy.challenges.map((challenge, index) => (
-                                            <li key={index} className="flex items-start space-x-3">
-                                                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                                                <span className="text-gray-600 dark:text-gray-400">{challenge}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+                                    {project.caseStudy.challenges && project.caseStudy.challenges.length > 0 && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                                Challenges
+                                            </h4>
+                                            <ul className="space-y-2">
+                                                {project.caseStudy.challenges.map((challenge, index) => (
+                                                    <li key={index} className="flex items-start space-x-3">
+                                                        <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                                        <span className="text-gray-600 dark:text-gray-400">{challenge}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
 
-                                <div>
-                                    <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                        Results
-                                    </h4>
-                                    <p className="text-gray-600 dark:text-gray-400">
-                                        {project.caseStudy.results}
-                                    </p>
+                                    {project.caseStudy.results && (
+                                        <div>
+                                            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                                                Results
+                                            </h4>
+                                            <p className="text-gray-600 dark:text-gray-400">
+                                                {project.caseStudy.results}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </motion.div>
                 </div>
             </div>
