@@ -27,7 +27,7 @@ export default defineConfig({
       },
     },
   },
-  base: '',
+  base: '/',
   define: {
     'import.meta.env.VITE_API_BASE_URL': JSON.stringify('https://profile-fhvk.vercel.app/api')
   },
