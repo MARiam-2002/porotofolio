@@ -40,25 +40,32 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         }
 
         // For non-priority images, use Intersection Observer for lazy loading
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setIsInView(true);
-                        loadImage(src);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
+        try {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setIsInView(true);
+                            loadImage(src);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
 
-        const imgElement = document.createElement('div');
-        observer.observe(imgElement);
+            const imgElement = document.createElement('div');
+            observer.observe(imgElement);
 
-        return () => {
-            observer.disconnect();
-        };
+            return () => {
+                observer.disconnect();
+            };
+        } catch (error) {
+            // Fallback: load image immediately if Intersection Observer fails
+            console.warn('Intersection Observer not supported, loading image immediately');
+            setIsInView(true);
+            loadImage(src);
+        }
     }, [src, priority]);
 
     const loadImage = (imageSrc: string) => {
@@ -66,17 +73,24 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         setHasError(false);
         setCurrentSrc(imageSrc);
 
-        const img = new Image();
-        img.onload = () => {
-            setIsLoading(false);
-            onLoad?.();
-        };
-        img.onerror = () => {
+        try {
+            const img = new Image();
+            img.onload = () => {
+                setIsLoading(false);
+                onLoad?.();
+            };
+            img.onerror = () => {
+                setHasError(true);
+                setIsLoading(false);
+                onError?.();
+            };
+            img.src = imageSrc;
+        } catch (error) {
+            console.error('Error loading image:', error);
             setHasError(true);
             setIsLoading(false);
             onError?.();
-        };
-        img.src = imageSrc;
+        }
     };
 
     // Handle fallback on error
