@@ -16,7 +16,7 @@ const Contact: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        
+
         // Simulate form submission
         setTimeout(() => {
             setIsSubmitting(false);
@@ -113,7 +113,7 @@ const Contact: React.FC = () => {
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                             Send Message
                         </h2>
-                        
+
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -210,7 +210,7 @@ const Contact: React.FC = () => {
                                 Get In Touch
                             </h2>
                             <p className="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-                                I'm always interested in new opportunities and exciting projects. 
+                                I'm always interested in new opportunities and exciting projects.
                                 Whether you have a question or just want to say hi, feel free to reach out!
                             </p>
                         </div>
