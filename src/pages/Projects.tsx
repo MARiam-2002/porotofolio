@@ -3,6 +3,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Calendar, User, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CachedImage from '@/components/CachedImage';
+import ImagePreloader from '@/components/ImagePreloader';
 
 interface Project {
     _id: string;
@@ -196,8 +198,23 @@ const Projects: React.FC = () => {
         );
     }
 
+    // Extract image URLs for preloading
+    const imageUrls = projects
+        .flatMap(project => [
+            project.cover?.url,
+            ...(project.gallery?.map(img => img.url) || [])
+        ])
+        .filter((url): url is string => Boolean(url));
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24 lg:pt-32 pb-12">
+            {/* Preload images */}
+            <ImagePreloader
+                images={imageUrls}
+                onProgress={(loaded, total) => {
+                    console.log(`Preloaded ${loaded}/${total} project images`);
+                }}
+            />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <motion.h1
@@ -274,9 +291,9 @@ const Projects: React.FC = () => {
                                         </motion.div>
                                         <motion.div
                                             whileHover={{ scale: 1.05 }}
-                                            className="flex items-center space-x-2 bg-green-100 dark:bg-green-900/30 px-4 py-2 rounded-full"
+                                            className="flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30 px-4 py-2 rounded-full"
                                         >
-                                            <User className="w-4 h-4 text-green-600 dark:text-green-400" />
+                                            <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                                             <span className="font-medium text-gray-700 dark:text-gray-300">{project.role}</span>
                                         </motion.div>
                                         <motion.div
@@ -310,11 +327,11 @@ const Projects: React.FC = () => {
                                             className="md:col-span-2 lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
                                             onClick={() => openGalleryModal(project, 0)}
                                         >
-                                            <motion.img
+                                            <CachedImage
                                                 src={project.cover.url}
                                                 alt={`${project.title} - Cover`}
                                                 className="w-full h-64 md:h-80 lg:h-96 object-cover transition-all duration-700 group-hover:scale-110"
-                                                whileHover={{ scale: 1.02 }}
+                                                showLoading={false}
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                             <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -340,11 +357,11 @@ const Projects: React.FC = () => {
                                                 className="relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
                                                 onClick={() => openGalleryModal(project, imageIndex + 1)}
                                             >
-                                                <motion.img
+                                                <CachedImage
                                                     src={image.url}
                                                     alt={image.caption || `${project.title} - Gallery ${imageIndex + 1}`}
                                                     className="w-full h-48 md:h-56 lg:h-64 object-cover transition-all duration-500 group-hover:scale-110"
-                                                    whileHover={{ scale: 1.05 }}
+                                                    showLoading={false}
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -454,7 +471,7 @@ const Projects: React.FC = () => {
                                                             transition={{ duration: 0.6, delay: index * 0.2 + 1.6 }}
                                                             className="text-center p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg"
                                                         >
-                                                            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                                                            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                                                                 {project.stats.rating || '0'}
                                                             </div>
                                                             <div className="text-sm text-gray-600 dark:text-gray-400">Rating</div>
@@ -514,7 +531,7 @@ const Projects: React.FC = () => {
                                                         rel="noopener noreferrer"
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.9 }}
-                                                        className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                                                     >
                                                         <ExternalLink className="w-5 h-5 mr-2" />
                                                         Live Demo

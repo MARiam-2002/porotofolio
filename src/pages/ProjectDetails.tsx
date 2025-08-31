@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Calendar, User, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import ImageGallery from '@/components/ImageGallery';
 import { projectApi } from '@/services/api';
+import CachedImage from '@/components/CachedImage';
 
 interface Project {
     _id: string;
@@ -232,7 +233,7 @@ const ProjectDetails: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-16 lg:pt-20">
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -330,7 +331,7 @@ const ProjectDetails: React.FC = () => {
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center space-x-2 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg"
                         >
-                            <User className="w-4 h-4 text-green-600 dark:text-green-400" />
+                            <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                             <span className="font-medium text-gray-700 dark:text-gray-300">{project.role}</span>
                         </motion.div>
                         <motion.div
@@ -369,12 +370,12 @@ const ProjectDetails: React.FC = () => {
                             className="md:col-span-2 lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-2xl cursor-pointer"
                             onClick={() => openGalleryModal(0)}
                         >
-                            <motion.img
-                                src={project.cover.url}
-                                alt={`${project.title} - Cover`}
-                                className="w-full h-80 md:h-96 lg:h-[500px] object-cover transition-all duration-700 group-hover:scale-110"
-                                whileHover={{ scale: 1.02 }}
-                            />
+                                                         <CachedImage
+                                 src={project.cover.url}
+                                 alt={`${project.title} - Cover`}
+                                 className="w-full h-80 md:h-96 lg:h-[500px] object-cover transition-all duration-700 group-hover:scale-110"
+                                 showLoading={false}
+                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <div className="text-white">
@@ -399,12 +400,12 @@ const ProjectDetails: React.FC = () => {
                                 className="relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
                                 onClick={() => openGalleryModal(index + 1)}
                             >
-                                <motion.img
-                                    src={image.url}
-                                    alt={image.caption || `${project.title} - Gallery ${index + 1}`}
-                                    className="w-full h-48 md:h-56 lg:h-64 object-cover transition-all duration-500 group-hover:scale-110"
-                                    whileHover={{ scale: 1.05 }}
-                                />
+                                                                 <CachedImage
+                                     src={image.url}
+                                     alt={image.caption || `${project.title} - Gallery ${index + 1}`}
+                                     className="w-full h-48 md:h-56 lg:h-64 object-cover transition-all duration-500 group-hover:scale-110"
+                                     showLoading={false}
+                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                                 {/* Image Info Overlay */}
@@ -549,7 +550,7 @@ const ProjectDetails: React.FC = () => {
                                     <div className="text-sm text-gray-600 dark:text-gray-400">Downloads</div>
                                 </div>
                                 <div className="text-center p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                                    <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                                    <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                                         {project.stats.rating}
                                     </div>
                                     <div className="text-sm text-gray-600 dark:text-gray-400">Rating</div>
