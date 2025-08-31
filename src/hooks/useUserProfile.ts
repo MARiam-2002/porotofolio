@@ -40,7 +40,7 @@ export const useUserProfile = () => {
           location: 'Mansoura, Egypt',
           phone: '01021288238',
           profilePicture: {
-            url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+            url: '/97337243.jpeg',
             public_id: 'fallback-profile'
           }
         } as UserProfile;

@@ -28,7 +28,7 @@ const Navigation: React.FC = () => {
                 setUserData({
                     name: 'Mahmoud Ahmed',
                     profilePicture: {
-                        url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
+                        url: '/97337243.jpeg'
                     }
                 });
             }

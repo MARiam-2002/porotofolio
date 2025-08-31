@@ -5,12 +5,12 @@ import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
     const { t } = useLanguage();
-    
+
     // Use fallback data instead of API call
     const userData = {
         name: 'Mahmoud Ahmed',
         profilePicture: {
-            url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
+            url: '/97337243.jpeg'
         }
     };
 
