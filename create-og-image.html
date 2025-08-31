@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create OG Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 1200px;
+            height: 630px;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+        
+        .name {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .contact {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        
+        .website {
+            font-size: 1.1rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .tech-icons {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            font-size: 2rem;
+            opacity: 0.6;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="background-pattern"></div>
+        
+        <div class="logo">M</div>
+        
+        <div class="content">
+            <div class="name">Mahmoud Ahmed</div>
+            <div class="title">Flutter Developer</div>
+            <div class="description">
+                Passionate Flutter Developer with expertise in mobile app development, 
+                state management, and modern UI/UX design
+            </div>
+            <div class="contact">📧 mahmoudabuelazem2467@gmail.com</div>
+            <div class="contact">📱 +20 102 128 8238</div>
+            <div class="website">🌐 porotofolio-mahmoud.vercel.app</div>
+        </div>
+        
+        <div class="tech-icons">
+            <span>📱</span>
+            <span>⚡</span>
+            <span>🎨</span>
+            <span>🚀</span>
+            <span>💻</span>
+        </div>
+    </div>
+    
+    <script>
+        // Instructions for creating the OG image:
+        console.log(`
+        🖼️ Instructions to create OG Image:
+        
+        1. Open this HTML file in a browser
+        2. Take a screenshot at 1200x630 pixels
+        3. Save as 'og-image.jpg' in frontend/public/
+        4. Ensure file size is under 1MB
+        5. Test on Facebook Debugger
+        
+        Alternative tools:
+        - Canva (1200x630 template)
+        - Figma (custom size)
+        - Photoshop
+        `);
+    </script>
+</body>
+</html>
