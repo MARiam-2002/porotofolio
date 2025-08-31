@@ -260,7 +260,7 @@ const Home: React.FC = () => {
                                             alt={userData.name}
                                             className="w-full h-full object-cover"
                                             priority={true}
-                                            showLoading={true}
+                                            showLoading={false}
                                         />
                                     </motion.div>
                                 ) : (

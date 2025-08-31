@@ -28,7 +28,7 @@ const CachedImage: React.FC<CachedImageProps> = ({
     priority = false
 }) => {
     const { cacheImage } = useImageCache();
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [currentSrc, setCurrentSrc] = useState<string>(src);
 
@@ -61,29 +61,15 @@ const CachedImage: React.FC<CachedImageProps> = ({
             }
         };
 
-        // Always load immediately for priority images or if showLoading is true
-        if (priority || showLoading) {
+        // Always load immediately for priority images
+        if (priority) {
+            loadImage();
+        } else if (showLoading) {
+            // Load immediately if showLoading is true
             loadImage();
         } else {
-            // Use Intersection Observer for lazy loading
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            loadImage();
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                },
-                { rootMargin: '50px' }
-            );
-
-            const imgElement = document.createElement('img');
-            observer.observe(imgElement);
-
-            return () => {
-                observer.unobserve(imgElement);
-            };
+            // For non-priority images, load immediately but don't show loading state
+            loadImage();
         }
 
         return () => {
@@ -147,11 +133,11 @@ const CachedImage: React.FC<CachedImageProps> = ({
             loading={loading}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{
-                opacity: isLoading ? 0 : 1,
-                scale: isLoading ? 0.95 : 1
+                opacity: 1,
+                scale: 1
             }}
             transition={{
-                duration: 0.3,
+                duration: 0.5,
                 ease: "easeOut"
             }}
             onLoad={() => {
