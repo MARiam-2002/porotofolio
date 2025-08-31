@@ -24,6 +24,13 @@ const Navigation: React.FC = () => {
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
+                // Set fallback data if API fails
+                setUserData({
+                    name: 'Mahmoud Ahmed',
+                    profilePicture: {
+                        url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
+                    }
+                });
             }
         };
 

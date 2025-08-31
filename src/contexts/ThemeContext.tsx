@@ -23,15 +23,19 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const [theme, setThemeState] = useState<Theme>(() => {
-        // Check localStorage first
-        const savedTheme = localStorage.getItem('theme') as Theme;
-        if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
-            return savedTheme;
-        }
+        try {
+            // Check localStorage first
+            const savedTheme = localStorage.getItem('theme') as Theme;
+            if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+                return savedTheme;
+            }
 
-        // Check system preference
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
+            // Check system preference
+            if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+        } catch (error) {
+            console.warn('Error reading theme from localStorage:', error);
         }
 
         return 'light';
@@ -39,7 +43,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     const setTheme = (newTheme: Theme) => {
         setThemeState(newTheme);
-        localStorage.setItem('theme', newTheme);
+        try {
+            localStorage.setItem('theme', newTheme);
+        } catch (error) {
+            console.warn('Error saving theme to localStorage:', error);
+        }
     };
 
     const toggleTheme = () => {
@@ -69,18 +77,26 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     // Listen for system theme changes
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        try {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-        const handleChange = (e: MediaQueryListEvent) => {
-            // Only update if user hasn't manually set a theme
-            if (!localStorage.getItem('theme')) {
-                setTheme(e.matches ? 'dark' : 'light');
-            }
-        };
+            const handleChange = (e: MediaQueryListEvent) => {
+                // Only update if user hasn't manually set a theme
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        setTheme(e.matches ? 'dark' : 'light');
+                    }
+                } catch (error) {
+                    console.warn('Error checking localStorage:', error);
+                }
+            };
 
-        mediaQuery.addEventListener('change', handleChange);
+            mediaQuery.addEventListener('change', handleChange);
 
-        return () => mediaQuery.removeEventListener('change', handleChange);
+            return () => mediaQuery.removeEventListener('change', handleChange);
+        } catch (error) {
+            console.warn('Error setting up theme listener:', error);
+        }
     }, []);
 
     const value: ThemeContextType = {

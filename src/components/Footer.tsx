@@ -2,15 +2,17 @@ import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Github, Linkedin, Twitter, Mail, Phone, MapPin, ArrowUp, Heart, Code, Coffee } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useUserProfile } from '@/hooks/useUserProfile';
 
 const Footer: React.FC = () => {
     const { t } = useLanguage();
-    const { data: userData, error } = useUserProfile();
-
-    if (error) {
-        console.error('Error fetching user data:', error);
-    }
+    
+    // Use fallback data instead of API call
+    const userData = {
+        name: 'Mahmoud Ahmed',
+        profilePicture: {
+            url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
+        }
+    };
 
     const socialLinks = [
         {
