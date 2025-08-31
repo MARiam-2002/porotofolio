@@ -9,11 +9,11 @@ export default defineConfig({
     react(),
     {
       name: 'copy-public-files',
-                        writeBundle() {
-                    // Copy favicon and other public files to dist
-                    copy('public/favicon-32x32.png', 'dist/favicon-32x32.png');
-                    copy('public/og-image.jpg', 'dist/og-image.jpg');
-                  }
+      writeBundle() {
+        // Copy favicon and other public files to dist
+        copy('public/favicon-32x32.png', 'dist/favicon-32x32.png');
+        copy('public/og-image.jpeg', 'dist/og-image.jpeg');
+      }
     }
   ],
   resolve: {
