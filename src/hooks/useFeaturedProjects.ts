@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 import { projectApi } from '@/services/api';
 
 interface Project {
@@ -55,31 +55,30 @@ interface UseFeaturedProjectsReturn {
 }
 
 export const useFeaturedProjects = (): UseFeaturedProjectsReturn => {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchFeaturedProjects = async () => {
-            try {
-                setLoading(true);
-                const response = await projectApi.getFeatured();
-
-                if (response.success) {
-                    setProjects(response.data);
-                } else {
-                    setError(response.message || 'Failed to fetch featured projects');
-                }
-            } catch (error) {
-                setError('Failed to fetch featured projects');
-                console.error('Error fetching featured projects:', error);
-            } finally {
-                setLoading(false);
+    const { data: projects = [], isLoading: loading, error } = useQuery<Project[], Error>(
+        'featuredProjects',
+        async () => {
+            const response = await projectApi.getFeatured();
+            if (response.success) {
+                return response.data;
             }
-        };
+            throw new Error(response.message || 'Failed to fetch featured projects');
+        },
+        {
+            staleTime: 1000 * 60 * 30, // 30 minutes
+            cacheTime: 1000 * 60 * 60 * 2, // 2 hours
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            retry: 1,
+            onError: (error) => {
+                console.error('Error fetching featured projects:', error);
+            },
+        }
+    );
 
-        fetchFeaturedProjects();
-    }, []);
-
-    return { projects, loading, error };
+    return {
+        projects,
+        loading,
+        error: error ? error.message : null
+    };
 };

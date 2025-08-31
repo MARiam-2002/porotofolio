@@ -5,35 +5,36 @@ import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, Sparkles, Star, 
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useFeaturedProjects } from '@/hooks/useFeaturedProjects';
 import { Link } from 'react-router-dom';
-import CachedImage from '@/components/CachedImage';
-// import CacheManager from '@/components/CacheManager';
+import OptimizedImage from '@/components/OptimizedImage';
+
+// Simplified animation variants for better performance
+const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.4, ease: "easeOut" }
+};
+
+const fadeInLeft = {
+    initial: { opacity: 0, x: -20 },
+    whileInView: { opacity: 1, x: 0 },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.4, ease: "easeOut" }
+};
+
+const fadeInRight = {
+    initial: { opacity: 0, x: 20 },
+    whileInView: { opacity: 1, x: 0 },
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.4, ease: "easeOut" }
+};
 
 const Home: React.FC = () => {
     const { t } = useLanguage();
     const { data: userData, isLoading: loading, error } = useUserProfile();
     const { projects: featuredProjects, loading: projectsLoading, error: projectsError } = useFeaturedProjects();
 
-    // Optimized animation variants for smooth scrolling
-    const fadeInUp = {
-        initial: { opacity: 0, y: 30 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-50px" },
-        transition: { duration: 0.3, ease: "easeOut" }
-    };
-
-    const fadeInLeft = {
-        initial: { opacity: 0, x: -30 },
-        whileInView: { opacity: 1, x: 0 },
-        viewport: { once: true, margin: "-50px" },
-        transition: { duration: 0.4, ease: "easeOut" }
-    };
-
-    const fadeInRight = {
-        initial: { opacity: 0, x: 30 },
-        whileInView: { opacity: 1, x: 0 },
-        viewport: { once: true, margin: "-50px" },
-        transition: { duration: 0.4, ease: "easeOut" }
-    };
+    // Performance optimized - removed complex animations
 
     if (error) {
         console.error('Error fetching user data:', error);
@@ -92,62 +93,27 @@ const Home: React.FC = () => {
             /> */}
             {/* Hero Section */}
             <section className="relative overflow-hidden pt-24 lg:pt-32 pb-6 lg:pb-12">
-                {/* Background Elements - Enhanced with smooth animations */}
+                {/* Background Elements - Simplified for performance */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.1, 1],
-                            opacity: [0.3, 0.5, 0.3]
-                        }}
-                        transition={{
-                            duration: 8,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
-                        className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-2xl"
-                    />
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.2, 0.4, 0.2]
-                        }}
-                        transition={{
-                            duration: 10,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 2
-                        }}
-                        className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-purple-600/20 rounded-full blur-2xl"
-                    />
+                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-2xl"></div>
+                    <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-purple-600/20 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                         {/* Content */}
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            {...fadeInLeft}
                             className="space-y-6 relative z-10"
                         >
                             {/* Badge */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-full text-blue-700 dark:text-blue-400 font-medium backdrop-blur-sm"
-                            >
+                            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-full text-blue-700 dark:text-blue-400 font-medium backdrop-blur-sm">
                                 <Sparkles className="w-4 h-4" />
                                 <span>Available for new opportunities</span>
-                            </motion.div>
+                            </div>
 
                             <div className="space-y-4">
-                                <motion.h1
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.3 }}
-                                    className="text-4xl md:text-6xl font-bold leading-tight"
-                                >
+                                <h1 className="text-4xl md:text-6xl font-bold leading-tight">
                                     <span className="text-slate-900 dark:text-slate-100">
                                         {t('hero.greeting')}
                                     </span>
@@ -155,37 +121,22 @@ const Home: React.FC = () => {
                                     <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                                         {t('hero.name')}
                                     </span>
-                                </motion.h1>
+                                </h1>
 
-                                <motion.h2
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.4 }}
-                                    className="text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-300 flex items-center space-x-3"
-                                >
+                                <h2 className="text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-300 flex items-center space-x-3">
                                     <span>{t('hero.title')}</span>
                                     <div>
                                         <Zap className="w-6 h-6 text-amber-500" />
                                     </div>
-                                </motion.h2>
+                                </h2>
 
-                                <motion.p
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.5 }}
-                                    className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed"
-                                >
+                                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
                                     {t('hero.description')}
-                                </motion.p>
+                                </p>
                             </div>
 
                             {/* Stats */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.6 }}
-                                className="grid grid-cols-3 gap-4 py-4"
-                            >
+                            <div className="grid grid-cols-3 gap-4 py-4">
                                 <div className="text-center">
                                     <div className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-1">5+</div>
                                     <div className="text-sm text-slate-600 dark:text-slate-400">Projects</div>
@@ -198,100 +149,45 @@ const Home: React.FC = () => {
                                     <div className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-1">10+</div>
                                     <div className="text-sm text-slate-600 dark:text-slate-400">Clients</div>
                                 </div>
-                            </motion.div>
+                            </div>
 
                             {/* CTA Buttons */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.7 }}
-                                className="flex flex-col sm:flex-row gap-4"
-                            >
-                                <motion.button
-                                    whileHover={{
-                                        scale: 1.05,
-                                        y: -3,
-                                        boxShadow: "0 10px 25px rgba(59, 130, 246, 0.4)"
-                                    }}
-                                    whileTap={{ scale: 0.95 }}
-                                    transition={{
-                                        type: "spring",
-                                        stiffness: 400,
-                                        damping: 10
-                                    }}
-                                    className="group inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-                                >
+                            <div className="flex flex-col sm:flex-row gap-4">
+                                <button className="group inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                                     <span>{t('hero.cta.primary')}</span>
-                                    <motion.div
-                                        animate={{ x: [0, 3, 0] }}
-                                        transition={{
-                                            duration: 1.5,
-                                            repeat: Infinity,
-                                            ease: "easeInOut"
-                                        }}
-                                    >
-                                        <ArrowRight className="ml-2 w-5 h-5" />
-                                    </motion.div>
-                                </motion.button>
+                                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                                </button>
 
-                                <motion.a
+                                <a
                                     href="/cv.pdf"
                                     download="Mahmoud_Ahmed_CV.pdf"
-                                    whileHover={{ scale: 1.05, y: -2 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="group inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl"
+                                    className="group inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                                 >
                                     <Download className="mr-2 w-5 h-5 group-hover:animate-bounce" />
                                     {t('hero.cta.secondary')}
-                                </motion.a>
-                            </motion.div>
+                                </a>
+                            </div>
 
                             {/* Social Links */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.8 }}
-                                className="flex space-x-3"
-                            >
-                                {socialLinks.map((social, index) => (
-                                    <motion.a
+                            <div className="flex space-x-3">
+                                {socialLinks.map((social) => (
+                                    <a
                                         key={social.name}
                                         href={social.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        initial={{ opacity: 0, scale: 0 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{
-                                            duration: 0.5,
-                                            delay: 0.9 + index * 0.1,
-                                            type: "spring",
-                                            stiffness: 300
-                                        }}
-                                        whileHover={{
-                                            scale: 1.1,
-                                            y: -3,
-                                            rotate: 5
-                                        }}
-                                        whileTap={{ scale: 0.9 }}
-                                        className={`p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200/50 dark:border-slate-700/50 ${social.color} ${social.bgColor}`}
+                                        className={`p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200/50 dark:border-slate-700/50 ${social.color} ${social.bgColor} hover:scale-110 hover:-translate-y-1`}
                                         title={social.name}
                                     >
-                                        <motion.div
-                                            whileHover={{ rotate: 360 }}
-                                            transition={{ duration: 0.6 }}
-                                        >
-                                            <social.icon className="w-5 h-5" />
-                                        </motion.div>
-                                    </motion.a>
+                                        <social.icon className="w-5 h-5" />
+                                    </a>
                                 ))}
-                            </motion.div>
+                            </div>
                         </motion.div>
 
                         {/* Visual Element */}
                         <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            {...fadeInRight}
                             className="flex justify-center lg:justify-end relative z-10 -mt-6 lg:-mt-12"
                         >
                             <div className="relative">
@@ -300,55 +196,29 @@ const Home: React.FC = () => {
                                         <div className="text-white text-4xl lg:text-5xl font-bold">MA</div>
                                     </div>
                                 ) : userData?.profilePicture?.url ? (
-                                    <motion.div
-                                        whileHover={{ scale: 1.05 }}
-                                        className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/20"
-                                    >
-                                        <CachedImage
+                                    <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/20 hover:scale-105 transition-transform duration-300">
+                                        <OptimizedImage
                                             src={userData.profilePicture.url}
                                             alt={userData.name}
                                             className="w-full h-full object-cover"
                                             priority={true}
                                             showLoading={false}
                                         />
-                                    </motion.div>
+                                    </div>
                                 ) : (
-                                    <motion.div
-                                        whileHover={{ scale: 1.05 }}
-                                        className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl ring-4 ring-blue-500/20"
-                                    >
+                                    <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl ring-4 ring-blue-500/20 hover:scale-105 transition-transform duration-300">
                                         <div className="text-white text-4xl lg:text-5xl font-bold">MA</div>
-                                    </motion.div>
+                                    </div>
                                 )}
 
-                                {/* Floating elements - Enhanced with smooth animations */}
-                                <motion.div
-                                    animate={{
-                                        y: [-5, 5, -5],
-                                        rotate: [0, 180, 360]
-                                    }}
-                                    transition={{
-                                        y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                                        rotate: { duration: 6, repeat: Infinity, ease: "linear" }
-                                    }}
-                                    className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg"
-                                >
+                                {/* Floating elements - Simplified for performance */}
+                                <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                                     <Star className="w-6 h-6 text-white" />
-                                </motion.div>
+                                </div>
 
-                                <motion.div
-                                    animate={{
-                                        y: [5, -5, 5],
-                                        rotate: [360, 180, 0]
-                                    }}
-                                    transition={{
-                                        y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                                        rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                                    }}
-                                    className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-lg"
-                                >
+                                <div className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
                                     <Award className="w-5 h-5 text-white" />
-                                </motion.div>
+                                </div>
                             </div>
                         </motion.div>
                     </div>
@@ -627,7 +497,7 @@ const Home: React.FC = () => {
                                 >
                                     <div className="h-56 relative overflow-hidden">
                                         {project.cover?.url ? (
-                                            <CachedImage
+                                            <OptimizedImage
                                                 src={project.cover.url}
                                                 alt={project.title}
                                                 className="w-full h-full object-cover"
@@ -1300,7 +1170,7 @@ const Home: React.FC = () => {
                             </motion.div>
 
                             <div className="space-y-4">
-                                {socialLinks.map((social, index) => (
+                                {socialLinks.map((social) => (
                                     <motion.a
                                         key={social.name}
                                         href={social.url}
@@ -1308,7 +1178,7 @@ const Home: React.FC = () => {
                                         rel="noopener noreferrer"
                                         initial={{ opacity: 0, x: -20 }}
                                         whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                                        transition={{ duration: 0.4, delay: 0.4 }}
                                         whileHover={{ x: 10, scale: 1.02 }}
                                         className="flex items-center space-x-4 p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 group"
                                     >

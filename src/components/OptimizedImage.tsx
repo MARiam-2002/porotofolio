@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-interface CachedImageProps {
+interface OptimizedImageProps {
     src: string;
     alt: string;
     className?: string;
@@ -13,7 +13,7 @@ interface CachedImageProps {
     priority?: boolean;
 }
 
-const CachedImage: React.FC<CachedImageProps> = ({
+const OptimizedImage: React.FC<OptimizedImageProps> = ({
     src,
     alt,
     className = '',
@@ -23,20 +23,49 @@ const CachedImage: React.FC<CachedImageProps> = ({
     onError,
     placeholder,
     showLoading = true,
-    priority: _priority = false
+    priority = false
 }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [currentSrc, setCurrentSrc] = useState<string>(src);
+    const [isInView, setIsInView] = useState(priority);
 
     useEffect(() => {
         if (!src) return;
 
+        // For priority images, load immediately
+        if (priority) {
+            loadImage(src);
+            return;
+        }
+
+        // For non-priority images, use Intersection Observer for lazy loading
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setIsInView(true);
+                        loadImage(src);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        const imgElement = document.createElement('div');
+        observer.observe(imgElement);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [src, priority]);
+
+    const loadImage = (imageSrc: string) => {
         setIsLoading(true);
         setHasError(false);
-        setCurrentSrc(src);
+        setCurrentSrc(imageSrc);
 
-        // Simple image loading without complex caching
         const img = new Image();
         img.onload = () => {
             setIsLoading(false);
@@ -47,26 +76,34 @@ const CachedImage: React.FC<CachedImageProps> = ({
             setIsLoading(false);
             onError?.();
         };
-        img.src = src;
-    }, [src, onLoad, onError]);
+        img.src = imageSrc;
+    };
 
     // Handle fallback on error
     useEffect(() => {
         if (hasError && fallbackSrc && fallbackSrc !== currentSrc) {
-            setCurrentSrc(fallbackSrc);
-            setHasError(false);
-            setIsLoading(true);
+            loadImage(fallbackSrc);
         }
     }, [hasError, fallbackSrc, currentSrc]);
+
+    if (!isInView) {
+        return (
+            <div className={`relative overflow-hidden ${className}`}>
+                {placeholder || (
+                    <div className="w-full h-full bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 flex items-center justify-center">
+                        <div className="text-white text-2xl font-bold">MA</div>
+                    </div>
+                )}
+            </div>
+        );
+    }
 
     if (isLoading && showLoading) {
         return (
             <div className={`relative overflow-hidden ${className}`}>
                 {placeholder || (
                     <div className="w-full h-full bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 flex items-center justify-center animate-pulse">
-                        <div className="text-white text-2xl font-bold">
-                            MA
-                        </div>
+                        <div className="text-white text-2xl font-bold">MA</div>
                     </div>
                 )}
             </div>
@@ -77,9 +114,7 @@ const CachedImage: React.FC<CachedImageProps> = ({
         return (
             <div className={`flex items-center justify-center bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 ${className}`}>
                 <div className="text-center text-white">
-                    <div className="text-2xl font-bold">
-                        MA
-                    </div>
+                    <div className="text-2xl font-bold">MA</div>
                     <div className="text-sm opacity-80 mt-1">Profile Picture</div>
                 </div>
             </div>
@@ -105,4 +140,4 @@ const CachedImage: React.FC<CachedImageProps> = ({
     );
 };
 
-export default CachedImage;
+export default OptimizedImage;

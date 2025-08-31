@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import performance optimizations */
+@import './styles/performance.css';
+
 /* Custom CSS Variables for Premium Color Scheme */
 :root {
   --primary-navy: #0f172a;
