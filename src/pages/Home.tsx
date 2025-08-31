@@ -13,6 +13,28 @@ const Home: React.FC = () => {
     const { data: userData, isLoading: loading, error } = useUserProfile();
     const { projects: featuredProjects, loading: projectsLoading, error: projectsError } = useFeaturedProjects();
 
+    // Optimized animation variants for smooth scrolling
+    const fadeInUp = {
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: { duration: 0.3, ease: "easeOut" }
+    };
+
+    const fadeInLeft = {
+        initial: { opacity: 0, x: -30 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: { duration: 0.4, ease: "easeOut" }
+    };
+
+    const fadeInRight = {
+        initial: { opacity: 0, x: 30 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: { duration: 0.4, ease: "easeOut" }
+    };
+
     if (error) {
         console.error('Error fetching user data:', error);
     }
@@ -344,9 +366,7 @@ const Home: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            {...fadeInUp}
                             className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-full text-blue-700 dark:text-blue-400 font-medium mb-6 backdrop-blur-sm"
                         >
                             <Sparkles className="w-4 h-4" />
@@ -354,18 +374,16 @@ const Home: React.FC = () => {
                         </motion.div>
 
                         <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
+                            {...fadeInUp}
+                            transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
                             className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-indigo-800 dark:from-slate-100 dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent mb-6"
                         >
                             {t('about.title')}
                         </motion.h2>
 
                         <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
+                            {...fadeInUp}
+                            transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 }}
                             className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed"
                         >
                             {t('about.subtitle')}
@@ -374,15 +392,12 @@ const Home: React.FC = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
+                            {...fadeInLeft}
                             className="space-y-8"
                         >
                             <motion.p
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.3 }}
+                                {...fadeInUp}
+                                transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
                                 className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed"
                             >
                                 {t('about.description')}
@@ -549,9 +564,7 @@ const Home: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            {...fadeInUp}
                             className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-full text-blue-600 dark:text-blue-400 font-medium mb-6"
                         >
                             <Sparkles className="w-4 h-4" />
@@ -605,9 +618,10 @@ const Home: React.FC = () => {
                             featuredProjects.slice(0, 3).map((project, index) => (
                                 <motion.div
                                     key={project._id}
-                                    initial={{ opacity: 0, y: 30 }}
+                                    initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.05 }}
                                     whileHover={{ y: -10 }}
                                     className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200/50 dark:border-gray-700/50"
                                 >
@@ -773,9 +787,7 @@ const Home: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            {...fadeInUp}
                             className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-600 dark:text-blue-400 font-medium mb-6"
                         >
                             <Sparkles className="w-4 h-4" />
@@ -783,18 +795,16 @@ const Home: React.FC = () => {
                         </motion.div>
 
                         <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
+                            {...fadeInUp}
+                            transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
                             className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-6"
                         >
                             {t('skills.title')}
                         </motion.h2>
 
                         <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
+                            {...fadeInUp}
+                            transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 }}
                             className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
                         >
                             {t('skills.subtitle')}
@@ -804,9 +814,10 @@ const Home: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {/* Languages */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
                             whileHover={{ y: -10, scale: 1.02 }}
                             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50"
                         >
@@ -860,9 +871,10 @@ const Home: React.FC = () => {
 
                         {/* Frameworks */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
                             whileHover={{ y: -10, scale: 1.02 }}
                             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50"
                         >
@@ -1080,9 +1092,7 @@ const Home: React.FC = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            {...fadeInUp}
                             className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-600 dark:text-blue-400 font-medium mb-6"
                         >
                             <Sparkles className="w-4 h-4" />
@@ -1090,18 +1100,16 @@ const Home: React.FC = () => {
                         </motion.div>
 
                         <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
+                            {...fadeInUp}
+                            transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
                             className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-6"
                         >
                             {t('contact.title')}
                         </motion.h2>
 
                         <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
+                            {...fadeInUp}
+                            transition={{ duration: 0.3, ease: "easeOut", delay: 0.2 }}
                             className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
                         >
                             {t('contact.subtitle')}
@@ -1111,9 +1119,7 @@ const Home: React.FC = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
                         {/* Contact Form */}
                         <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
+                            {...fadeInLeft}
                             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-gray-200/50 dark:border-gray-700/50"
                         >
                             <form className="space-y-6">
@@ -1193,9 +1199,8 @@ const Home: React.FC = () => {
 
                         {/* Contact Info */}
                         <motion.div
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            {...fadeInRight}
+                            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
                             className="space-y-8"
                         >
                             <motion.div
