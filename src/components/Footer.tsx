@@ -68,12 +68,7 @@ const Footer: React.FC = () => {
                 {/* Main Footer Content */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                     {/* Brand Section */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="lg:col-span-2 space-y-6"
-                    >
+                    <div className="lg:col-span-2 space-y-6">
                         <div className="flex items-center space-x-3">
                             {userData?.profilePicture?.url ? (
                                 <div className="w-12 h-12 rounded-xl overflow-hidden ring-2 ring-blue-500/20">
@@ -115,15 +110,10 @@ const Footer: React.FC = () => {
                                 <span className="text-sm">Mansoura, Egypt</span>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Quick Links */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="space-y-6"
-                    >
+                    <div className="space-y-6">
                         <h4 className="text-lg font-semibold text-white flex items-center space-x-2">
                             <span>🔗</span>
                             <span>Quick Links</span>
@@ -150,7 +140,7 @@ const Footer: React.FC = () => {
                                 </motion.li>
                             ))}
                         </ul>
-                    </motion.div>
+                    </div>
 
                     {/* Social Links */}
                     <motion.div

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { useImageCache } from '@/hooks/useImageCache';
 
 interface CachedImageProps {
@@ -90,19 +89,11 @@ const CachedImage: React.FC<CachedImageProps> = ({
         return (
             <div className={`relative overflow-hidden ${className}`}>
                 {placeholder || (
-                    <motion.div
-                        animate={{ opacity: [0.3, 0.7, 0.3] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-full h-full bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 flex items-center justify-center"
-                    >
-                        <motion.div
-                            animate={{ scale: [1, 1.1, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                            className="text-white text-2xl font-bold"
-                        >
+                    <div className="w-full h-full bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 flex items-center justify-center">
+                        <div className="text-white text-2xl font-bold">
                             MA
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </div>
                 )}
             </div>
         );
@@ -112,13 +103,9 @@ const CachedImage: React.FC<CachedImageProps> = ({
         return (
             <div className={`flex items-center justify-center bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 ${className}`}>
                 <div className="text-center text-white">
-                    <motion.div
-                        animate={{ scale: [1, 1.1, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="text-2xl font-bold"
-                    >
+                    <div className="text-2xl font-bold">
                         MA
-                    </motion.div>
+                    </div>
                     <div className="text-sm opacity-80 mt-1">Profile Picture</div>
                 </div>
             </div>

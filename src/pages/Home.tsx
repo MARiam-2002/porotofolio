@@ -407,34 +407,14 @@ const Home: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Floating Elements */}
-                            <motion.div
-                                animate={{
-                                    y: [-10, 10, -10],
-                                    rotate: [0, 180, 360]
-                                }}
-                                transition={{
-                                    y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                                    rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                                }}
-                                className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg"
-                            >
+                            {/* Floating Elements - Simplified for performance */}
+                            <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                                 <CheckCircle className="w-6 h-6 text-white" />
-                            </motion.div>
+                            </div>
 
-                            <motion.div
-                                animate={{
-                                    y: [10, -10, 10],
-                                    rotate: [360, 180, 0]
-                                }}
-                                transition={{
-                                    y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                                    rotate: { duration: 10, repeat: Infinity, ease: "linear" }
-                                }}
-                                className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center shadow-lg"
-                            >
+                            <div className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
                                 <Star className="w-5 h-5 text-white" />
-                            </motion.div>
+                            </div>
                         </motion.div>
                     </div>
                 </div>
@@ -442,30 +422,10 @@ const Home: React.FC = () => {
 
             {/* Featured Projects Section */}
             <section className="py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-                {/* Background Elements */}
+                {/* Background Elements - Simplified for performance */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        animate={{
-                            rotate: 360,
-                            scale: [1, 1.1, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute top-40 left-20 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-3xl"
-                    />
-                    <motion.div
-                        animate={{
-                            rotate: -360,
-                            scale: [1, 1.2, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 30, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute bottom-40 right-20 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-blue-600/20 rounded-full blur-3xl"
-                    />
+                    <div className="absolute top-40 left-20 w-72 h-72 bg-gradient-to-br from-blue-400/15 to-indigo-600/15 rounded-full blur-2xl"></div>
+                    <div className="absolute bottom-40 right-20 w-80 h-80 bg-gradient-to-br from-indigo-400/15 to-blue-600/15 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -663,30 +623,10 @@ const Home: React.FC = () => {
 
             {/* Skills Section */}
             <section className="py-20 lg:py-24 bg-gradient-to-br from-white via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-                {/* Background Elements */}
+                {/* Background Elements - Simplified for performance */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        animate={{
-                            rotate: 360,
-                            scale: [1, 1.1, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 28, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 7, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute top-40 right-40 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-3xl"
-                    />
-                    <motion.div
-                        animate={{
-                            rotate: -360,
-                            scale: [1, 1.2, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 32, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 9, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute bottom-40 left-40 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-blue-600/20 rounded-full blur-3xl"
-                    />
+                    <div className="absolute top-40 right-40 w-64 h-64 bg-gradient-to-br from-blue-400/15 to-indigo-600/15 rounded-full blur-2xl"></div>
+                    <div className="absolute bottom-40 left-40 w-80 h-80 bg-gradient-to-br from-indigo-400/15 to-blue-600/15 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -729,13 +669,9 @@ const Home: React.FC = () => {
                             whileHover={{ y: -10, scale: 1.02 }}
                             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50"
                         >
-                            <motion.div
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.6 }}
-                                className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
-                            >
+                            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                                 <span className="text-3xl">💻</span>
-                            </motion.div>
+                            </div>
                             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                                 {t('skills.categories.languages')}
                             </h3>
@@ -777,13 +713,9 @@ const Home: React.FC = () => {
                             whileHover={{ y: -10, scale: 1.02 }}
                             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50"
                         >
-                            <motion.div
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.6 }}
-                                className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
-                            >
+                            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                                 <span className="text-3xl">⚡</span>
-                            </motion.div>
+                            </div>
                             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                                 {t('skills.categories.frameworks')}
                             </h3>
@@ -825,13 +757,9 @@ const Home: React.FC = () => {
                             whileHover={{ y: -10, scale: 1.02 }}
                             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50"
                         >
-                            <motion.div
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.6 }}
-                                className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
-                            >
+                            <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                                 <span className="text-3xl">🛠️</span>
-                            </motion.div>
+                            </div>
                             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                                 {t('skills.categories.tools')}
                             </h3>
@@ -873,13 +801,9 @@ const Home: React.FC = () => {
                             whileHover={{ y: -10, scale: 1.02 }}
                             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50"
                         >
-                            <motion.div
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.6 }}
-                                className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
-                            >
+                            <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                                 <span className="text-3xl">🗄️</span>
-                            </motion.div>
+                            </div>
                             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                                 {t('skills.categories.databases')}
                             </h3>
@@ -935,30 +859,10 @@ const Home: React.FC = () => {
 
             {/* Contact Section */}
             <section className="py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-                {/* Background Elements */}
+                {/* Background Elements - Simplified for performance */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        animate={{
-                            rotate: 360,
-                            scale: [1, 1.1, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 26, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 5, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute top-40 left-40 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-3xl"
-                    />
-                    <motion.div
-                        animate={{
-                            rotate: -360,
-                            scale: [1, 1.2, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 34, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 11, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute bottom-40 right-40 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-blue-600/20 rounded-full blur-3xl"
-                    />
+                    <div className="absolute top-40 left-40 w-64 h-64 bg-gradient-to-br from-blue-400/15 to-indigo-600/15 rounded-full blur-2xl"></div>
+                    <div className="absolute bottom-40 right-40 w-80 h-80 bg-gradient-to-br from-indigo-400/15 to-blue-600/15 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

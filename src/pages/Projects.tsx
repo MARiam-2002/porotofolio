@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Calendar, User, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CachedImage from '@/components/CachedImage';
-import ImagePreloader from '@/components/ImagePreloader';
+// import ImagePreloader from '@/components/ImagePreloader';
 
 interface Project {
     _id: string;
@@ -135,19 +135,10 @@ const Projects: React.FC = () => {
         return (
             <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
                 <div className="text-center">
-                    <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        className="w-32 h-32 border-4 border-blue-200 border-t-blue-600 rounded-full mx-auto"
-                    />
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="mt-6 text-gray-600 dark:text-gray-400 text-lg font-medium"
-                    >
+                    <div className="w-32 h-32 border-4 border-blue-200 border-t-blue-600 rounded-full mx-auto animate-spin"></div>
+                    <p className="mt-6 text-gray-600 dark:text-gray-400 text-lg font-medium">
                         Loading projects...
-                    </motion.p>
+                    </p>
                 </div>
             </div>
         );
@@ -198,23 +189,23 @@ const Projects: React.FC = () => {
         );
     }
 
-    // Extract image URLs for preloading
-    const imageUrls = projects
-        .flatMap(project => [
-            project.cover?.url,
-            ...(project.gallery?.map(img => img.url) || [])
-        ])
-        .filter((url): url is string => Boolean(url));
+    // Extract image URLs for preloading - Disabled for performance
+    // const imageUrls = projects
+    //     .flatMap(project => [
+    //         project.cover?.url,
+    //         ...(project.gallery?.map(img => img.url) || [])
+    //     ])
+    //     .filter((url): url is string => Boolean(url));
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-24 lg:pt-32 pb-12">
-            {/* Preload images */}
-            <ImagePreloader
+            {/* Preload images - Disabled for performance */}
+            {/* <ImagePreloader
                 images={imageUrls}
                 onProgress={(loaded, total) => {
                     console.log(`Preloaded ${loaded}/${total} project images`);
                 }}
-            />
+            /> */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <motion.h1
