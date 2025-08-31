@@ -44,6 +44,17 @@ const Home: React.FC = () => {
         console.error('Error fetching featured projects:', projectsError);
     }
 
+    // Fallback data for user profile
+    const fallbackUserData = {
+        name: 'Mahmoud Ahmed',
+        profilePicture: {
+            url: '/97337243.jpeg'
+        }
+    };
+
+    // Use fallback data if API fails or data is not available
+    const displayUserData = userData || fallbackUserData;
+
     const socialLinks = [
         {
             name: 'GitHub',
@@ -195,11 +206,11 @@ const Home: React.FC = () => {
                                     <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl">
                                         <div className="text-white text-4xl lg:text-5xl font-bold">MA</div>
                                     </div>
-                                ) : userData?.profilePicture?.url ? (
+                                ) : displayUserData?.profilePicture?.url ? (
                                     <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/20 hover:scale-105 transition-transform duration-300">
                                         <OptimizedImage
-                                            src={userData.profilePicture.url}
-                                            alt={userData.name}
+                                            src={displayUserData.profilePicture.url}
+                                            alt={displayUserData.name}
                                             className="w-full h-full object-cover"
                                             priority={true}
                                             showLoading={false}
