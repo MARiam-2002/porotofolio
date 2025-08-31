@@ -9,17 +9,35 @@ interface Project {
         url: string;
         public_id: string;
     };
-    techStack: string[];
+    techStack: Array<{
+        key: string;
+        name: string;
+        icon?: string;
+        color?: string;
+        category?: string;
+        version?: string;
+        isActive?: boolean;
+    }>;
     role: string;
     year: number;
     type: string;
-    features: string[];
-    links: {
-        github?: string;
-        demo?: string;
-        article?: string;
-        store?: string;
-    };
+    features: Array<{
+        key: string;
+        title: string;
+        description?: string;
+        icon?: string;
+        category?: string;
+        isHighlighted?: boolean;
+        isActive?: boolean;
+    }>;
+    links: Array<{
+        key: string;
+        url: string;
+        title?: string;
+        description?: string;
+        icon?: string;
+        isActive?: boolean;
+    }>;
     stats: {
         downloads: number;
         rating: number;

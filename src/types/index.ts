@@ -32,17 +32,35 @@ export interface Project {
         public_id: string;
         caption?: string;
     }>;
-    techStack: string[];
+    techStack: Array<{
+        key: string;
+        name: string;
+        icon?: string;
+        color?: string;
+        category?: string;
+        version?: string;
+        isActive?: boolean;
+    }>;
     role: string;
     year: number;
     type: 'mobile' | 'web' | 'desktop' | 'other';
-    features: string[];
-    links: {
-        github?: string;
-        demo?: string;
-        article?: string;
-        store?: string;
-    };
+    features: Array<{
+        key: string;
+        title: string;
+        description?: string;
+        icon?: string;
+        category?: string;
+        isHighlighted?: boolean;
+        isActive?: boolean;
+    }>;
+    links: Array<{
+        key: string;
+        url: string;
+        title?: string;
+        description?: string;
+        icon?: string;
+        isActive?: boolean;
+    }>;
     stats: {
         downloads: number;
         rating: number;
