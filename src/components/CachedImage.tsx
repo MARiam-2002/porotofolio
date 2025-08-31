@@ -126,20 +126,11 @@ const CachedImage: React.FC<CachedImageProps> = ({
     }
 
     return (
-        <motion.img
+        <img
             src={currentSrc}
             alt={alt}
             className={className}
             loading={loading}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{
-                opacity: 1,
-                scale: 1
-            }}
-            transition={{
-                duration: 0.5,
-                ease: "easeOut"
-            }}
             onLoad={() => {
                 setIsLoading(false);
                 onLoad?.();
