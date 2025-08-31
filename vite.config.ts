@@ -27,10 +27,10 @@ export default defineConfig({
       },
     },
   },
+  base: '/',
   define: {
     'import.meta.env.VITE_API_BASE_URL': JSON.stringify('https://profile-fhvk.vercel.app/api')
   },
-  base: '/',
   preview: {
     port: 4173,
     host: true,
