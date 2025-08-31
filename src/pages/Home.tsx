@@ -6,7 +6,6 @@ import { useUserProfile } from '@/hooks/useUserProfile';
 import { useFeaturedProjects } from '@/hooks/useFeaturedProjects';
 import { Link } from 'react-router-dom';
 import CachedImage from '@/components/CachedImage';
-import ImagePreloader from '@/components/ImagePreloader';
 // import CacheManager from '@/components/CacheManager';
 
 const Home: React.FC = () => {
@@ -53,48 +52,28 @@ const Home: React.FC = () => {
         },
     ];
 
-    // Extract image URLs for preloading
-    const imageUrls = [
-        userData?.profilePicture?.url,
-        ...(featuredProjects.map(project => project.cover?.url).filter(Boolean) as string[])
-    ].filter((url): url is string => Boolean(url));
+    // Extract image URLs for preloading - Disabled for performance
+    // const imageUrls = [
+    //     userData?.profilePicture?.url,
+    //     ...(featuredProjects.map(project => project.cover?.url).filter(Boolean) as string[])
+    // ].filter((url): url is string => Boolean(url));
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-            {/* Preload images */}
-            <ImagePreloader
+            {/* Preload images - Disabled for better performance */}
+            {/* <ImagePreloader
                 images={imageUrls}
                 priority={true}
                 onProgress={(loaded, total) => {
                     console.log(`Preloaded ${loaded}/${total} images`);
                 }}
-            />
+            /> */}
             {/* Hero Section */}
             <section className="relative overflow-hidden pt-24 lg:pt-32 pb-6 lg:pb-12">
-                {/* Background Elements */}
+                {/* Background Elements - Simplified for better performance */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        animate={{
-                            rotate: 360,
-                            scale: [1, 1.1, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/30 to-indigo-600/30 rounded-full blur-3xl"
-                    />
-                    <motion.div
-                        animate={{
-                            rotate: -360,
-                            scale: [1, 1.2, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-indigo-400/30 to-purple-600/30 rounded-full blur-3xl"
-                    />
+                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-2xl"></div>
+                    <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-purple-600/20 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -140,12 +119,9 @@ const Home: React.FC = () => {
                                     className="text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-300 flex items-center space-x-3"
                                 >
                                     <span>{t('hero.title')}</span>
-                                    <motion.div
-                                        animate={{ rotate: 360 }}
-                                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                                    >
+                                    <div>
                                         <Zap className="w-6 h-6 text-amber-500" />
-                                    </motion.div>
+                                    </div>
                                 </motion.h2>
 
                                 <motion.p
@@ -223,7 +199,7 @@ const Home: React.FC = () => {
                                         initial={{ opacity: 0, scale: 0 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
-                                        whileHover={{ scale: 1.1, y: -3, rotate: 5 }}
+                                        whileHover={{ scale: 1.05, y: -2 }}
                                         whileTap={{ scale: 0.9 }}
                                         className={`p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200/50 dark:border-slate-700/50 ${social.color} ${social.bgColor}`}
                                         title={social.name}
@@ -243,13 +219,9 @@ const Home: React.FC = () => {
                         >
                             <div className="relative">
                                 {loading ? (
-                                    <motion.div
-                                        animate={{ rotate: 360 }}
-                                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                                        className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl"
-                                    >
+                                    <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl">
                                         <div className="text-white text-4xl lg:text-5xl font-bold">MA</div>
-                                    </motion.div>
+                                    </div>
                                 ) : userData?.profilePicture?.url ? (
                                     <motion.div
                                         whileHover={{ scale: 1.05 }}
@@ -272,43 +244,14 @@ const Home: React.FC = () => {
                                     </motion.div>
                                 )}
 
-                                {/* Floating elements */}
-                                <motion.div
-                                    animate={{
-                                        y: [-10, 10, -10],
-                                        rotate: [0, 180, 360]
-                                    }}
-                                    transition={{
-                                        y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                                        rotate: { duration: 6, repeat: Infinity, ease: "linear" }
-                                    }}
-                                    className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg"
-                                >
+                                {/* Floating elements - Simplified for performance */}
+                                <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                                     <Star className="w-6 h-6 text-white" />
-                                </motion.div>
+                                </div>
 
-                                <motion.div
-                                    animate={{
-                                        y: [10, -10, 10],
-                                        rotate: [360, 180, 0]
-                                    }}
-                                    transition={{
-                                        y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                                        rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                                    }}
-                                    className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-lg"
-                                >
+                                <div className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
                                     <Award className="w-5 h-5 text-white" />
-                                </motion.div>
-
-                                <motion.div
-                                    animate={{
-                                        scale: [1, 1.1, 1],
-                                        opacity: [0.5, 1, 0.5]
-                                    }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
-                                />
+                                </div>
                             </div>
                         </motion.div>
                     </div>
@@ -317,30 +260,10 @@ const Home: React.FC = () => {
 
             {/* About Section */}
             <section className="py-20 lg:py-24 bg-gradient-to-br from-white via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-                {/* Background Elements */}
+                {/* Background Elements - Simplified for performance */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <motion.div
-                        animate={{
-                            rotate: 360,
-                            scale: [1, 1.1, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 30, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-3xl"
-                    />
-                    <motion.div
-                        animate={{
-                            rotate: -360,
-                            scale: [1, 1.2, 1]
-                        }}
-                        transition={{
-                            rotate: { duration: 35, repeat: Infinity, ease: "linear" },
-                            scale: { duration: 10, repeat: Infinity, ease: "easeInOut" }
-                        }}
-                        className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-blue-600/20 rounded-full blur-3xl"
-                    />
+                    <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-blue-400/15 to-indigo-600/15 rounded-full blur-2xl"></div>
+                    <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-indigo-400/15 to-blue-600/15 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -1185,13 +1108,9 @@ const Home: React.FC = () => {
                                         whileHover={{ x: 10, scale: 1.02 }}
                                         className="flex items-center space-x-4 p-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 group"
                                     >
-                                        <motion.div
-                                            whileHover={{ rotate: 360, scale: 1.1 }}
-                                            transition={{ duration: 0.6 }}
-                                            className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 ${social.bgColor}`}
-                                        >
+                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 ${social.bgColor}`}>
                                             <social.icon className={`w-7 h-7 ${social.color}`} />
-                                        </motion.div>
+                                        </div>
                                         <div>
                                             <div className="font-semibold text-gray-900 dark:text-white text-lg">{social.name}</div>
                                             <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -1238,17 +1157,14 @@ const Home: React.FC = () => {
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 1 }}
-                whileHover={{ scale: 1.1, y: -5 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
             >
-                <motion.div
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
+                <div>
                     ↑
-                </motion.div>
+                </div>
             </motion.button>
         </div>
     );
