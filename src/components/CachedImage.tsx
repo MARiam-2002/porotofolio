@@ -28,7 +28,6 @@ const CachedImage: React.FC<CachedImageProps> = ({
     priority = false
 }) => {
     const { cacheImage } = useImageCache();
-    const [cachedSrc, setCachedSrc] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
     const [currentSrc, setCurrentSrc] = useState<string>(src);
@@ -47,7 +46,6 @@ const CachedImage: React.FC<CachedImageProps> = ({
                 const cachedUrl = await cacheImage(src);
 
                 if (isMounted) {
-                    setCachedSrc(cachedUrl);
                     setCurrentSrc(cachedUrl);
                     setIsLoading(false);
                     onLoad?.();

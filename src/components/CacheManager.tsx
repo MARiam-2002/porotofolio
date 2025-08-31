@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useImageCache } from '@/hooks/useImageCache';
-import { Trash2, HardDrive, Download, AlertTriangle } from 'lucide-react';
+import { Trash2, HardDrive, AlertTriangle } from 'lucide-react';
 
 const CacheManager: React.FC = () => {
     const { clearCache, cacheSize } = useImageCache();

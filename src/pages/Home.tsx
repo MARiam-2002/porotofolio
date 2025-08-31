@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, Sparkles, Star, Zap, Award, Users, Clock, CheckCircle } from 'lucide-react';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useFeaturedProjects } from '@/hooks/useFeaturedProjects';

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github, Calendar, User, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import ImageGallery from '@/components/ImageGallery';
 import { projectApi } from '@/services/api';
 import CachedImage from '@/components/CachedImage';
 
@@ -370,12 +369,12 @@ const ProjectDetails: React.FC = () => {
                             className="md:col-span-2 lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-2xl cursor-pointer"
                             onClick={() => openGalleryModal(0)}
                         >
-                                                         <CachedImage
-                                 src={project.cover.url}
-                                 alt={`${project.title} - Cover`}
-                                 className="w-full h-80 md:h-96 lg:h-[500px] object-cover transition-all duration-700 group-hover:scale-110"
-                                 showLoading={false}
-                             />
+                            <CachedImage
+                                src={project.cover.url}
+                                alt={`${project.title} - Cover`}
+                                className="w-full h-80 md:h-96 lg:h-[500px] object-cover transition-all duration-700 group-hover:scale-110"
+                                showLoading={false}
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                 <div className="text-white">
@@ -400,12 +399,12 @@ const ProjectDetails: React.FC = () => {
                                 className="relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
                                 onClick={() => openGalleryModal(index + 1)}
                             >
-                                                                 <CachedImage
-                                     src={image.url}
-                                     alt={image.caption || `${project.title} - Gallery ${index + 1}`}
-                                     className="w-full h-48 md:h-56 lg:h-64 object-cover transition-all duration-500 group-hover:scale-110"
-                                     showLoading={false}
-                                 />
+                                <CachedImage
+                                    src={image.url}
+                                    alt={image.caption || `${project.title} - Gallery ${index + 1}`}
+                                    className="w-full h-48 md:h-56 lg:h-64 object-cover transition-all duration-500 group-hover:scale-110"
+                                    showLoading={false}
+                                />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                                 {/* Image Info Overlay */}
