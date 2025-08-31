@@ -1272,21 +1272,6 @@ const Home: React.FC = () => {
 
             {/* Cache Manager - Hidden for now */}
             {/* <CacheManager /> */}
-
-            {/* Scroll to Top Button */}
-            <motion.button
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
-            >
-                <div>
-                    ↑
-                </div>
-            </motion.button>
         </div>
     );
 };

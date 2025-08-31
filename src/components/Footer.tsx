@@ -207,11 +207,11 @@ const Footer: React.FC = () => {
                     className="border-t border-gray-700/50 pt-8"
                 >
                     <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <div className="text-center md:text-left">
+                        <div className="text-center flex-1">
                             <p className="text-gray-400 text-sm">
                                 {t('footer.copyright')}
                             </p>
-                            <p className="text-gray-500 text-xs mt-1 flex items-center justify-center md:justify-start space-x-1">
+                            <p className="text-gray-500 text-xs mt-1 flex items-center justify-center space-x-1">
                                 <span>{t('footer.madeWith')}</span>
                                 <Heart className="w-3 h-3 text-red-400 inline" />
                                 <span>by</span>
