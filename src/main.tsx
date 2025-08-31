@@ -1,27 +1,32 @@
-import React from 'react'
+
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Toaster } from 'react-hot-toast'
 import App from './App.tsx'
+import ErrorBoundary from './components/ErrorBoundary'
 import './index.css'
 
 // Create a client with optimized settings for performance
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            retry: 1,
+            retry: 0, // Disable retries to prevent infinite loops
             refetchOnWindowFocus: false,
             staleTime: 10 * 60 * 1000, // 10 minutes
             cacheTime: 30 * 60 * 1000, // 30 minutes
             refetchOnMount: false,
             refetchOnReconnect: false,
+            retryOnMount: false,
+        },
+        mutations: {
+            retry: 0,
         },
     },
 })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
+    <ErrorBoundary>
         <QueryClientProvider client={queryClient}>
             <BrowserRouter basename="/">
                 <App />
@@ -50,5 +55,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 />
             </BrowserRouter>
         </QueryClientProvider>
-    </React.StrictMode>,
+    </ErrorBoundary>,
 )

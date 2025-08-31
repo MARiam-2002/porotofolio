@@ -267,20 +267,32 @@ const translations = {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ar')) {
-      return savedLanguage;
+    try {
+      const savedLanguage = localStorage.getItem('language') as Language;
+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'ar')) {
+        return savedLanguage;
+      }
+    } catch (error) {
+      console.warn('Error reading language from localStorage:', error);
     }
     return 'en';
   });
 
   const setLanguage = (newLanguage: Language) => {
     setLanguageState(newLanguage);
-    localStorage.setItem('language', newLanguage);
+    try {
+      localStorage.setItem('language', newLanguage);
+    } catch (error) {
+      console.warn('Error saving language to localStorage:', error);
+    }
 
     // Update document direction for RTL support
-    document.documentElement.dir = newLanguage === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = newLanguage;
+    try {
+      document.documentElement.dir = newLanguage === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = newLanguage;
+    } catch (error) {
+      console.warn('Error updating document attributes:', error);
+    }
   };
 
   const t = (key: string): string => {
@@ -289,8 +301,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   useEffect(() => {
     // Set initial document direction and language
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = language;
+    try {
+      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = language;
+    } catch (error) {
+      console.warn('Error setting document attributes in useEffect:', error);
+    }
   }, [language]);
 
   const value: LanguageContextType = {
