@@ -141,6 +141,15 @@ const HomeAnimated: React.FC = () => {
                     }
                 }
                 
+                @keyframes gradient-x {
+                    0%, 100% {
+                        background-position: 0% 50%;
+                    }
+                    50% {
+                        background-position: 100% 50%;
+                    }
+                }
+                
                 .animate-float {
                     animation: float 3s ease-in-out infinite;
                 }
@@ -151,6 +160,14 @@ const HomeAnimated: React.FC = () => {
                 
                 .animate-spin-slow {
                     animation: spin 3s linear infinite;
+                }
+                
+                .animate-gradient-x {
+                    animation: gradient-x 3s ease infinite;
+                }
+                
+                .bg-300% {
+                    background-size: 300% 300%;
                 }
                 
                 .delay-100 { animation-delay: 0.1s; }
@@ -164,129 +181,169 @@ const HomeAnimated: React.FC = () => {
             `}</style>
 
             <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-                {/* Hero Section */}
-                <section className="relative overflow-hidden pt-24 lg:pt-32 pb-6 lg:pb-12">
-                    {/* Background Elements */}
+                {/* Hero Section - Ultra Premium 2025 Design */}
+                <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+                    {/* Ultra Modern Background */}
                     <div className="absolute inset-0 overflow-hidden">
-                        <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-600/20 rounded-full blur-2xl animate-pulse-slow"></div>
-                        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-purple-600/20 rounded-full blur-2xl animate-pulse-slow delay-500"></div>
+                        {/* Animated Gradient Orbs */}
+                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-cyan-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-pink-600/20 rounded-full blur-3xl animate-pulse-slow delay-700"></div>
+                        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-br from-indigo-400/15 to-blue-600/15 rounded-full blur-3xl animate-pulse-slow delay-300"></div>
+
+                        {/* Modern Grid Pattern */}
+                        <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
                     </div>
 
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-                            {/* Content */}
-                            <div className={`space-y-6 relative z-10 ${fadeInLeft}`}>
-                                {/* Badge */}
-                                <div className={`inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-full text-blue-700 dark:text-blue-400 font-medium backdrop-blur-sm ${scaleIn} delay-100`}>
-                                    <Sparkles className="w-4 h-4 animate-spin-slow" />
-                                    <span>Available for new opportunities</span>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                            {/* Premium Content */}
+                            <div className={`space-y-8 relative z-10 ${fadeInLeft}`}>
+                                {/* Ultra Premium Badge */}
+                                <div className={`inline-flex items-center space-x-3 px-6 py-3 bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border border-white/20 dark:border-slate-700/20 rounded-2xl text-slate-800 dark:text-slate-200 font-semibold shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 ${scaleIn} delay-100`}>
+                                    <div className="flex space-x-1">
+                                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-200"></div>
+                                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-400"></div>
+                                    </div>
+                                    <span className="text-sm uppercase tracking-wider">Available for New Opportunities</span>
+                                    <Sparkles className="w-4 h-4 animate-spin-slow text-blue-500" />
                                 </div>
 
-                                <div className="space-y-4">
-                                    <h1 className={`text-4xl md:text-6xl font-bold leading-tight ${fadeInUp} delay-200`}>
-                                        <span className="text-slate-900 dark:text-slate-100">
-                                            {t('hero.greeting')}
-                                        </span>
-                                        <br />
-                                        <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                                            {t('hero.name')}
-                                        </span>
-                                    </h1>
+                                {/* Ultra Premium Typography */}
+                                <div className={`space-y-6 ${fadeInUp} delay-200`}>
+                                    <div className="space-y-2">
+                                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight">
+                                            <span className="block text-slate-900 dark:text-slate-100 mb-2">
+                                                {t('hero.greeting')}
+                                            </span>
+                                            <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x bg-300%">
+                                                {t('hero.name')}
+                                            </span>
+                                        </h1>
+                                    </div>
 
-                                    <h2 className={`text-xl md:text-2xl font-semibold text-slate-700 dark:text-slate-300 flex items-center space-x-3 ${fadeInUp} delay-300`}>
-                                        <span>{t('hero.title')}</span>
-                                        <div>
-                                            <Zap className="w-6 h-6 text-amber-500 animate-pulse" />
-                                        </div>
-                                    </h2>
+                                    <div className="flex items-center space-x-4">
+                                        <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                                        <h2 className="text-2xl md:text-3xl font-bold text-slate-700 dark:text-slate-300 flex items-center space-x-3">
+                                            <span>{t('hero.title')}</span>
+                                            <div className="p-2 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl shadow-lg hover:scale-110 transition-transform duration-300">
+                                                <Zap className="w-6 h-6 text-white animate-bounce" />
+                                            </div>
+                                        </h2>
+                                    </div>
 
-                                    <p className={`text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed ${fadeInUp} delay-400`}>
+                                    <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed font-medium">
                                         {t('hero.description')}
                                     </p>
                                 </div>
 
-                                {/* Stats */}
-                                <div className={`grid grid-cols-3 gap-4 py-4 ${fadeInUp} delay-500`}>
-                                    <div className="text-center transform hover:scale-105 transition-transform duration-300">
-                                        <div className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-1">5+</div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400">Projects</div>
-                                    </div>
-                                    <div className="text-center transform hover:scale-105 transition-transform duration-300">
-                                        <div className="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">3+</div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400">Years</div>
-                                    </div>
-                                    <div className="text-center transform hover:scale-105 transition-transform duration-300">
-                                        <div className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-1">10+</div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400">Clients</div>
-                                    </div>
+                                {/* Premium Stats Cards */}
+                                <div className={`grid grid-cols-3 gap-4 ${scaleIn} delay-400`}>
+                                    {[
+                                        { number: '5+', label: 'Projects', color: 'from-blue-500 to-cyan-500', bgColor: 'from-blue-500/10 to-cyan-500/10' },
+                                        { number: '3+', label: 'Years', color: 'from-purple-500 to-pink-500', bgColor: 'from-purple-500/10 to-pink-500/10' },
+                                        { number: '10+', label: 'Clients', color: 'from-green-500 to-teal-500', bgColor: 'from-green-500/10 to-teal-500/10' }
+                                    ].map((stat, index) => (
+                                        <div key={stat.label} className={`group relative p-6 bg-gradient-to-br ${stat.bgColor} backdrop-blur-xl border border-white/20 dark:border-slate-700/20 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105`} style={{ animationDelay: `${0.6 + index * 0.1}s` }}>
+                                            <div className="text-center">
+                                                <div className={`text-3xl md:text-4xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300`}>
+                                                    {stat.number}
+                                                </div>
+                                                <div className="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                                                    {stat.label}
+                                                </div>
+                                            </div>
+                                            <div className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
+                                        </div>
+                                    ))}
                                 </div>
 
-                                {/* CTA Buttons */}
+                                {/* Ultra Premium CTA Buttons */}
                                 <div className={`flex flex-col sm:flex-row gap-4 ${fadeInUp} delay-600`}>
-                                    <button className="group inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
-                                        <span>{t('hero.cta.primary')}</span>
-                                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                                    <button className="group relative overflow-hidden px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-110 hover:-translate-y-1">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        <div className="relative z-10 flex items-center justify-center space-x-3">
+                                            <span>{t('hero.cta.primary')}</span>
+                                            <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-500" />
+                                        </div>
                                     </button>
 
                                     <a
                                         href="/cv.pdf"
                                         download="Mahmoud_Ahmed_CV.pdf"
-                                        className="group inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                                        className="group relative overflow-hidden px-8 py-4 bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border-2 border-white/20 dark:border-slate-700/20 text-slate-800 dark:text-slate-200 font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-110 hover:-translate-y-1 hover:bg-white/20 dark:hover:bg-slate-800/20"
                                     >
-                                        <Download className="mr-2 w-5 h-5 group-hover:animate-bounce" />
-                                        {t('hero.cta.secondary')}
+                                        <div className="relative z-10 flex items-center justify-center space-x-3">
+                                            <Download className="w-6 h-6 group-hover:animate-bounce" />
+                                            <span>{t('hero.cta.secondary')}</span>
+                                        </div>
                                     </a>
                                 </div>
 
-                                {/* Social Links */}
-                                <div className={`flex space-x-3 ${fadeInUp} delay-700`}>
+                                {/* Ultra Premium Social Links */}
+                                <div className={`flex space-x-4 ${scaleIn} delay-800`}>
                                     {socialLinks.map((social, index) => (
                                         <a
                                             key={social.name}
                                             href={social.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className={`p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200/50 dark:border-slate-700/50 ${social.color} ${social.bgColor} hover:scale-110 hover:-translate-y-1 ${scaleIn}`}
+                                            className="group relative p-4 bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border border-white/20 dark:border-slate-700/20 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-125 hover:-translate-y-2 hover:rotate-6"
                                             title={social.name}
-                                            style={{ animationDelay: `${0.8 + index * 0.1}s` }}
+                                            style={{ animationDelay: `${1.0 + index * 0.1}s` }}
                                         >
-                                            <social.icon className="w-5 h-5" />
+                                            <social.icon className={`w-6 h-6 ${social.color} group-hover:scale-110 transition-transform duration-300`} />
+                                            <div className={`absolute inset-0 ${social.bgColor} opacity-0 group-hover:opacity-20 rounded-2xl transition-opacity duration-300`}></div>
                                         </a>
                                     ))}
                                 </div>
                             </div>
 
-                            {/* Visual Element */}
-                            <div className={`flex justify-center lg:justify-end relative z-10 -mt-6 lg:-mt-12 ${fadeInRight} delay-300`}>
-                                <div className="relative">
-                                    {loading ? (
-                                        <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
-                                            <div className="text-white text-4xl lg:text-5xl font-bold">MA</div>
-                                        </div>
-                                    ) : displayUserData?.profilePicture?.url ? (
-                                        <div className="w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/20 hover:scale-105 transition-transform duration-300 animate-float">
-                                            <OptimizedImage
-                                                src={displayUserData.profilePicture.url}
-                                                alt={displayUserData.name}
-                                                className="w-full h-full object-cover"
-                                                priority={true}
-                                                showLoading={false}
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 rounded-full flex items-center justify-center shadow-2xl ring-4 ring-blue-500/20 hover:scale-105 transition-transform duration-300 animate-float">
-                                            <div className="text-white text-4xl lg:text-5xl font-bold">MA</div>
-                                        </div>
-                                    )}
+                            {/* Ultra Premium Visual Element */}
+                            <div className={`flex justify-center lg:justify-end relative z-10 ${fadeInRight} delay-300`}>
+                                <div className="relative group">
+                                    {/* Main Profile Container */}
+                                    <div className="relative">
+                                        {loading ? (
+                                            <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-3xl flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-700 group-hover:scale-105">
+                                                <div className="text-white text-5xl lg:text-6xl font-black">MA</div>
+                                            </div>
+                                        ) : displayUserData?.profilePicture?.url ? (
+                                            <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-700 group-hover:scale-105 border-4 border-white/20 dark:border-slate-700/20 backdrop-blur-xl">
+                                                <OptimizedImage
+                                                    src={displayUserData.profilePicture.url}
+                                                    alt={displayUserData.name}
+                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                    priority={true}
+                                                    showLoading={false}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-3xl flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-700 group-hover:scale-105 border-4 border-white/20 dark:border-slate-700/20">
+                                                <div className="text-white text-5xl lg:text-6xl font-black">MA</div>
+                                            </div>
+                                        )}
 
-                                    {/* Floating elements */}
-                                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg animate-float">
-                                        <Star className="w-6 h-6 text-white animate-spin-slow" />
+                                        {/* Premium Floating Elements */}
+                                        <div className="absolute -top-6 -right-6 w-16 h-16 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-float">
+                                            <Star className="w-8 h-8 text-white animate-spin-slow" />
+                                        </div>
+
+                                        <div className="absolute -bottom-6 -left-6 w-14 h-14 bg-gradient-to-br from-green-400 via-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-125 group-hover:-rotate-12 transition-all duration-500 animate-float delay-500">
+                                            <Award className="w-7 h-7 text-white animate-pulse" />
+                                        </div>
+
+                                        <div className="absolute top-1/4 -left-4 w-12 h-12 bg-gradient-to-br from-pink-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-45 transition-all duration-500 animate-bounce">
+                                            <Sparkles className="w-6 h-6 text-white" />
+                                        </div>
+
+                                        <div className="absolute bottom-1/4 -right-4 w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:-rotate-45 transition-all duration-500 animate-pulse">
+                                            <Zap className="w-5 h-5 text-white" />
+                                        </div>
                                     </div>
 
-                                    <div className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-lg animate-float delay-500">
-                                        <Award className="w-5 h-5 text-white" />
-                                    </div>
+                                    {/* Premium Glow Effect */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 scale-110"></div>
                                 </div>
                             </div>
                         </div>
