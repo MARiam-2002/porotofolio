@@ -14,9 +14,15 @@ const api: AxiosInstance = axios.create({
 api.interceptors.request.use(
   (config) => {
     // Add auth token if available
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    try {
+      if (typeof localStorage !== 'undefined') {
+        const token = localStorage.getItem('token');
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      }
+    } catch (error) {
+      console.warn('Error accessing localStorage:', error);
     }
     return config;
   },
@@ -34,8 +40,16 @@ api.interceptors.response.use(
     // Handle common errors
     if (error.response?.status === 401) {
       // Unauthorized - clear token and redirect to login
-      localStorage.removeItem('token');
-      window.location.href = '/';
+      try {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.removeItem('token');
+        }
+        if (typeof window !== 'undefined') {
+          window.location.href = '/';
+        }
+      } catch (err) {
+        console.warn('Error handling unauthorized response:', err);
+      }
     }
 
     return Promise.reject(error);

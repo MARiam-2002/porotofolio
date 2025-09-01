@@ -20,6 +20,13 @@ class ErrorBoundary extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo);
+    
+    // Log additional context for debugging
+    console.error('Component stack:', errorInfo.componentStack);
+    console.error('Error boundary triggered');
+    
+    // Optional: Send error to monitoring service
+    // Example: Sentry, LogRocket, etc.
   }
 
   public render() {

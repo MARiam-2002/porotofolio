@@ -288,8 +288,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
     // Update document direction for RTL support
     try {
-      document.documentElement.dir = newLanguage === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = newLanguage;
+      if (typeof document !== 'undefined') {
+        document.documentElement.dir = newLanguage === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.lang = newLanguage;
+      }
     } catch (error) {
       console.warn('Error updating document attributes:', error);
     }
@@ -302,8 +304,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   useEffect(() => {
     // Set initial document direction and language
     try {
-      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = language;
+      if (typeof document !== 'undefined') {
+        document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.lang = language;
+      }
     } catch (error) {
       console.warn('Error setting document attributes in useEffect:', error);
     }

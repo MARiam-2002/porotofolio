@@ -54,7 +54,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         setTheme(theme === 'light' ? 'dark' : 'light');
     };
 
-    useEffect(() => {
+      useEffect(() => {
+    try {
+      if (typeof window !== 'undefined' && typeof document !== 'undefined') {
         const root = window.document.documentElement;
 
         // Remove existing theme classes
@@ -65,35 +67,41 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
         // Update CSS custom properties for toast styling
         if (theme === 'dark') {
-            document.documentElement.style.setProperty('--toast-bg', '#1f2937');
-            document.documentElement.style.setProperty('--toast-color', '#f9fafb');
-            document.documentElement.style.setProperty('--toast-border', '#374151');
+          document.documentElement.style.setProperty('--toast-bg', '#1f2937');
+          document.documentElement.style.setProperty('--toast-color', '#f9fafb');
+          document.documentElement.style.setProperty('--toast-border', '#374151');
         } else {
-            document.documentElement.style.setProperty('--toast-bg', '#ffffff');
-            document.documentElement.style.setProperty('--toast-color', '#111827');
-            document.documentElement.style.setProperty('--toast-border', '#e5e7eb');
+          document.documentElement.style.setProperty('--toast-bg', '#ffffff');
+          document.documentElement.style.setProperty('--toast-color', '#111827');
+          document.documentElement.style.setProperty('--toast-border', '#e5e7eb');
         }
-    }, [theme]);
+      }
+    } catch (error) {
+      console.warn('Error updating theme:', error);
+    }
+  }, [theme]);
 
     // Listen for system theme changes
     useEffect(() => {
         try {
-            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            if (typeof window !== 'undefined') {
+                const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-            const handleChange = (e: MediaQueryListEvent) => {
-                // Only update if user hasn't manually set a theme
-                try {
-                    if (!localStorage.getItem('theme')) {
-                        setTheme(e.matches ? 'dark' : 'light');
+                const handleChange = (e: MediaQueryListEvent) => {
+                    // Only update if user hasn't manually set a theme
+                    try {
+                        if (!localStorage.getItem('theme')) {
+                            setTheme(e.matches ? 'dark' : 'light');
+                        }
+                    } catch (error) {
+                        console.warn('Error checking localStorage:', error);
                     }
-                } catch (error) {
-                    console.warn('Error checking localStorage:', error);
-                }
-            };
+                };
 
-            mediaQuery.addEventListener('change', handleChange);
+                mediaQuery.addEventListener('change', handleChange);
 
-            return () => mediaQuery.removeEventListener('change', handleChange);
+                return () => mediaQuery.removeEventListener('change', handleChange);
+            }
         } catch (error) {
             console.warn('Error setting up theme listener:', error);
         }
