@@ -96,7 +96,115 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
   </head>
   <body class="bg-light-950 dark:bg-dark-950 text-dark-900 dark:text-light-100 font-sans antialiased">
+    <!-- Fallback loading screen -->
+    <style>
+      #root:empty::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        z-index: 9999;
+      }
+      
+      #root:empty::after {
+        content: 'Loading Portfolio...';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        color: #374151;
+        z-index: 10000;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+      }
+      
+      /* Hide fallback when content loads */
+      #root:not(:empty)::before,
+      #root:not(:empty)::after {
+        display: none;
+      }
+      
+      /* Prevent flash of unstyled content */
+      body {
+        visibility: hidden;
+      }
+      
+      body.loaded {
+        visibility: visible;
+      }
+    </style>
+    
     <div id="root"></div>
+    
+    <!-- Add body loaded class when DOM is ready -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('loaded');
+      });
+      
+      // Fallback for older browsers
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        document.body.classList.add('loaded');
+      }
+      
+      // Global error handler for unhandled JavaScript errors
+      window.addEventListener('error', function(event) {
+        console.error('Global error:', event.error);
+        
+        // If root is still empty after an error, show fallback
+        const root = document.getElementById('root');
+        if (root && !root.hasChildNodes()) {
+          root.innerHTML = `
+            <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); font-family: system-ui, -apple-system, sans-serif;">
+              <div style="text-align: center; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 400px;">
+                <div style="width: 48px; height: 48px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                  <span style="color: white; font-size: 24px;">⚠</span>
+                </div>
+                <h1 style="color: #1f2937; margin-bottom: 0.5rem; font-size: 1.5rem; font-weight: bold;">Application Error</h1>
+                <p style="color: #6b7280; margin-bottom: 1.5rem;">Something went wrong while loading the portfolio.</p>
+                <button onclick="window.location.reload()" style="background: #3b82f6; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; cursor: pointer; margin-right: 0.5rem;">
+                  Refresh Page
+                </button>
+                <button onclick="window.location.href='/'" style="background: #6b7280; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; cursor: pointer;">
+                  Go Home
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      });
+      
+      // Handle promise rejections
+      window.addEventListener('unhandledrejection', function(event) {
+        console.error('Unhandled promise rejection:', event.reason);
+      });
+    </script>
+    
     <script type="module" src="src/main.tsx"></script>
+    
+    <!-- Register Service Worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+              console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
