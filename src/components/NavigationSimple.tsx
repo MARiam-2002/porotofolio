@@ -52,182 +52,134 @@ const Navigation: React.FC = () => {
     return (
         <nav
             className={cn(
-                "fixed top-0 left-0 right-0 z-50 transition-all duration-700",
+                "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
                 scrolled
-                    ? "bg-white/10 dark:bg-slate-900/10 backdrop-blur-2xl shadow-2xl border-b border-white/20 dark:border-slate-700/20"
-                    : "bg-white/5 dark:bg-slate-900/5 backdrop-blur-xl border-b border-white/10 dark:border-slate-700/10"
+                    ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-xl border-b border-slate-200/50 dark:border-slate-700/50"
+                    : "bg-gradient-to-r from-blue-50/80 via-indigo-50/80 to-purple-50/80 dark:from-slate-900/80 dark:via-slate-800/80 dark:to-slate-900/80 backdrop-blur-sm"
             )}
-            style={{
-                background: scrolled
-                    ? 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(59,130,246,0.05) 50%, rgba(147,51,234,0.05) 100%)'
-                    : 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(59,130,246,0.02) 50%, rgba(147,51,234,0.02) 100%)'
-            }}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16 lg:h-20">
-                    {/* Ultra Premium Logo */}
-                    <div className="group relative">
-                        <Link to="/" className="flex items-center space-x-4 transition-all duration-500 hover:scale-105">
+                    {/* Logo */}
+                    <div className="hover:scale-105 active:scale-95 transition-transform duration-200">
+                        <Link to="/" className="flex items-center space-x-3 group">
                             {userData?.profilePicture?.url ? (
                                 <div className="relative">
-                                    <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl overflow-hidden border-2 border-white/20 dark:border-slate-700/20 backdrop-blur-xl shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:border-blue-400/50">
+                                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-2xl overflow-hidden ring-2 ring-blue-500/20 group-hover:ring-blue-500/40 transition-all duration-300">
                                         <img
                                             src={userData.profilePicture.url}
                                             alt={userData.name}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                            className="w-full h-full object-cover"
                                         />
                                     </div>
-                                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 animate-spin shadow-lg">
-                                        <Sparkles className="w-3 h-3 text-white" />
+                                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spin">
+                                        <Sparkles className="w-2 h-2 text-white" />
                                     </div>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-150"></div>
                                 </div>
                             ) : (
                                 <div className="relative">
-                                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-2xl flex items-center justify-center border-2 border-white/20 dark:border-slate-700/20 backdrop-blur-xl shadow-xl group-hover:shadow-2xl transition-all duration-500 group-hover:border-blue-400/50">
-                                        <span className="text-white font-black text-xl lg:text-2xl">M</span>
+                                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-500 rounded-2xl flex items-center justify-center ring-2 ring-blue-500/20 group-hover:ring-blue-500/40 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                                        <span className="text-white font-bold text-lg lg:text-xl">M</span>
                                     </div>
-                                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 animate-spin shadow-lg">
-                                        <Sparkles className="w-3 h-3 text-white" />
+                                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-spin">
+                                        <Sparkles className="w-2 h-2 text-white" />
                                     </div>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-150"></div>
                                 </div>
                             )}
                             <div className="hidden sm:block">
-                                <h1 className="text-xl lg:text-2xl font-black bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-500">
+                                <h1 className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-indigo-800 dark:from-slate-100 dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-indigo-600 transition-all duration-300">
                                     {userData?.name || 'Mahmoud Ahmed'}
                                 </h1>
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                    <p className="text-sm text-slate-600 dark:text-slate-400 font-semibold">
-                                        Flutter Developer
-                                    </p>
-                                </div>
+                                <p className="text-xs lg:text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                    Flutter Developer
+                                </p>
                             </div>
                         </Link>
                     </div>
 
-                    {/* Ultra Premium Desktop Navigation */}
-                    <div className="hidden lg:flex items-center space-x-2">
-                        {navItems.map((item, index) => (
-                            <div
-                                key={item.href}
-                                className="relative"
-                                style={{ animationDelay: `${index * 0.1}s` }}
-                            >
+                    {/* Desktop Navigation */}
+                    <div className="hidden lg:flex items-center space-x-1">
+                        {navItems.map((item) => (
+                            <div key={item.href}>
                                 <Link
                                     to={item.href}
                                     className={cn(
-                                        'group relative px-6 py-3 text-sm font-semibold rounded-2xl transition-all duration-500 hover:scale-110 hover:-translate-y-1',
+                                        'relative px-4 py-2 text-sm font-medium rounded-xl transition-all duration-300 group hover:scale-105',
                                         isActive(item.href)
-                                            ? 'text-white bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-2xl'
-                                            : 'text-slate-700 dark:text-slate-300 hover:text-white bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border border-white/20 dark:border-slate-700/20 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:shadow-xl'
+                                            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-md'
+                                            : 'text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                                     )}
                                 >
-                                    <div className="flex items-center space-x-2 relative z-10">
-                                        <span className={cn(
-                                            "text-lg transition-all duration-300",
-                                            isActive(item.href)
-                                                ? "opacity-100 scale-110"
-                                                : "opacity-0 group-hover:opacity-100 group-hover:scale-110"
-                                        )}>
+                                    <span className="flex items-center space-x-2">
+                                        <span className="text-base opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                             {item.icon}
                                         </span>
-                                        <span className="font-bold">{item.label}</span>
-                                    </div>
-
-                                    {/* Active indicator */}
+                                        <span>{item.label}</span>
+                                    </span>
                                     {isActive(item.href) && (
-                                        <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-100 rounded-2xl" />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-xl border border-blue-500/20" />
                                     )}
-
-                                    {/* Hover glow effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-150"></div>
                                 </Link>
                             </div>
                         ))}
                     </div>
 
-                    {/* Ultra Premium Controls */}
-                    <div className="flex items-center space-x-3">
+                    {/* Controls */}
+                    <div className="flex items-center space-x-2">
                         {/* Language Toggle */}
                         <button
                             onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-                            className="group relative p-3 text-slate-700 dark:text-slate-300 hover:text-white bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border border-white/20 dark:border-slate-700/20 rounded-2xl hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 transition-all duration-500 shadow-xl hover:shadow-2xl hover:scale-125 hover:-translate-y-1 hover:rotate-6 active:scale-90"
+                            className="p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md hover:scale-110 active:scale-90"
                             title={language === 'en' ? 'العربية' : 'English'}
                         >
-                            <Globe className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-150"></div>
+                            <Globe className="w-5 h-5" />
                         </button>
 
                         {/* Theme Toggle */}
                         <button
                             onClick={toggleTheme}
-                            className="group relative p-3 text-slate-700 dark:text-slate-300 hover:text-white bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border border-white/20 dark:border-slate-700/20 rounded-2xl hover:bg-gradient-to-r hover:from-amber-500 hover:to-orange-500 transition-all duration-500 shadow-xl hover:shadow-2xl hover:scale-125 hover:-translate-y-1 hover:rotate-6 active:scale-90"
+                            className="p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md hover:scale-110 active:scale-90"
                             title={theme === 'light' ? 'Dark Mode' : 'Light Mode'}
                         >
                             {theme === 'light' ? (
-                                <Moon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                                <Moon className="w-5 h-5" />
                             ) : (
-                                <Sun className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                                <Sun className="w-5 h-5" />
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-150"></div>
                         </button>
 
                         {/* Mobile Menu Button */}
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden group relative p-3 text-slate-700 dark:text-slate-300 hover:text-white bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border border-white/20 dark:border-slate-700/20 rounded-2xl hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 transition-all duration-500 shadow-xl hover:shadow-2xl hover:scale-125 hover:-translate-y-1 active:scale-90"
+                            className="lg:hidden p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md hover:scale-110 active:scale-90"
                         >
                             {isMenuOpen ? (
-                                <X className="w-6 h-6 group-hover:scale-110 group-hover:rotate-90 transition-all duration-300" />
+                                <X className="w-6 h-6" />
                             ) : (
-                                <Menu className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                                <Menu className="w-6 h-6" />
                             )}
-                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-150"></div>
                         </button>
                     </div>
                 </div>
 
-                {/* Ultra Premium Mobile Navigation */}
+                {/* Mobile Navigation */}
                 {isMenuOpen && (
                     <div className="lg:hidden">
-                        <div className="px-4 pt-4 pb-6 space-y-3 bg-white/10 dark:bg-slate-900/10 backdrop-blur-2xl rounded-3xl mt-6 border border-white/20 dark:border-slate-700/20 shadow-2xl"
-                            style={{
-                                background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(59,130,246,0.05) 50%, rgba(147,51,234,0.05) 100%)'
-                            }}>
-                            {navItems.map((item, index) => (
-                                <div
-                                    key={item.href}
-                                    style={{ animationDelay: `${index * 0.1}s` }}
-                                >
+                        <div className="px-2 pt-2 pb-4 space-y-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl mt-4 border border-slate-200/50 dark:border-slate-700/50 shadow-xl">
+                            {navItems.map((item) => (
+                                <div key={item.href}>
                                     <Link
                                         to={item.href}
                                         onClick={() => setIsMenuOpen(false)}
                                         className={cn(
-                                            'group flex items-center space-x-4 px-6 py-4 text-lg font-semibold rounded-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-1 relative',
+                                            'flex items-center space-x-3 px-4 py-3 text-base font-medium rounded-xl transition-all duration-300',
                                             isActive(item.href)
-                                                ? 'text-white bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-xl'
-                                                : 'text-slate-700 dark:text-slate-300 hover:text-white bg-white/10 dark:bg-slate-800/10 backdrop-blur-xl border border-white/20 dark:border-slate-700/20 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:shadow-xl'
+                                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-md'
+                                                : 'text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                                         )}
                                     >
-                                        <span className={cn(
-                                            "text-2xl transition-all duration-300",
-                                            isActive(item.href)
-                                                ? "opacity-100 scale-110"
-                                                : "opacity-80 group-hover:opacity-100 group-hover:scale-110"
-                                        )}>
-                                            {item.icon}
-                                        </span>
-                                        <span className="font-bold">{item.label}</span>
-
-                                        {/* Active indicator */}
-                                        {isActive(item.href) && (
-                                            <div className="ml-auto w-3 h-3 bg-white/30 rounded-full animate-pulse" />
-                                        )}
-
-                                        {/* Hover glow effect */}
-                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10 scale-150"></div>
+                                        <span className="text-lg">{item.icon}</span>
+                                        <span>{item.label}</span>
                                     </Link>
                                 </div>
                             ))}
