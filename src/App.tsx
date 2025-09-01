@@ -4,7 +4,7 @@ import { LanguageProvider } from './contexts/LanguageContext'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 
-import Home from './pages/Home'
+import Home from './pages/HomeAnimated'
 import Projects from './pages/Projects'
 import ProjectDetails from './pages/ProjectDetails'
 import Experience from './pages/Experience'

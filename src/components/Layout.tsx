@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
-import Navigation from './Navigation';
+import Navigation from './NavigationSimple';
 import Footer from './Footer';
 
 interface LayoutProps {

@@ -3,10 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Menu, X, Sun, Moon, Globe, Sparkles } from 'lucide-react';
-// Removed framer-motion for stability
 import { cn } from '@/utils';
 
-const Navigation: React.FC = () => {
+const NavigationSimple: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [userData, setUserData] = useState<any>(null);
     const [scrolled, setScrolled] = useState(false);
@@ -100,13 +99,8 @@ const Navigation: React.FC = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center space-x-1">
-                        {navItems.map((item, index) => (
-                            <div
-                                key={item.href}
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                            >
+                        {navItems.map((item) => (
+                            <div key={item.href}>
                                 <Link
                                     to={item.href}
                                     className={cn(
@@ -123,12 +117,7 @@ const Navigation: React.FC = () => {
                                         <span>{item.label}</span>
                                     </span>
                                     {isActive(item.href) && (
-                                        <div
-                                            layoutId="activeTab"
-                                            className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-xl border border-blue-500/20"
-                                            initial={false}
-                                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-xl border border-blue-500/20" />
                                     )}
                                 </Link>
                             </div>
@@ -139,10 +128,8 @@ const Navigation: React.FC = () => {
                     <div className="flex items-center space-x-2">
                         {/* Language Toggle */}
                         <button
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                            whileTap={{ scale: 0.9 }}
                             onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-                            className="p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md"
+                            className="p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md hover:scale-110 active:scale-90"
                             title={language === 'en' ? 'العربية' : 'English'}
                         >
                             <Globe className="w-5 h-5" />
@@ -150,111 +137,58 @@ const Navigation: React.FC = () => {
 
                         {/* Theme Toggle */}
                         <button
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                            whileTap={{ scale: 0.9 }}
                             onClick={toggleTheme}
-                            className="p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md"
+                            className="p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md hover:scale-110 active:scale-90"
                             title={theme === 'light' ? 'Dark Mode' : 'Light Mode'}
                         >
-                            <AnimatePresence mode="wait">
-                                {theme === 'light' ? (
-                                    <div
-                                        key="moon"
-                                        initial={{ rotate: -90, opacity: 0 }}
-                                        animate={{ rotate: 0, opacity: 1 }}
-                                        exit={{ rotate: 90, opacity: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        <Moon className="w-5 h-5" />
-                                    </div>
-                                ) : (
-                                    <div
-                                        key="sun"
-                                        initial={{ rotate: 90, opacity: 0 }}
-                                        animate={{ rotate: 0, opacity: 1 }}
-                                        exit={{ rotate: -90, opacity: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        <Sun className="w-5 h-5" />
-                                    </div>
-                                )}
-                            </AnimatePresence>
+                            {theme === 'light' ? (
+                                <Moon className="w-5 h-5" />
+                            ) : (
+                                <Sun className="w-5 h-5" />
+                            )}
                         </button>
 
                         {/* Mobile Menu Button */}
                         <button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md"
+                            className="lg:hidden p-2.5 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 bg-slate-100 dark:bg-slate-800 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 shadow-sm hover:shadow-md hover:scale-110 active:scale-90"
                         >
-                            <AnimatePresence mode="wait">
-                                {isMenuOpen ? (
-                                    <div
-                                        key="close"
-                                        initial={{ rotate: -90, opacity: 0 }}
-                                        animate={{ rotate: 0, opacity: 1 }}
-                                        exit={{ rotate: 90, opacity: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        <X className="w-6 h-6" />
-                                    </div>
-                                ) : (
-                                    <div
-                                        key="menu"
-                                        initial={{ rotate: 90, opacity: 0 }}
-                                        animate={{ rotate: 0, opacity: 1 }}
-                                        exit={{ rotate: -90, opacity: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                    >
-                                        <Menu className="w-6 h-6" />
-                                    </div>
-                                )}
-                            </AnimatePresence>
+                            {isMenuOpen ? (
+                                <X className="w-6 h-6" />
+                            ) : (
+                                <Menu className="w-6 h-6" />
+                            )}
                         </button>
                     </div>
                 </div>
 
                 {/* Mobile Navigation */}
-                <AnimatePresence>
-                    {isMenuOpen && (
-                        <div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="lg:hidden overflow-hidden"
-                        >
-                            <div className="px-2 pt-2 pb-4 space-y-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl mt-4 border border-slate-200/50 dark:border-slate-700/50 shadow-xl">
-                                {navItems.map((item, index) => (
-                                    <div
-                                        key={item.href}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                {isMenuOpen && (
+                    <div className="lg:hidden">
+                        <div className="px-2 pt-2 pb-4 space-y-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl mt-4 border border-slate-200/50 dark:border-slate-700/50 shadow-xl">
+                            {navItems.map((item) => (
+                                <div key={item.href}>
+                                    <Link
+                                        to={item.href}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className={cn(
+                                            'flex items-center space-x-3 px-4 py-3 text-base font-medium rounded-xl transition-all duration-300',
+                                            isActive(item.href)
+                                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-md'
+                                                : 'text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                                        )}
                                     >
-                                        <Link
-                                            to={item.href}
-                                            onClick={() => setIsMenuOpen(false)}
-                                            className={cn(
-                                                'flex items-center space-x-3 px-4 py-3 text-base font-medium rounded-xl transition-all duration-300',
-                                                isActive(item.href)
-                                                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-md'
-                                                    : 'text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                                            )}
-                                        >
-                                            <span className="text-lg">{item.icon}</span>
-                                            <span>{item.label}</span>
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
+                                        <span className="text-lg">{item.icon}</span>
+                                        <span>{item.label}</span>
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
-                    )}
-                </AnimatePresence>
+                    </div>
+                )}
             </div>
-        </motion.nav>
+        </nav>
     );
 };
 
-export default Navigation;
+export default NavigationSimple;
