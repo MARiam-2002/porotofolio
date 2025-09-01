@@ -447,60 +447,65 @@ const HomeAnimated: React.FC = () => {
                     </div>
                 </section>
 
-                {/* Skills Section */}
-                <section className="py-20 lg:py-24 bg-gradient-to-br from-white via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-                    {/* Background Elements */}
+                {/* Skills Section - Modern 2025 Design */}
+                <section className="py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
+                    {/* Modern Background Pattern */}
                     <div className="absolute inset-0 overflow-hidden">
-                        <div className="absolute top-40 right-40 w-64 h-64 bg-gradient-to-br from-blue-400/15 to-indigo-600/15 rounded-full blur-2xl animate-pulse-slow"></div>
-                        <div className="absolute bottom-40 left-40 w-80 h-80 bg-gradient-to-br from-indigo-400/15 to-blue-600/15 rounded-full blur-2xl animate-pulse-slow delay-500"></div>
+                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-indigo-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-purple-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse-slow delay-700"></div>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-cyan-400/5 to-blue-600/5 rounded-full blur-3xl animate-pulse-slow delay-300"></div>
                     </div>
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                        <div className={`text-center mb-16 ${fadeInUp}`}>
-                            <div className={`inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-600 dark:text-blue-400 font-medium mb-6 ${scaleIn} delay-100`}>
-                                <Sparkles className="w-4 h-4 animate-spin-slow" />
-                                <span>Technical Expertise</span>
+                        {/* Modern Header */}
+                        <div className={`text-center mb-20 ${fadeInUp}`}>
+                            <div className={`inline-flex items-center space-x-3 px-6 py-3 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-full text-blue-600 dark:text-blue-400 font-semibold mb-8 backdrop-blur-sm ${scaleIn} delay-100`}>
+                                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                                <span className="text-sm uppercase tracking-wider">Technical Expertise</span>
+                                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-300"></div>
                             </div>
 
-                            <h2 className={`text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-6 ${fadeInUp} delay-200`}>
+                            <h2 className={`text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent mb-8 leading-tight ${fadeInUp} delay-200`}>
                                 Skills & Technologies
                             </h2>
 
-                            <p className={`text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed ${fadeInUp} delay-300`}>
-                                My technical expertise and the tools I use to build amazing applications
+                            <p className={`text-xl text-slate-600 dark:text-slate-400 max-w-4xl mx-auto leading-relaxed ${fadeInUp} delay-300`}>
+                                Crafting exceptional digital experiences with cutting-edge technologies and modern development practices
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {/* Programming Languages */}
-                            <div className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2 ${scaleIn} delay-400`}>
-                                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg hover:scale-110 hover:rotate-6 transition-all duration-300 cursor-pointer">
-                                    <span className="text-3xl">💻</span>
+                        {/* Modern Skills Grid */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+                            {/* Programming Languages Card */}
+                            <div className={`group bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl p-8 shadow-2xl hover:shadow-3xl border border-slate-200/50 dark:border-slate-700/50 transition-all duration-700 hover:-translate-y-3 ${scaleIn} delay-400`}>
+                                <div className="flex items-center mb-8">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                                        <span className="text-2xl">💻</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Programming Languages</h3>
+                                        <p className="text-slate-600 dark:text-slate-400">Core development languages</p>
+                                    </div>
                                 </div>
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                    Programming Languages
-                                </h3>
-                                <div className="space-y-4">
+
+                                <div className="grid grid-cols-2 gap-4">
                                     {[
-                                        { name: 'C++', level: 90, color: 'from-blue-500 to-blue-600', icon: '🔧' },
-                                        { name: 'Dart', level: 95, color: 'from-cyan-500 to-cyan-600', icon: '🎯' },
-                                        { name: 'HTML', level: 88, color: 'from-orange-500 to-orange-600', icon: '🌐' },
-                                        { name: 'CSS', level: 85, color: 'from-pink-500 to-pink-600', icon: '🎨' }
+                                        { name: 'C++', level: 90, color: 'from-blue-500 to-blue-600', bgColor: 'bg-blue-50 dark:bg-blue-900/20', textColor: 'text-blue-700 dark:text-blue-300' },
+                                        { name: 'Dart', level: 95, color: 'from-cyan-500 to-cyan-600', bgColor: 'bg-cyan-50 dark:bg-cyan-900/20', textColor: 'text-cyan-700 dark:text-cyan-300' },
+                                        { name: 'HTML', level: 88, color: 'from-orange-500 to-orange-600', bgColor: 'bg-orange-50 dark:bg-orange-900/20', textColor: 'text-orange-700 dark:text-orange-300' },
+                                        { name: 'CSS', level: 85, color: 'from-pink-500 to-pink-600', bgColor: 'bg-pink-50 dark:bg-pink-900/20', textColor: 'text-pink-700 dark:text-pink-300' }
                                     ].map((skill, index) => (
-                                        <div key={skill.name} className={`space-y-2 ${scaleIn}`} style={{ animationDelay: `${0.6 + index * 0.1}s` }}>
-                                            <div className="flex justify-between items-center">
-                                                <div className="flex items-center space-x-2">
-                                                    <span className="text-lg">{skill.icon}</span>
-                                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{skill.name}</span>
-                                                </div>
-                                                <span className="text-sm font-bold text-blue-600 dark:text-blue-400">{skill.level}%</span>
+                                        <div key={skill.name} className={`p-4 ${skill.bgColor} rounded-2xl hover:scale-105 transition-all duration-300 ${scaleIn}`} style={{ animationDelay: `${0.6 + index * 0.1}s` }}>
+                                            <div className="flex justify-between items-center mb-3">
+                                                <span className={`font-semibold ${skill.textColor}`}>{skill.name}</span>
+                                                <span className={`text-sm font-bold ${skill.textColor}`}>{skill.level}%</span>
                                             </div>
-                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                                            <div className="w-full bg-white/50 dark:bg-slate-700/50 rounded-full h-2 overflow-hidden">
                                                 <div
-                                                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out`}
+                                                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1500 ease-out`}
                                                     style={{
                                                         width: `${skill.level}%`,
-                                                        animationDelay: `${0.8 + index * 0.1}s`
+                                                        animationDelay: `${0.8 + index * 0.2}s`
                                                     }}
                                                 />
                                             </div>
@@ -509,148 +514,142 @@ const HomeAnimated: React.FC = () => {
                                 </div>
                             </div>
 
-                            {/* Frameworks */}
-                            <div className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2 ${scaleIn} delay-500`}>
-                                <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg hover:scale-110 hover:rotate-6 transition-all duration-300 cursor-pointer">
-                                    <span className="text-3xl">⚡</span>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                    Libraries/Frameworks
-                                </h3>
-                                <div className="space-y-6">
-                                    <div className={`p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-200/50 dark:border-blue-700/50 hover:scale-105 transition-all duration-300 ${scaleIn}`} style={{ animationDelay: '0.7s' }}>
-                                        <div className="flex items-center justify-center space-x-3 mb-3">
-                                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                                                <span className="text-white text-xl font-bold">F</span>
-                                            </div>
-                                            <div>
-                                                <h4 className="text-xl font-bold text-gray-900 dark:text-white">Flutter</h4>
-                                                <p className="text-sm text-gray-600 dark:text-gray-400">Cross-platform framework</p>
-                                            </div>
-                                        </div>
-                                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
-                                            <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-1000 ease-out" style={{ width: '95%', animationDelay: '0.9s' }} />
-                                        </div>
-                                        <div className="text-right mt-2">
-                                            <span className="text-sm font-bold text-blue-600 dark:text-blue-400">95%</span>
-                                        </div>
+                            {/* Frameworks & Tools Combined Card */}
+                            <div className={`group bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-3xl p-8 shadow-2xl hover:shadow-3xl border border-slate-200/50 dark:border-slate-700/50 transition-all duration-700 hover:-translate-y-3 ${scaleIn} delay-500`}>
+                                <div className="flex items-center mb-8">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                                        <span className="text-2xl">⚡</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Frameworks & Tools</h3>
+                                        <p className="text-slate-600 dark:text-slate-400">Development ecosystem</p>
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Tools & Platforms */}
-                            <div className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2 ${scaleIn} delay-600`}>
-                                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg hover:scale-110 hover:rotate-6 transition-all duration-300 cursor-pointer">
-                                    <span className="text-3xl">🛠️</span>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                    Tools / Platforms
-                                </h3>
                                 <div className="space-y-4">
-                                    {[
-                                        { name: 'Firebase', level: 88, color: 'from-orange-500 to-yellow-500', icon: '🔥' },
-                                        { name: 'Git', level: 85, color: 'from-red-500 to-pink-500', icon: '📝' },
-                                        { name: 'GitHub', level: 90, color: 'from-gray-600 to-gray-800', icon: '🐙' }
-                                    ].map((tool, index) => (
-                                        <div key={tool.name} className={`space-y-2 ${scaleIn}`} style={{ animationDelay: `${0.8 + index * 0.1}s` }}>
-                                            <div className="flex justify-between items-center">
-                                                <div className="flex items-center space-x-2">
-                                                    <span className="text-lg">{tool.icon}</span>
-                                                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tool.name}</span>
+                                    {/* Flutter - Featured */}
+                                    <div className={`p-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl border border-blue-200/50 dark:border-blue-700/50 hover:scale-105 transition-all duration-300 ${scaleIn}`} style={{ animationDelay: '0.7s' }}>
+                                        <div className="flex items-center justify-between mb-4">
+                                            <div className="flex items-center space-x-3">
+                                                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                                                    <span className="text-white text-lg font-bold">F</span>
                                                 </div>
-                                                <span className="text-sm font-bold text-purple-600 dark:text-purple-400">{tool.level}%</span>
+                                                <div>
+                                                    <h4 className="text-xl font-bold text-slate-900 dark:text-white">Flutter</h4>
+                                                    <p className="text-sm text-slate-600 dark:text-slate-400">Cross-platform framework</p>
+                                                </div>
                                             </div>
-                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
-                                                <div
-                                                    className={`h-full bg-gradient-to-r ${tool.color} rounded-full transition-all duration-1000 ease-out`}
-                                                    style={{
-                                                        width: `${tool.level}%`,
-                                                        animationDelay: `${1.0 + index * 0.1}s`
-                                                    }}
-                                                />
-                                            </div>
+                                            <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">95%</span>
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
+                                        <div className="w-full bg-white/50 dark:bg-slate-700/50 rounded-full h-3 overflow-hidden">
+                                            <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-1500 ease-out" style={{ width: '95%', animationDelay: '0.9s' }} />
+                                        </div>
+                                    </div>
 
-                            {/* Databases */}
-                            <div className={`bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2 ${scaleIn} delay-700`}>
-                                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg hover:scale-110 hover:rotate-6 transition-all duration-300 cursor-pointer">
-                                    <span className="text-3xl">🗄️</span>
-                                </div>
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                    Databases
-                                </h3>
-                                <div className="space-y-6">
-                                    <div className={`p-6 bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-2xl border border-green-200/50 dark:border-green-700/50 hover:scale-105 transition-all duration-300 ${scaleIn}`} style={{ animationDelay: '0.9s' }}>
-                                        <div className="flex items-center justify-center space-x-3 mb-3">
-                                            <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-xl flex items-center justify-center">
-                                                <span className="text-white text-xl font-bold">H</span>
+                                    {/* Tools Grid */}
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                        {[
+                                            { name: 'Firebase', level: 88, color: 'from-orange-500 to-yellow-500', bgColor: 'bg-orange-50 dark:bg-orange-900/20' },
+                                            { name: 'Git', level: 85, color: 'from-red-500 to-pink-500', bgColor: 'bg-red-50 dark:bg-red-900/20' },
+                                            { name: 'GitHub', level: 90, color: 'from-gray-600 to-gray-800', bgColor: 'bg-gray-50 dark:bg-gray-700/20' }
+                                        ].map((tool, index) => (
+                                            <div key={tool.name} className={`p-4 ${tool.bgColor} rounded-xl hover:scale-105 transition-all duration-300 ${scaleIn}`} style={{ animationDelay: `${0.8 + index * 0.1}s` }}>
+                                                <div className="text-center">
+                                                    <h5 className="font-semibold text-slate-900 dark:text-white mb-2">{tool.name}</h5>
+                                                    <div className="w-full bg-white/50 dark:bg-slate-600/50 rounded-full h-2 overflow-hidden mb-1">
+                                                        <div
+                                                            className={`h-full bg-gradient-to-r ${tool.color} rounded-full transition-all duration-1000 ease-out`}
+                                                            style={{
+                                                                width: `${tool.level}%`,
+                                                                animationDelay: `${1.0 + index * 0.1}s`
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <span className="text-xs font-bold text-slate-600 dark:text-slate-400">{tool.level}%</span>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 className="text-xl font-bold text-gray-900 dark:text-white">Hive Flutter</h4>
-                                                <p className="text-sm text-gray-600 dark:text-gray-400">Local database</p>
+                                        ))}
+                                    </div>
+
+                                    {/* Hive Database */}
+                                    <div className={`p-4 bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-900/20 dark:to-teal-900/20 rounded-2xl border border-green-200/50 dark:border-green-700/50 hover:scale-105 transition-all duration-300 ${scaleIn}`} style={{ animationDelay: '1.1s' }}>
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center space-x-3">
+                                                <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-teal-500 rounded-lg flex items-center justify-center">
+                                                    <span className="text-white text-sm font-bold">H</span>
+                                                </div>
+                                                <div>
+                                                    <h5 className="font-semibold text-slate-900 dark:text-white">Hive Flutter</h5>
+                                                    <p className="text-xs text-slate-600 dark:text-slate-400">Local database</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
-                                            <div className="h-full bg-gradient-to-r from-green-500 to-teal-500 rounded-full transition-all duration-1000 ease-out" style={{ width: '82%', animationDelay: '1.1s' }} />
-                                        </div>
-                                        <div className="text-right mt-2">
-                                            <span className="text-sm font-bold text-green-600 dark:text-green-400">82%</span>
+                                            <div className="text-right">
+                                                <span className="text-lg font-bold text-green-600 dark:text-green-400">82%</span>
+                                                <div className="w-16 bg-white/50 dark:bg-slate-600/50 rounded-full h-2 overflow-hidden mt-1">
+                                                    <div className="h-full bg-gradient-to-r from-green-500 to-teal-500 rounded-full transition-all duration-1000 ease-out" style={{ width: '82%', animationDelay: '1.3s' }} />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Skills Summary Cards */}
-                        <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 ${fadeInUp} delay-800`}>
-                            <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-2xl p-6 backdrop-blur-sm hover:scale-105 transition-all duration-300">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
-                                        <span className="text-white text-xl">🚀</span>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white">Mobile Development</h4>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Cross-platform apps with Flutter</p>
+                        {/* Modern Specializations */}
+                        <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 ${fadeInUp} delay-800`}>
+                            {[
+                                {
+                                    title: 'Mobile Development',
+                                    description: 'Cross-platform applications with Flutter',
+                                    icon: '📱',
+                                    gradient: 'from-blue-500 to-cyan-500',
+                                    bgGradient: 'from-blue-500/10 to-cyan-500/10',
+                                    borderColor: 'border-blue-500/20'
+                                },
+                                {
+                                    title: 'UI/UX Design',
+                                    description: 'Beautiful and intuitive user interfaces',
+                                    icon: '🎨',
+                                    gradient: 'from-purple-500 to-pink-500',
+                                    bgGradient: 'from-purple-500/10 to-pink-500/10',
+                                    borderColor: 'border-purple-500/20'
+                                },
+                                {
+                                    title: 'Performance',
+                                    description: 'Optimized and lightning-fast applications',
+                                    icon: '⚡',
+                                    gradient: 'from-green-500 to-teal-500',
+                                    bgGradient: 'from-green-500/10 to-teal-500/10',
+                                    borderColor: 'border-green-500/20'
+                                }
+                            ].map((spec, index) => (
+                                <div key={spec.title} className={`group bg-gradient-to-r ${spec.bgGradient} border ${spec.borderColor} rounded-2xl p-6 backdrop-blur-sm hover:scale-105 hover:-translate-y-2 transition-all duration-500 ${scaleIn}`} style={{ animationDelay: `${0.9 + index * 0.1}s` }}>
+                                    <div className="flex items-start space-x-4">
+                                        <div className={`w-14 h-14 bg-gradient-to-r ${spec.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                                            <span className="text-2xl">{spec.icon}</span>
+                                        </div>
+                                        <div className="flex-1">
+                                            <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-slate-900 group-hover:to-slate-700 dark:group-hover:from-white dark:group-hover:to-slate-300 transition-all duration-300">
+                                                {spec.title}
+                                            </h4>
+                                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                                {spec.description}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl p-6 backdrop-blur-sm hover:scale-105 transition-all duration-300">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                                        <span className="text-white text-xl">🎨</span>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white">UI/UX Design</h4>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Beautiful and intuitive interfaces</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-gradient-to-r from-green-500/10 to-teal-500/10 border border-green-500/20 rounded-2xl p-6 backdrop-blur-sm hover:scale-105 transition-all duration-300">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-xl flex items-center justify-center">
-                                        <span className="text-white text-xl">⚡</span>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-lg font-bold text-gray-900 dark:text-white">Performance</h4>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">Optimized and fast applications</p>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
 
-                        {/* View All Skills Button */}
-                        <div className={`text-center mt-16 ${fadeInUp} delay-900`}>
+                        {/* Modern CTA Button */}
+                        <div className={`text-center ${fadeInUp} delay-1000`}>
                             <a
                                 href="/skills"
-                                className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                                className="group relative inline-flex items-center px-10 py-5 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold text-lg rounded-2xl hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 transition-all duration-500 shadow-2xl hover:shadow-3xl hover:scale-110 hover:-translate-y-1 overflow-hidden"
                             >
-                                <span>View All Skills</span>
-                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                <span className="relative z-10">Explore All Skills</span>
+                                <ArrowRight className="relative z-10 ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform duration-500" />
                             </a>
                         </div>
                     </div>
