@@ -5,7 +5,6 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { Menu, X, Sun, Moon, Globe, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utils';
-import { userApi } from '@/services/api';
 
 const Navigation: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,25 +15,13 @@ const Navigation: React.FC = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await userApi.getProfile();
-                if (response.success) {
-                    setUserData(response.data);
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-                // Set fallback data if API fails
-                setUserData({
-                    name: 'Mahmoud Ahmed',
-                    profilePicture: {
-                        url: '/97337243.jpeg'
-                    }
-                });
+        // Set fallback data directly
+        setUserData({
+            name: 'Mahmoud Ahmed',
+            profilePicture: {
+                url: '/97337243.jpeg'
             }
-        };
-
-        fetchUserData();
+        });
     }, []);
 
     // Handle scroll effect

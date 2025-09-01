@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
 import { userApi } from '@/services/api';
 
 // تعريف نوع بيانات المستخدم
@@ -13,26 +13,30 @@ interface UserProfile {
     url: string;
     public_id: string;
   };
-  // يمكن إضافة المزيد من الحقول حسب الحاجة
 }
 
 /**
- * هوك مخصص لجلب بيانات المستخدم مع تخزين مؤقت للصورة الشخصية
- * يستخدم React Query للتخزين المؤقت وإعادة استخدام البيانات
+ * هوك مخصص لجلب بيانات المستخدم
  */
 export const useUserProfile = () => {
-  return useQuery<UserProfile, Error>(
-    'userProfile', // مفتاح التخزين المؤقت
-    async () => {
+  const [data, setData] = useState<UserProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
       try {
+        setIsLoading(true);
         const response = await userApi.getProfile();
         if (response.success && response.data) {
-          return response.data as UserProfile;
+          setData(response.data as UserProfile);
+        } else {
+          throw new Error('Failed to fetch user profile');
         }
-        throw new Error('Failed to fetch user profile');
-      } catch (error) {
+      } catch (err) {
+        console.error('Error fetching user profile:', err);
         // Return fallback data if API fails
-        return {
+        setData({
           _id: 'fallback',
           name: 'Mahmoud Ahmed',
           email: 'mahmoudabuelazem2467@gmail.com',
@@ -43,19 +47,15 @@ export const useUserProfile = () => {
             url: '/97337243.jpeg',
             public_id: 'fallback-profile'
           }
-        } as UserProfile;
+        });
+        setError(null); // Clear error since we have fallback data
+      } finally {
+        setIsLoading(false);
       }
-    },
-    {
-      staleTime: 1000 * 60 * 60, // تعتبر البيانات صالحة لمدة ساعة
-      cacheTime: 1000 * 60 * 60 * 24, // تبقى في ذاكرة التخزين المؤقت لمدة يوم
-      refetchOnWindowFocus: false, // لا تقم بإعادة الجلب عند التركيز على النافذة
-      refetchOnMount: false, // لا تقم بإعادة الجلب عند تركيب المكون
-      retry: 1, // محاولة واحدة فقط
-      retryDelay: 1000, // انتظار ثانية واحدة قبل المحاولة
-      onError: (error) => {
-        console.error('Error fetching user profile:', error);
-      },
-    }
-  );
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  return { data, isLoading, error };
 };

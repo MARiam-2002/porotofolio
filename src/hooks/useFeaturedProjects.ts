@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useState, useEffect } from 'react';
 import { projectApi } from '@/services/api';
 
 interface Project {
@@ -55,18 +55,24 @@ interface UseFeaturedProjectsReturn {
 }
 
 export const useFeaturedProjects = (): UseFeaturedProjectsReturn => {
-    const { data: projects = [], isLoading: loading, error } = useQuery<Project[], Error>(
-        'featuredProjects',
-        async () => {
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchFeaturedProjects = async () => {
             try {
+                setLoading(true);
                 const response = await projectApi.getFeatured();
                 if (response.success) {
-                    return response.data;
+                    setProjects(response.data);
+                } else {
+                    throw new Error(response.message || 'Failed to fetch featured projects');
                 }
-                throw new Error(response.message || 'Failed to fetch featured projects');
-            } catch (error) {
+            } catch (err) {
+                console.error('Error fetching featured projects:', err);
                 // Return fallback data if API fails
-                return [
+                setProjects([
                     {
                         _id: 'fallback-1',
                         title: 'Wanna Meal',
@@ -125,25 +131,19 @@ export const useFeaturedProjects = (): UseFeaturedProjectsReturn => {
                         isPublished: true,
                         slug: 'movie-explorer'
                     }
-                ] as Project[];
+                ]);
+                setError(null); // Clear error since we have fallback data
+            } finally {
+                setLoading(false);
             }
-        },
-        {
-            staleTime: 1000 * 60 * 30, // 30 minutes
-            cacheTime: 1000 * 60 * 60 * 2, // 2 hours
-            refetchOnWindowFocus: false,
-            refetchOnMount: false,
-            retry: 1,
-            retryDelay: 1000,
-            onError: (error) => {
-                console.error('Error fetching featured projects:', error);
-            },
-        }
-    );
+        };
+
+        fetchFeaturedProjects();
+    }, []);
 
     return {
         projects,
         loading,
-        error: error ? error.message : null
+        error
     };
 };
