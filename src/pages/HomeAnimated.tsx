@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, Sparkles, Star, Zap, Award, Users, Clock, CheckCircle, ExternalLink } from 'lucide-react';
+import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, Sparkles, Star, Zap, Award, Users } from 'lucide-react';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useFeaturedProjects } from '@/hooks/useFeaturedProjects';
 import { Link } from 'react-router-dom';

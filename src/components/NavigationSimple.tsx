@@ -5,7 +5,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { Menu, X, Sun, Moon, Globe, Sparkles } from 'lucide-react';
 import { cn } from '@/utils';
 
-const NavigationSimple: React.FC = () => {
+const Navigation: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [userData, setUserData] = useState<any>(null);
     const [scrolled, setScrolled] = useState(false);
@@ -191,4 +191,4 @@ const NavigationSimple: React.FC = () => {
     );
 };
 
-export default NavigationSimple;
+export default Navigation;
