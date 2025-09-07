@@ -163,7 +163,7 @@ const HomeAnimated: React.FC = () => {
                 .delay-800 { animation-delay: 0.8s; }
             `}</style>
 
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 bg-pattern">
                 {/* Hero Section */}
                 <section className="relative overflow-hidden pt-24 lg:pt-32 pb-6 lg:pb-12">
                     {/* Background Elements */}
@@ -177,7 +177,7 @@ const HomeAnimated: React.FC = () => {
                             {/* Content */}
                             <div className={`space-y-6 relative z-10 ${fadeInLeft}`}>
                                 {/* Badge */}
-                                <div className={`inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-full text-blue-700 dark:text-blue-400 font-medium backdrop-blur-sm ${scaleIn} delay-100`}>
+                                <div className={`badge badge-secondary border-gradient glow-blue inline-flex items-center space-x-2 ${scaleIn} delay-100`}>
                                     <Sparkles className="w-4 h-4 animate-spin-slow" />
                                     <span>Available for new opportunities</span>
                                 </div>
@@ -188,7 +188,7 @@ const HomeAnimated: React.FC = () => {
                                             {t('hero.greeting')}
                                         </span>
                                         <br />
-                                        <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                                        <span className="gradient-text">
                                             {t('hero.name')}
                                         </span>
                                     </h1>
@@ -207,15 +207,15 @@ const HomeAnimated: React.FC = () => {
 
                                 {/* Stats */}
                                 <div className={`grid grid-cols-3 gap-4 py-4 ${fadeInUp} delay-500`}>
-                                    <div className="text-center transform hover:scale-105 transition-transform duration-300">
+                                    <div className="card card-hover text-center transition-transform duration-300 p-4">
                                         <div className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-1">5+</div>
                                         <div className="text-sm text-slate-600 dark:text-slate-400">Projects</div>
                                     </div>
-                                    <div className="text-center transform hover:scale-105 transition-transform duration-300">
+                                    <div className="card card-hover text-center transition-transform duration-300 p-4">
                                         <div className="text-xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">3+</div>
                                         <div className="text-sm text-slate-600 dark:text-slate-400">Years</div>
                                     </div>
-                                    <div className="text-center transform hover:scale-105 transition-transform duration-300">
+                                    <div className="card card-hover text-center transition-transform duration-300 p-4">
                                         <div className="text-xl font-bold text-purple-600 dark:text-purple-400 mb-1">10+</div>
                                         <div className="text-sm text-slate-600 dark:text-slate-400">Clients</div>
                                     </div>
@@ -223,7 +223,7 @@ const HomeAnimated: React.FC = () => {
 
                                 {/* CTA Buttons */}
                                 <div className={`flex flex-col sm:flex-row gap-4 ${fadeInUp} delay-600`}>
-                                    <button className="group inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+                                    <button className="btn btn-primary group inline-flex items-center justify-center">
                                         <span>{t('hero.cta.primary')}</span>
                                         <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                                     </button>
@@ -231,7 +231,7 @@ const HomeAnimated: React.FC = () => {
                                     <a
                                         href="/cv.pdf"
                                         download="Mahmoud_Ahmed_CV.pdf"
-                                        className="group inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                                        className="btn btn-outline group inline-flex items-center justify-center"
                                     >
                                         <Download className="mr-2 w-5 h-5 group-hover:animate-bounce" />
                                         {t('hero.cta.secondary')}
@@ -297,12 +297,12 @@ const HomeAnimated: React.FC = () => {
                 <section className="py-20 lg:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         <div className={`text-center mb-12 ${fadeInUp}`}>
-                            <div className={`inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-full text-blue-600 dark:text-blue-400 font-medium mb-6 ${scaleIn} delay-100`}>
+                            <div className={`badge badge-secondary border-gradient glow-blue inline-flex items-center space-x-2 mb-6 ${scaleIn} delay-100`}>
                                 <Sparkles className="w-4 h-4 animate-spin-slow" />
                                 <span>Featured Work</span>
                             </div>
 
-                            <h2 className={`text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 dark:from-white dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent mb-6 ${fadeInUp} delay-200`}>
+                            <h2 className={`section-title mb-6 ${fadeInUp} delay-200`}>
                                 {t('projects.title')}
                             </h2>
 
@@ -337,7 +337,7 @@ const HomeAnimated: React.FC = () => {
                                 featuredProjects.slice(0, 3).map((project, index) => (
                                     <div
                                         key={project._id}
-                                        className={`group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2 ${scaleIn}`}
+                                        className={`group project-card hover:-translate-y-2 ${scaleIn}`}
                                         style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                                     >
                                         <div className="h-56 relative overflow-hidden">
@@ -345,7 +345,7 @@ const HomeAnimated: React.FC = () => {
                                                 <OptimizedImage
                                                     src={project.cover.url}
                                                     alt={project.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                    className="project-image w-full h-full object-cover"
                                                     showLoading={false}
                                                 />
                                             ) : (
@@ -356,7 +356,7 @@ const HomeAnimated: React.FC = () => {
 
                                             {/* Project Type Badge */}
                                             <div className="absolute top-4 left-4">
-                                                <span className="px-3 py-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full border border-gray-200/50 dark:border-gray-700/50">
+                                                <span className="badge badge-secondary">
                                                     {project.type}
                                                 </span>
                                             </div>
@@ -370,7 +370,7 @@ const HomeAnimated: React.FC = () => {
                                         </div>
 
                                         <div className="p-8">
-                                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 gradient-text transition-colors duration-300">
                                                 {project.title}
                                             </h3>
 
@@ -438,7 +438,7 @@ const HomeAnimated: React.FC = () => {
                         <div className={`text-center mt-16 ${fadeInUp} delay-600`}>
                             <a
                                 href="/projects"
-                                className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-2xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                                className="btn btn-primary group inline-flex items-center"
                             >
                                 <span>{t('projects.viewAll')}</span>
                                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
