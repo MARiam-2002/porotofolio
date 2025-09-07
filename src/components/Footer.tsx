@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
     };
 
     return (
-        <footer className="relative text-white overflow-hidden hero-gradient">
+        <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
@@ -115,7 +115,7 @@ const Footer: React.FC = () => {
                     </div>
 
                     {/* Quick Links */}
-                    <div className="space-y-6 glass border-gradient rounded-2xl p-6">
+                    <div className="space-y-6">
                         <h4 className="text-lg font-semibold text-white flex items-center space-x-2">
                             <span>🔗</span>
                             <span>Quick Links</span>
@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
                                 >
                                     <a
                                         href={link.href}
-                                        className="flex items-center space-x-2 text-gray-300 hover-glow transition-all duration-200 group"
+                                        className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-all duration-200 group"
                                     >
                                         <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                             {link.icon}
@@ -149,7 +149,7 @@ const Footer: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="space-y-6 glass border-gradient rounded-2xl p-6"
+                        className="space-y-6"
                     >
                         <h4 className="text-lg font-semibold text-white flex items-center space-x-2">
                             <span>🌐</span>
