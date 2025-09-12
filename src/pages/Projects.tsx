@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Calendar, User, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CachedImage from '@/components/CachedImage';
+import { projectApi } from '@/services/api';
 // import ImagePreloader from '@/components/ImagePreloader';
 
 interface Project {
@@ -12,12 +13,12 @@ interface Project {
     description: string;
     cover: {
         url: string;
-        public_id: string;
+        public_id?: string;
     };
     gallery: Array<{
         _id: string;
         url: string;
-        public_id: string;
+        public_id?: string;
         caption?: string;
     }>;
     techStack: string[];
@@ -25,12 +26,14 @@ interface Project {
     year: number;
     type: string;
     features: string[];
-    links: {
-        github?: string;
-        demo?: string;
-        article?: string;
-        store?: string;
-    };
+    links: Array<{
+        key: string;
+        url: string;
+        title?: string;
+        description?: string;
+        icon?: string;
+        isActive?: boolean;
+    }>;
     stats: {
         downloads: number;
         rating: number;
@@ -54,13 +57,15 @@ const Projects: React.FC = () => {
         const fetchProjects = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/projects`);
-                const data = await response.json();
-
-                if (data.success) {
-                    setProjects(data.data);
+                const response = await projectApi.getAll();
+                if (response.success) {
+                    // Handle both paginated and non-paginated responses
+                    const projectsData = Array.isArray(response.data)
+                        ? response.data
+                        : (response.data as any).docs || response.data;
+                    setProjects(projectsData);
                 } else {
-                    setError(data.message || 'Failed to fetch projects');
+                    setError(response.message || 'Failed to fetch projects');
                 }
             } catch (error) {
                 setError('Failed to fetch projects');
@@ -501,33 +506,27 @@ const Projects: React.FC = () => {
                                                     </Link>
                                                 </motion.div>
 
-                                                {project.links?.github && (
+                                                {project.links && project.links.map((link) => (
                                                     <motion.a
-                                                        href={project.links.github}
+                                                        key={link.key}
+                                                        href={link.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.9 }}
-                                                        className="inline-flex items-center px-6 py-3 bg-gray-800 text-white font-semibold rounded-xl hover:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                        className={`inline-flex items-center px-6 py-3 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl ${link.key === 'github'
+                                                            ? 'bg-gray-800 hover:bg-gray-700'
+                                                            : 'bg-blue-600 hover:bg-blue-700'
+                                                            }`}
                                                     >
-                                                        <Github className="w-5 h-5 mr-2" />
-                                                        GitHub
+                                                        {link.key === 'github' ? (
+                                                            <Github className="w-5 h-5 mr-2" />
+                                                        ) : (
+                                                            <ExternalLink className="w-5 h-5 mr-2" />
+                                                        )}
+                                                        {link.title || (link.key === 'github' ? 'GitHub' : 'Live Demo')}
                                                     </motion.a>
-                                                )}
-
-                                                {project.links?.demo && (
-                                                    <motion.a
-                                                        href={project.links.demo}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        whileHover={{ scale: 1.1 }}
-                                                        whileTap={{ scale: 0.9 }}
-                                                        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
-                                                    >
-                                                        <ExternalLink className="w-5 h-5 mr-2" />
-                                                        Live Demo
-                                                    </motion.a>
-                                                )}
+                                                ))}
                                             </motion.div>
                                         </motion.div>
                                     </div>

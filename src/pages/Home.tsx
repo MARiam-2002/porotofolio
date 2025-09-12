@@ -633,14 +633,14 @@ const Home: React.FC = () => {
                                         <div className="flex flex-wrap gap-2 mb-6">
                                             {project.techStack.slice(0, 3).map((tech, techIndex) => (
                                                 <motion.span
-                                                    key={tech.key}
+                                                    key={typeof tech === 'string' ? tech : tech.key || techIndex}
                                                     initial={{ opacity: 0, scale: 0 }}
                                                     whileInView={{ opacity: 1, scale: 1 }}
                                                     transition={{ duration: 0.3, delay: 0.4 + techIndex * 0.1 }}
                                                     whileHover={{ scale: 1.05 }}
                                                     className="px-3 py-1 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm rounded-full font-medium"
                                                 >
-                                                    {tech.name}
+                                                    {typeof tech === 'string' ? tech : tech.name || tech.key}
                                                 </motion.span>
                                             ))}
                                             {project.techStack.length > 3 && (
