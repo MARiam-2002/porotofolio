@@ -21,11 +21,27 @@ interface Project {
         public_id?: string;
         caption?: string;
     }>;
-    techStack: string[];
+    techStack: Array<{
+        key: string;
+        name: string;
+        icon?: string;
+        color?: string;
+        category?: string;
+        version?: string;
+        isActive?: boolean;
+    }>;
     role: string;
     year: number;
     type: string;
-    features: string[];
+    features: Array<{
+        key: string;
+        title: string;
+        description?: string;
+        icon?: string;
+        category?: string;
+        isHighlighted?: boolean;
+        isActive?: boolean;
+    }>;
     links: Array<{
         key: string;
         url: string;
@@ -63,8 +79,9 @@ const Projects: React.FC = () => {
                     const projectsData = Array.isArray(response.data)
                         ? response.data
                         : (response.data as any).docs || response.data;
-                    console.log('Projects data from API:', projectsData);
-                    console.log('First project cover:', projectsData[0]?.cover);
+                    console.log('🎯 Projects data from API:', projectsData);
+                    console.log('🖼️ First project cover:', projectsData[0]?.cover);
+                    console.log('📦 First project full object:', JSON.stringify(projectsData[0], null, 2));
                     setProjects(projectsData);
                 } else {
                     setError(response.message || 'Failed to fetch projects');
@@ -325,28 +342,39 @@ const Projects: React.FC = () => {
                                             className="md:col-span-2 lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
                                             onClick={() => openGalleryModal(project, 0)}
                                         >
-                                            <img
-                                                src={project.cover.url}
-                                                alt={`${project.title} - Cover`}
-                                                className="w-full h-64 md:h-80 lg:h-96 object-cover transition-all duration-700 group-hover:scale-110"
-                                                onLoad={() => {
-                                                    console.log('Project cover image loaded successfully:', project.cover.url);
-                                                }}
-                                                onError={(e) => {
-                                                    console.error('Failed to load project cover image:', project.cover.url);
-                                                    console.error('Error details:', e);
-                                                    // Fallback to gradient background
-                                                    e.currentTarget.style.display = 'none';
-                                                    const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                                                    if (fallback) fallback.style.display = 'flex';
-                                                }}
-                                            />
-                                            <div
-                                                className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center"
-                                                style={{ display: 'none' }}
-                                            >
-                                                <div className="text-white text-2xl font-bold text-center">{project.title}</div>
-                                            </div>
+                                            {project.cover?.url ? (
+                                                <>
+                                                    <img
+                                                        src={project.cover.url}
+                                                        alt={`${project.title} - Cover`}
+                                                        className="w-full h-64 md:h-80 lg:h-96 object-cover transition-all duration-700 group-hover:scale-110"
+                                                        loading={index === 0 ? "eager" : "lazy"}
+                                                        crossOrigin="anonymous"
+                                                        onLoad={() => {
+                                                            console.log('✅ Project cover image loaded successfully:', project.cover.url);
+                                                        }}
+                                                        onError={(e) => {
+                                                            console.error('❌ Failed to load project cover image:', project.cover.url);
+                                                            console.error('Error details:', e);
+                                                            // Fallback to gradient background
+                                                            e.currentTarget.style.display = 'none';
+                                                            const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                                                            if (fallback) fallback.style.display = 'flex';
+                                                            console.log('🔄 Fallback gradient displayed for project:', project.title);
+                                                        }}
+                                                    />
+                                                    <div
+                                                        className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center"
+                                                        style={{ display: 'none' }}
+                                                    >
+                                                        <div className="text-white text-2xl font-bold text-center">{project.title}</div>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <div className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center">
+                                                    <div className="text-white text-2xl font-bold text-center">{project.title}</div>
+                                                </div>
+                                            )}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                             <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                                 <div className="text-white">
@@ -449,13 +477,13 @@ const Projects: React.FC = () => {
                                                 <div className="flex flex-wrap gap-2">
                                                     {project.techStack.map((tech, techIndex) => (
                                                         <motion.span
-                                                            key={tech}
+                                                            key={tech.key || techIndex}
                                                             initial={{ opacity: 0, scale: 0.8 }}
                                                             animate={{ opacity: 1, scale: 1 }}
                                                             transition={{ duration: 0.3, delay: index * 0.2 + 1.4 + (techIndex * 0.1) }}
                                                             className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full font-medium"
                                                         >
-                                                            {tech}
+                                                            {tech.name}
                                                         </motion.span>
                                                     ))}
                                                 </div>

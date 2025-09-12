@@ -497,9 +497,10 @@ const Home: React.FC = () => {
                             ))
                         ) : featuredProjects.length > 0 ? (
                             featuredProjects.slice(0, 3).map((project, index) => {
-                                console.log('Project data:', project);
-                                console.log('Cover URL:', project.cover?.url);
-                                console.log('Cover object:', project.cover);
+                                console.log('🎯 Project data:', project);
+                                console.log('🖼️ Cover URL:', project.cover?.url);
+                                console.log('📦 Cover object:', project.cover);
+                                console.log('🔗 Full project object:', JSON.stringify(project, null, 2));
 
                                 // Test if image URL is accessible
                                 if (project.cover?.url) {
@@ -521,29 +522,38 @@ const Home: React.FC = () => {
                                     >
                                         <div className="h-56 relative overflow-hidden">
                                             {project.cover?.url ? (
-                                                <img
-                                                    src={project.cover.url}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover"
-                                                    onLoad={() => {
-                                                        console.log('Image loaded successfully:', project.cover.url);
-                                                    }}
-                                                    onError={(e) => {
-                                                        console.error('Failed to load project cover image:', project.cover.url);
-                                                        console.error('Error details:', e);
-                                                        // Fallback to gradient background
-                                                        e.currentTarget.style.display = 'none';
-                                                        const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                                                        if (fallback) fallback.style.display = 'flex';
-                                                    }}
-                                                />
-                                            ) : null}
-                                            <div
-                                                className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center"
-                                                style={{ display: project.cover?.url ? 'none' : 'flex' }}
-                                            >
-                                                <div className="text-white text-2xl font-bold">{project.title}</div>
-                                            </div>
+                                                <>
+                                                    <img
+                                                        src={project.cover.url}
+                                                        alt={project.title}
+                                                        className="w-full h-full object-cover"
+                                                        loading={index === 0 ? "eager" : "lazy"}
+                                                        crossOrigin="anonymous"
+                                                        onLoad={() => {
+                                                            console.log('✅ Image loaded successfully:', project.cover.url);
+                                                        }}
+                                                        onError={(e) => {
+                                                            console.error('❌ Failed to load project cover image:', project.cover.url);
+                                                            console.error('Error details:', e);
+                                                            // Fallback to gradient background
+                                                            e.currentTarget.style.display = 'none';
+                                                            const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                                                            if (fallback) fallback.style.display = 'flex';
+                                                            console.log('🔄 Fallback gradient displayed for project:', project.title);
+                                                        }}
+                                                    />
+                                                    <div
+                                                        className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center"
+                                                        style={{ display: 'none' }}
+                                                    >
+                                                        <div className="text-white text-2xl font-bold">{project.title}</div>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center">
+                                                    <div className="text-white text-2xl font-bold">{project.title}</div>
+                                                </div>
+                                            )}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
 
                                             {/* Project Type Badge */}
@@ -658,14 +668,14 @@ const Home: React.FC = () => {
                                             <div className="flex flex-wrap gap-2 mb-6">
                                                 {project.techStack.slice(0, 3).map((tech, techIndex) => (
                                                     <motion.span
-                                                        key={typeof tech === 'string' ? tech : tech.key || techIndex}
+                                                        key={tech.key || techIndex}
                                                         initial={{ opacity: 0, scale: 0 }}
                                                         whileInView={{ opacity: 1, scale: 1 }}
                                                         transition={{ duration: 0.3, delay: 0.4 + techIndex * 0.1 }}
                                                         whileHover={{ scale: 1.05 }}
                                                         className="px-3 py-1 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm rounded-full font-medium"
                                                     >
-                                                        {typeof tech === 'string' ? tech : tech.name || tech.key}
+                                                        {tech.name}
                                                     </motion.span>
                                                 ))}
                                                 {project.techStack.length > 3 && (
