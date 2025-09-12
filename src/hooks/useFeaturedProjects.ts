@@ -64,9 +64,8 @@ export const useFeaturedProjects = (): UseFeaturedProjectsReturn => {
             try {
                 setLoading(true);
                 const response = await projectApi.getFeatured();
-                console.log('Featured projects API response:', response);
                 if (response.success) {
-                    console.log('Featured projects data:', response.data);
+                    console.log('✅ Featured projects loaded:', response.data.length, 'projects');
                     setProjects(response.data);
                 } else {
                     throw new Error(response.message || 'Failed to fetch featured projects');

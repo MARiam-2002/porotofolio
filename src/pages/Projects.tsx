@@ -63,8 +63,7 @@ const Projects: React.FC = () => {
                     const projectsData = Array.isArray(response.data)
                         ? response.data
                         : (response.data as any).docs || response.data;
-                    console.log('Projects data from API:', projectsData);
-                    console.log('First project cover:', projectsData[0]?.cover);
+                    console.log('✅ Projects loaded:', projectsData.length, 'projects');
                     setProjects(projectsData);
                 } else {
                     setError(response.message || 'Failed to fetch projects');
@@ -325,28 +324,23 @@ const Projects: React.FC = () => {
                                             className="md:col-span-2 lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
                                             onClick={() => openGalleryModal(project, 0)}
                                         >
-                                            <img
-                                                src={project.cover.url}
-                                                alt={`${project.title} - Cover`}
-                                                className="w-full h-64 md:h-80 lg:h-96 object-cover transition-all duration-700 group-hover:scale-110"
-                                                onLoad={() => {
-                                                    console.log('Project cover image loaded successfully:', project.cover.url);
-                                                }}
-                                                onError={(e) => {
-                                                    console.error('Failed to load project cover image:', project.cover.url);
-                                                    console.error('Error details:', e);
-                                                    // Fallback to gradient background
-                                                    e.currentTarget.style.display = 'none';
-                                                    const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                                                    if (fallback) fallback.style.display = 'flex';
-                                                }}
-                                            />
-                                            <div
-                                                className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center"
-                                                style={{ display: 'none' }}
-                                            >
-                                                <div className="text-white text-2xl font-bold text-center">{project.title}</div>
-                                            </div>
+                                            {project.cover?.url ? (
+                                                <img
+                                                    src={project.cover.url}
+                                                    alt={`${project.title} - Cover`}
+                                                    className="w-full h-64 md:h-80 lg:h-96 object-cover transition-all duration-700 group-hover:scale-110"
+                                                    onLoad={() => {
+                                                        console.log('✅ Project cover image loaded successfully');
+                                                    }}
+                                                    onError={() => {
+                                                        console.error('❌ Failed to load project cover image');
+                                                    }}
+                                                />
+                                            ) : (
+                                                <div className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center">
+                                                    <div className="text-white text-2xl font-bold text-center">{project.title}</div>
+                                                </div>
+                                            )}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                             <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                                 <div className="text-white">
