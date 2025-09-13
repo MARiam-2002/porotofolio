@@ -61,9 +61,13 @@ export const apiService = {
   // GET request
   get: async <T>(url: string, params?: any): Promise<ApiResponse<T>> => {
     try {
+      console.log('🔍 API Service: Making GET request to:', url);
       const response = await api.get(url, { params });
+      console.log('🔍 API Service: Response status:', response.status);
+      console.log('🔍 API Service: Response data:', response.data);
       return response.data;
     } catch (error: any) {
+      console.error('🔍 API Service: Error in GET request:', error);
       throw handleApiError(error);
     }
   },
@@ -157,7 +161,28 @@ export const userApi = {
 
 export const projectApi = {
   getAll: (params?: any) => apiService.get<PaginatedResponse<any>>('/projects', params),
-  getFeatured: () => apiService.get<any[]>('/projects/featured'),
+  getFeatured: async () => {
+    try {
+      console.log('🔍 API: Fetching featured projects...');
+      console.log('🔍 API: Base URL:', api.defaults.baseURL);
+      console.log('🔍 API: Full URL:', `${api.defaults.baseURL}/projects/featured`);
+
+      const response = await apiService.get<any[]>('/projects/featured');
+      console.log('🔍 API: Featured projects response:', response);
+      console.log('🔍 API: Response success:', response.success);
+      console.log('🔍 API: Response data:', response.data);
+
+      return response;
+    } catch (error: any) {
+      console.error('🔍 API: Error fetching featured projects:', error);
+      console.error('🔍 API: Error details:', {
+        message: error.message,
+        status: error.status,
+        response: error.response?.data
+      });
+      throw error;
+    }
+  },
   getBySlug: async (slug: string) => {
     try {
       console.log('🔍 API: Fetching project with slug:', slug);

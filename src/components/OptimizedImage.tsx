@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface OptimizedImageProps {
     src: string;
@@ -29,46 +29,52 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     const [hasError, setHasError] = useState(false);
     const [currentSrc, setCurrentSrc] = useState<string>(src);
     const [isInView, setIsInView] = useState(priority);
+    const imgRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!src) return;
 
         // For priority images, load immediately
         if (priority) {
+            console.log('🖼️ Loading priority image:', src);
+            setIsInView(true);
             loadImage(src);
             return;
         }
 
         // For non-priority images, use Intersection Observer for lazy loading
-        try {
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            setIsInView(true);
-                            loadImage(src);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                },
-                { threshold: 0.1 }
-            );
+        if (imgRef.current) {
+            try {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                console.log('🖼️ Image in view, loading:', src);
+                                setIsInView(true);
+                                loadImage(src);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.1 }
+                );
 
-            const imgElement = document.createElement('div');
-            observer.observe(imgElement);
+                observer.observe(imgRef.current);
 
-            return () => {
-                observer.disconnect();
-            };
-        } catch (error) {
-            // Fallback: load image immediately if Intersection Observer fails
-            console.warn('Intersection Observer not supported, loading image immediately');
-            setIsInView(true);
-            loadImage(src);
+                return () => {
+                    observer.disconnect();
+                };
+            } catch (error) {
+                // Fallback: load image immediately if Intersection Observer fails
+                console.warn('Intersection Observer not supported, loading image immediately');
+                setIsInView(true);
+                loadImage(src);
+            }
         }
     }, [src, priority]);
 
     const loadImage = (imageSrc: string) => {
+        console.log('🖼️ Starting to load image:', imageSrc);
         setIsLoading(true);
         setHasError(false);
         setCurrentSrc(imageSrc);
@@ -76,17 +82,19 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         try {
             const img = new Image();
             img.onload = () => {
+                console.log('✅ Image loaded successfully:', imageSrc);
                 setIsLoading(false);
                 onLoad?.();
             };
-            img.onerror = () => {
+            img.onerror = (error) => {
+                console.error('❌ Error loading image:', imageSrc, error);
                 setHasError(true);
                 setIsLoading(false);
                 onError?.();
             };
             img.src = imageSrc;
         } catch (error) {
-            console.error('Error loading image:', error);
+            console.error('❌ Error creating image element:', error);
             setHasError(true);
             setIsLoading(false);
             onError?.();
@@ -102,7 +110,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
     if (!isInView) {
         return (
-            <div className={`relative overflow-hidden ${className}`}>
+            <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
                 {placeholder || (
                     <div className="w-full h-full bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 flex items-center justify-center">
                         <div className="text-white text-2xl font-bold">MA</div>
@@ -114,7 +122,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
     if (isLoading && showLoading) {
         return (
-            <div className={`relative overflow-hidden ${className}`}>
+            <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
                 {placeholder || (
                     <div className="w-full h-full bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 flex items-center justify-center animate-pulse">
                         <div className="text-white text-2xl font-bold">MA</div>

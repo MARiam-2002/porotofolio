@@ -63,18 +63,26 @@ export const useFeaturedProjects = (): UseFeaturedProjectsReturn => {
         const fetchFeaturedProjects = async () => {
             try {
                 setLoading(true);
+                console.log('🔍 Fetching featured projects...');
                 const response = await projectApi.getFeatured();
-                console.log('Featured projects API response:', response);
-                if (response.success) {
-                    console.log('Featured projects data:', response.data);
+                console.log('🔍 Featured projects response:', response);
+
+                if (response.success && response.data) {
+                    console.log('✅ Featured projects loaded successfully:', response.data);
+                    console.log('✅ Number of projects:', response.data.length);
+                    console.log('✅ First project cover:', response.data[0]?.cover);
                     setProjects(response.data);
+                    setError(null);
                 } else {
+                    console.warn('⚠️ API response not successful:', response);
+                    console.warn('⚠️ Response success:', response.success);
+                    console.warn('⚠️ Response data:', response.data);
                     throw new Error(response.message || 'Failed to fetch featured projects');
                 }
             } catch (err) {
-                console.error('Error fetching featured projects:', err);
-                setError(err instanceof Error ? err.message : 'Failed to fetch projects');
-                setProjects([]);
+                console.error('❌ Error fetching featured projects:', err);
+                setError(err instanceof Error ? err.message : 'Failed to fetch featured projects');
+                setProjects([]); // Set empty array instead of fallback data
             } finally {
                 setLoading(false);
             }

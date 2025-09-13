@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Calendar, User, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CachedImage from '@/components/CachedImage';
-import { projectApi } from '@/services/api';
 // import ImagePreloader from '@/components/ImagePreloader';
 
 interface Project {
@@ -13,43 +12,25 @@ interface Project {
     description: string;
     cover: {
         url: string;
-        public_id?: string;
+        public_id: string;
     };
     gallery: Array<{
         _id: string;
         url: string;
-        public_id?: string;
+        public_id: string;
         caption?: string;
     }>;
-    techStack: Array<{
-        key: string;
-        name: string;
-        icon?: string;
-        color?: string;
-        category?: string;
-        version?: string;
-        isActive?: boolean;
-    }>;
+    techStack: string[];
     role: string;
     year: number;
     type: string;
-    features: Array<{
-        key: string;
-        title: string;
-        description?: string;
-        icon?: string;
-        category?: string;
-        isHighlighted?: boolean;
-        isActive?: boolean;
-    }>;
-    links: Array<{
-        key: string;
-        url: string;
-        title?: string;
-        description?: string;
-        icon?: string;
-        isActive?: boolean;
-    }>;
+    features: string[];
+    links: {
+        github?: string;
+        demo?: string;
+        article?: string;
+        store?: string;
+    };
     stats: {
         downloads: number;
         rating: number;
@@ -73,18 +54,13 @@ const Projects: React.FC = () => {
         const fetchProjects = async () => {
             try {
                 setLoading(true);
-                const response = await projectApi.getAll();
-                if (response.success) {
-                    // Handle both paginated and non-paginated responses
-                    const projectsData = Array.isArray(response.data)
-                        ? response.data
-                        : (response.data as any).docs || response.data;
-                    console.log('🎯 Projects data from API:', projectsData);
-                    console.log('🖼️ First project cover:', projectsData[0]?.cover);
-                    console.log('📦 First project full object:', JSON.stringify(projectsData[0], null, 2));
-                    setProjects(projectsData);
+                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/projects`);
+                const data = await response.json();
+
+                if (data.success) {
+                    setProjects(data.data);
                 } else {
-                    setError(response.message || 'Failed to fetch projects');
+                    setError(data.message || 'Failed to fetch projects');
                 }
             } catch (error) {
                 setError('Failed to fetch projects');
@@ -342,39 +318,12 @@ const Projects: React.FC = () => {
                                             className="md:col-span-2 lg:col-span-2 relative group overflow-hidden rounded-2xl shadow-xl cursor-pointer"
                                             onClick={() => openGalleryModal(project, 0)}
                                         >
-                                            {project.cover?.url ? (
-                                                <>
-                                                    <img
-                                                        src={project.cover.url}
-                                                        alt={`${project.title} - Cover`}
-                                                        className="w-full h-64 md:h-80 lg:h-96 object-cover transition-all duration-700 group-hover:scale-110"
-                                                        loading={index === 0 ? "eager" : "lazy"}
-                                                        crossOrigin="anonymous"
-                                                        onLoad={() => {
-                                                            console.log('✅ Project cover image loaded successfully:', project.cover.url);
-                                                        }}
-                                                        onError={(e) => {
-                                                            console.error('❌ Failed to load project cover image:', project.cover.url);
-                                                            console.error('Error details:', e);
-                                                            // Fallback to gradient background
-                                                            e.currentTarget.style.display = 'none';
-                                                            const fallback = e.currentTarget.nextElementSibling as HTMLElement;
-                                                            if (fallback) fallback.style.display = 'flex';
-                                                            console.log('🔄 Fallback gradient displayed for project:', project.title);
-                                                        }}
-                                                    />
-                                                    <div
-                                                        className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center"
-                                                        style={{ display: 'none' }}
-                                                    >
-                                                        <div className="text-white text-2xl font-bold text-center">{project.title}</div>
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <div className="w-full h-64 md:h-80 lg:h-96 bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center">
-                                                    <div className="text-white text-2xl font-bold text-center">{project.title}</div>
-                                                </div>
-                                            )}
+                                            <CachedImage
+                                                src={project.cover.url}
+                                                alt={`${project.title} - Cover`}
+                                                className="w-full h-64 md:h-80 lg:h-96 object-cover transition-all duration-700 group-hover:scale-110"
+                                                showLoading={false}
+                                            />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                             <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                                 <div className="text-white">
@@ -477,13 +426,13 @@ const Projects: React.FC = () => {
                                                 <div className="flex flex-wrap gap-2">
                                                     {project.techStack.map((tech, techIndex) => (
                                                         <motion.span
-                                                            key={tech.key || techIndex}
+                                                            key={tech}
                                                             initial={{ opacity: 0, scale: 0.8 }}
                                                             animate={{ opacity: 1, scale: 1 }}
                                                             transition={{ duration: 0.3, delay: index * 0.2 + 1.4 + (techIndex * 0.1) }}
                                                             className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full font-medium"
                                                         >
-                                                            {tech.name}
+                                                            {tech}
                                                         </motion.span>
                                                     ))}
                                                 </div>
@@ -552,27 +501,33 @@ const Projects: React.FC = () => {
                                                     </Link>
                                                 </motion.div>
 
-                                                {project.links && project.links.map((link) => (
+                                                {project.links?.github && (
                                                     <motion.a
-                                                        key={link.key}
-                                                        href={link.url}
+                                                        href={project.links.github}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         whileHover={{ scale: 1.1 }}
                                                         whileTap={{ scale: 0.9 }}
-                                                        className={`inline-flex items-center px-6 py-3 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl ${link.key === 'github'
-                                                            ? 'bg-gray-800 hover:bg-gray-700'
-                                                            : 'bg-blue-600 hover:bg-blue-700'
-                                                            }`}
+                                                        className="inline-flex items-center px-6 py-3 bg-gray-800 text-white font-semibold rounded-xl hover:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                                                     >
-                                                        {link.key === 'github' ? (
-                                                            <Github className="w-5 h-5 mr-2" />
-                                                        ) : (
-                                                            <ExternalLink className="w-5 h-5 mr-2" />
-                                                        )}
-                                                        {link.title || (link.key === 'github' ? 'GitHub' : 'Live Demo')}
+                                                        <Github className="w-5 h-5 mr-2" />
+                                                        GitHub
                                                     </motion.a>
-                                                ))}
+                                                )}
+
+                                                {project.links?.demo && (
+                                                    <motion.a
+                                                        href={project.links.demo}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.9 }}
+                                                        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                    >
+                                                        <ExternalLink className="w-5 h-5 mr-2" />
+                                                        Live Demo
+                                                    </motion.a>
+                                                )}
                                             </motion.div>
                                         </motion.div>
                                     </div>
