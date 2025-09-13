@@ -6,7 +6,6 @@ import {
   MapPin,
   Briefcase,
   GraduationCap,
-  Award,
   Code,
   Star,
   Building,
@@ -89,26 +88,6 @@ const Experience: React.FC = () => {
     }
   ];
 
-  const certifications = [
-    {
-      id: 1,
-      name: 'ITI Summer Training Certificate',
-      issuer: 'ITI - Information Technology Institute',
-      description: 'Application Development Using Flutter',
-      year: '2023',
-      icon: '🏆',
-      color: 'from-yellow-500 to-orange-500'
-    },
-    {
-      id: 2,
-      name: 'ICPC Africa & Arab Collegiate Programming Contest',
-      issuer: 'ICPC Foundation',
-      description: 'Competitive Programming Contest Participation',
-      year: '2023',
-      icon: '🥇',
-      color: 'from-red-500 to-pink-500'
-    }
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -345,52 +324,6 @@ const Experience: React.FC = () => {
             </div>
           </motion.section>
 
-          {/* Certifications Section */}
-          <motion.section variants={itemVariants} className="space-y-8">
-            <div className="flex items-center space-x-4 mb-8">
-              <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center">
-                <Award className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                Certifications
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {certifications.map((cert) => (
-                <motion.div
-                  key={cert.id}
-                  variants={itemVariants}
-                  className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2"
-                >
-                  <div className="flex items-start space-x-4">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      className={`w-12 h-12 bg-gradient-to-r ${cert.color} rounded-xl flex items-center justify-center text-xl shadow-lg`}
-                    >
-                      {cert.icon}
-                    </motion.div>
-
-                    <div className="flex-1">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                        {cert.name}
-                      </h3>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
-                        {cert.issuer}
-                      </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-500 mb-2">
-                        {cert.description}
-                      </p>
-                      <div className="flex items-center space-x-2 text-xs text-gray-400">
-                        <Calendar className="w-3 h-3" />
-                        <span>{cert.year}</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
         </motion.div>
       </div>
     </div>
