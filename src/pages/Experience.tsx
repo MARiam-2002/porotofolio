@@ -144,6 +144,73 @@ const Experience: React.FC = () => {
           animate="visible"
           className="space-y-16"
         >
+          {/* Education Section */}
+          <motion.section variants={itemVariants} className="space-y-8">
+            <div className="flex items-center space-x-4 mb-8">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center">
+                <GraduationCap className="w-6 h-6 text-white" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                Education
+              </h2>
+            </div>
+
+            <div className="space-y-8">
+              {education.map((edu) => (
+                <motion.div
+                  key={edu.id}
+                  variants={itemVariants}
+                  className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2"
+                >
+                  <div className="flex items-start space-x-6">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className={`w-16 h-16 bg-gradient-to-r ${edu.color} rounded-2xl flex items-center justify-center text-2xl shadow-lg`}
+                    >
+                      {edu.icon}
+                    </motion.div>
+
+                    <div className="flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                          {edu.degree}
+                        </h3>
+                        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full font-medium">
+                            {edu.level}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0 mb-4">
+                        <div className="flex items-center space-x-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+                          <Building className="w-4 h-4" />
+                          <span>{edu.institution}</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+                          <MapPin className="w-4 h-4" />
+                          <span>{edu.location}</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+                          <Calendar className="w-4 h-4" />
+                          <span>{edu.duration}</span>
+                        </div>
+                        <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+                          <Star className="w-4 h-4" />
+                          <span>GPA: {edu.gpa}</span>
+                        </div>
+                      </div>
+
+                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {edu.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+
           {/* Work Experience Section */}
           <motion.section variants={itemVariants} className="space-y-8">
             <div className="flex items-center space-x-4 mb-8">
@@ -250,73 +317,6 @@ const Experience: React.FC = () => {
                           </motion.span>
                         ))}
                       </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
-
-          {/* Education Section */}
-          <motion.section variants={itemVariants} className="space-y-8">
-            <div className="flex items-center space-x-4 mb-8">
-              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-2xl flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                Education
-              </h2>
-            </div>
-
-            <div className="space-y-8">
-              {education.map((edu) => (
-                <motion.div
-                  key={edu.id}
-                  variants={itemVariants}
-                  className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2"
-                >
-                  <div className="flex items-start space-x-6">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      className={`w-16 h-16 bg-gradient-to-r ${edu.color} rounded-2xl flex items-center justify-center text-2xl shadow-lg`}
-                    >
-                      {edu.icon}
-                    </motion.div>
-
-                    <div className="flex-1">
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                          {edu.degree}
-                        </h3>
-                        <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                          <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full font-medium">
-                            {edu.level}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0 mb-4">
-                        <div className="flex items-center space-x-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                          <Building className="w-4 h-4" />
-                          <span>{edu.institution}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
-                          <MapPin className="w-4 h-4" />
-                          <span>{edu.location}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
-                          <Calendar className="w-4 h-4" />
-                          <span>{edu.duration}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
-                          <Star className="w-4 h-4" />
-                          <span>GPA: {edu.gpa}</span>
-                        </div>
-                      </div>
-
-                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {edu.description}
-                      </p>
                     </div>
                   </div>
                 </motion.div>
