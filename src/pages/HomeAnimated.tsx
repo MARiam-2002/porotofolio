@@ -342,73 +342,107 @@ const HomeAnimated: React.FC = () => {
                                         style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                                     >
                                         <div className="h-56 relative overflow-hidden">
-                                            {/* Project Gallery with Sequential Animation */}
+                                            {/* Project Gallery with Continuous Loop Animation */}
                                             <div className="relative w-full h-full">
-                                                {/* Cover Image - First */}
-                                                {project.cover?.url && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, scale: 0.8 }}
-                                                        animate={{ opacity: 1, scale: 1 }}
-                                                        transition={{
-                                                            duration: 0.8,
-                                                            delay: index * 0.2 + 0.3,
-                                                            type: "spring",
-                                                            stiffness: 100
-                                                        }}
-                                                        className="absolute inset-0"
-                                                    >
-                                                        <OptimizedImage
-                                                            src={project.cover.url}
-                                                            alt={project.title}
-                                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                            showLoading={false}
-                                                            priority={true}
-                                                        />
-                                                    </motion.div>
-                                                )}
+                                                {/* All Images Container - Continuous Loop */}
+                                                <motion.div
+                                                    className="flex w-full h-full"
+                                                    animate={{
+                                                        x: [0, -100, -200, -300, -400, -500, -600, -700, -800, 0]
+                                                    }}
+                                                    transition={{
+                                                        duration: 20,
+                                                        repeat: Infinity,
+                                                        ease: "linear",
+                                                        delay: index * 1.5
+                                                    }}
+                                                >
+                                                    {/* Cover Image */}
+                                                    {project.cover?.url && (
+                                                        <div className="flex-shrink-0 w-full h-full">
+                                                            <OptimizedImage
+                                                                src={project.cover.url}
+                                                                alt={project.title}
+                                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                                showLoading={false}
+                                                                priority={true}
+                                                            />
+                                                        </div>
+                                                    )}
 
-                                                {/* Gallery Images - Sequential Animation */}
-                                                {project.gallery && project.gallery.length > 0 && (
-                                                    <div className="absolute inset-0">
-                                                        {project.gallery.slice(0, 3).map((image, imageIndex) => (
-                                                            <motion.div
-                                                                key={image._id}
-                                                                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                                                transition={{
-                                                                    duration: 0.6,
-                                                                    delay: index * 0.2 + 0.5 + (imageIndex * 0.3),
-                                                                    type: "spring",
-                                                                    stiffness: 120
-                                                                }}
-                                                                className="absolute inset-0"
-                                                                style={{ zIndex: imageIndex + 1 }}
-                                                            >
-                                                                <OptimizedImage
-                                                                    src={image.url}
-                                                                    alt={image.caption || `${project.title} - Gallery ${imageIndex + 1}`}
-                                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                                    showLoading={false}
-                                                                />
+                                                    {/* Gallery Images */}
+                                                    {project.gallery && project.gallery.map((image, imageIndex) => (
+                                                        <div key={image._id} className="flex-shrink-0 w-full h-full relative">
+                                                            <OptimizedImage
+                                                                src={image.url}
+                                                                alt={image.caption || `${project.title} - Gallery ${imageIndex + 1}`}
+                                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                                showLoading={false}
+                                                            />
 
-                                                                {/* Image Number Badge */}
-                                                                <motion.div
-                                                                    initial={{ scale: 0, rotate: -90 }}
-                                                                    animate={{ scale: 1, rotate: 0 }}
-                                                                    transition={{
-                                                                        duration: 0.4,
-                                                                        delay: index * 0.2 + 0.8 + (imageIndex * 0.3),
-                                                                        type: "spring",
-                                                                        stiffness: 200
-                                                                    }}
-                                                                    className="absolute top-2 right-2 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg"
-                                                                >
-                                                                    {imageIndex + 1}
-                                                                </motion.div>
-                                                            </motion.div>
-                                                        ))}
-                                                    </div>
-                                                )}
+                                                            {/* Image Number Badge */}
+                                                            <div className="absolute top-2 right-2 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">
+                                                                {imageIndex + 1}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+
+                                                    {/* Duplicate images for seamless loop */}
+                                                    {project.cover?.url && (
+                                                        <div className="flex-shrink-0 w-full h-full">
+                                                            <OptimizedImage
+                                                                src={project.cover.url}
+                                                                alt={project.title}
+                                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                                showLoading={false}
+                                                            />
+                                                        </div>
+                                                    )}
+
+                                                    {project.gallery && project.gallery.map((image, imageIndex) => (
+                                                        <div key={`duplicate-${image._id}`} className="flex-shrink-0 w-full h-full relative">
+                                                            <OptimizedImage
+                                                                src={image.url}
+                                                                alt={image.caption || `${project.title} - Gallery ${imageIndex + 1}`}
+                                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                                showLoading={false}
+                                                            />
+
+                                                            {/* Image Number Badge */}
+                                                            <div className="absolute top-2 right-2 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">
+                                                                {imageIndex + 1}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+
+                                                    {/* Second set of duplicates for longer loop */}
+                                                    {project.cover?.url && (
+                                                        <div className="flex-shrink-0 w-full h-full">
+                                                            <OptimizedImage
+                                                                src={project.cover.url}
+                                                                alt={project.title}
+                                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                                showLoading={false}
+                                                            />
+                                                        </div>
+                                                    )}
+
+                                                    {project.gallery && project.gallery.map((image, imageIndex) => (
+                                                        <div key={`duplicate2-${image._id}`} className="flex-shrink-0 w-full h-full relative">
+                                                            <OptimizedImage
+                                                                src={image.url}
+                                                                alt={image.caption || `${project.title} - Gallery ${imageIndex + 1}`}
+                                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                                showLoading={false}
+                                                            />
+
+                                                            {/* Image Number Badge */}
+                                                            <div className="absolute top-2 right-2 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">
+                                                                {imageIndex + 1}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </motion.div>
 
                                                 {/* Fallback if no images */}
                                                 {!project.cover?.url && (!project.gallery || project.gallery.length === 0) && (
