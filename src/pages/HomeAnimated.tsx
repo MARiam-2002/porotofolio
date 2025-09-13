@@ -487,7 +487,7 @@ const HomeAnimated: React.FC = () => {
                                             </p>
 
                                             {/* Action Buttons - Always Visible */}
-                                            <div className="flex flex-wrap gap-2 mb-6">
+                                            <div className="flex flex-wrap gap-2 mb-6 justify-center">
                                                 {/* GitHub Button */}
                                                 {project.links?.find(link => link.key === 'github') && (
                                                     <a
