@@ -8,11 +8,8 @@ import {
   GraduationCap,
   Award,
   Code,
-  Users,
   Star,
-  ExternalLink,
   Building,
-  Clock,
   CheckCircle
 } from 'lucide-react';
 
@@ -180,7 +177,7 @@ const Experience: React.FC = () => {
             </div>
 
             <div className="space-y-8">
-              {experiences.map((exp, index) => (
+              {experiences.map((exp) => (
                 <motion.div
                   key={exp.id}
                   variants={itemVariants}
@@ -293,7 +290,7 @@ const Experience: React.FC = () => {
             </div>
 
             <div className="space-y-8">
-              {education.map((edu, index) => (
+              {education.map((edu) => (
                 <motion.div
                   key={edu.id}
                   variants={itemVariants}
@@ -360,7 +357,7 @@ const Experience: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {certifications.map((cert, index) => (
+              {certifications.map((cert) => (
                 <motion.div
                   key={cert.id}
                   variants={itemVariants}
