@@ -5,6 +5,7 @@ import { useUserProfile } from '@/hooks/useUserProfile';
 import { useFeaturedProjects } from '@/hooks/useFeaturedProjects';
 import { Link } from 'react-router-dom';
 import OptimizedImage from '@/components/OptimizedImage';
+import { motion } from 'framer-motion';
 
 // CSS Animation classes
 const fadeInUp = 'animate-[fadeInUp_0.6s_ease-out_forwards] opacity-0';
@@ -341,19 +342,81 @@ const HomeAnimated: React.FC = () => {
                                         style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                                     >
                                         <div className="h-56 relative overflow-hidden">
-                                            {project.cover?.url ? (
-                                                <OptimizedImage
-                                                    src={project.cover.url}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                    showLoading={false}
-                                                    priority={true}
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center">
-                                                    <div className="text-white text-2xl font-bold">{project.title}</div>
-                                                </div>
-                                            )}
+                                            {/* Project Gallery with Sequential Animation */}
+                                            <div className="relative w-full h-full">
+                                                {/* Cover Image - First */}
+                                                {project.cover?.url && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, scale: 0.8 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
+                                                        transition={{
+                                                            duration: 0.8,
+                                                            delay: index * 0.2 + 0.3,
+                                                            type: "spring",
+                                                            stiffness: 100
+                                                        }}
+                                                        className="absolute inset-0"
+                                                    >
+                                                        <OptimizedImage
+                                                            src={project.cover.url}
+                                                            alt={project.title}
+                                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                            showLoading={false}
+                                                            priority={true}
+                                                        />
+                                                    </motion.div>
+                                                )}
+
+                                                {/* Gallery Images - Sequential Animation */}
+                                                {project.gallery && project.gallery.length > 0 && (
+                                                    <div className="absolute inset-0">
+                                                        {project.gallery.slice(0, 3).map((image, imageIndex) => (
+                                                            <motion.div
+                                                                key={image._id}
+                                                                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                                                transition={{
+                                                                    duration: 0.6,
+                                                                    delay: index * 0.2 + 0.5 + (imageIndex * 0.3),
+                                                                    type: "spring",
+                                                                    stiffness: 120
+                                                                }}
+                                                                className="absolute inset-0"
+                                                                style={{ zIndex: imageIndex + 1 }}
+                                                            >
+                                                                <OptimizedImage
+                                                                    src={image.url}
+                                                                    alt={image.caption || `${project.title} - Gallery ${imageIndex + 1}`}
+                                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                                    showLoading={false}
+                                                                />
+
+                                                                {/* Image Number Badge */}
+                                                                <motion.div
+                                                                    initial={{ scale: 0, rotate: -90 }}
+                                                                    animate={{ scale: 1, rotate: 0 }}
+                                                                    transition={{
+                                                                        duration: 0.4,
+                                                                        delay: index * 0.2 + 0.8 + (imageIndex * 0.3),
+                                                                        type: "spring",
+                                                                        stiffness: 200
+                                                                    }}
+                                                                    className="absolute top-2 right-2 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg"
+                                                                >
+                                                                    {imageIndex + 1}
+                                                                </motion.div>
+                                                            </motion.div>
+                                                        ))}
+                                                    </div>
+                                                )}
+
+                                                {/* Fallback if no images */}
+                                                {!project.cover?.url && (!project.gallery || project.gallery.length === 0) && (
+                                                    <div className="w-full h-full bg-gradient-to-br from-blue-400 via-purple-600 to-pink-500 flex items-center justify-center">
+                                                        <div className="text-white text-2xl font-bold">{project.title}</div>
+                                                    </div>
+                                                )}
+                                            </div>
 
                                             {/* Hover Overlay with Action Buttons */}
                                             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">

@@ -9,6 +9,12 @@ interface Project {
         url: string;
         public_id: string;
     };
+    gallery?: Array<{
+        _id: string;
+        url: string;
+        public_id?: string;
+        caption?: string;
+    }>;
     techStack: Array<{
         key: string;
         name: string;
