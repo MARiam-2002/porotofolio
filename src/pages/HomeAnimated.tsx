@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, Sparkles, Star, Zap, Award, Users } from 'lucide-react';
+import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, Sparkles, Star, Zap, Award, Users, Heart, MessageCircle, Phone, MapPin } from 'lucide-react';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { useFeaturedProjects } from '@/hooks/useFeaturedProjects';
 import { Link } from 'react-router-dom';
@@ -290,6 +290,153 @@ const HomeAnimated: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* About Me Section */}
+                <section className="py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
+                    {/* Background Elements */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+                        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-blue-400/10 to-cyan-600/10 rounded-full blur-3xl animate-pulse-slow delay-500"></div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                            {/* Content */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8 }}
+                                className="space-y-8"
+                            >
+                                <div className="space-y-6">
+                                    <motion.div
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ duration: 0.5, delay: 0.2 }}
+                                        className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full text-purple-600 dark:text-purple-400 font-medium backdrop-blur-sm"
+                                    >
+                                        <Heart className="w-4 h-4 animate-pulse" />
+                                        <span className="text-sm uppercase tracking-wider">About Me</span>
+                                    </motion.div>
+
+                                    <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-purple-800 to-pink-800 dark:from-white dark:via-purple-200 dark:to-pink-200 bg-clip-text text-transparent leading-tight">
+                                        Passionate Developer & Problem Solver
+                                    </h2>
+
+                                    <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        I'm a passionate Flutter developer with over 3 years of experience creating beautiful,
+                                        functional mobile applications. My journey in programming started with a curiosity
+                                        about how things work, and it has evolved into a deep love for crafting digital experiences.
+                                    </p>
+
+                                    <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                                        I specialize in cross-platform mobile development using Flutter, with expertise in
+                                        state management, UI/UX design, and performance optimization. I believe in writing
+                                        clean, maintainable code and creating applications that users love.
+                                    </p>
+                                </div>
+
+                                {/* Key Values */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    {[
+                                        {
+                                            icon: '🎯',
+                                            title: 'Goal-Oriented',
+                                            description: 'Focused on delivering results that exceed expectations'
+                                        },
+                                        {
+                                            icon: '🚀',
+                                            title: 'Innovation',
+                                            description: 'Always exploring new technologies and best practices'
+                                        },
+                                        {
+                                            icon: '🤝',
+                                            title: 'Collaboration',
+                                            description: 'Strong team player with excellent communication skills'
+                                        },
+                                        {
+                                            icon: '💡',
+                                            title: 'Problem Solving',
+                                            description: 'Creative approach to tackling complex challenges'
+                                        }
+                                    ].map((value, index) => (
+                                        <motion.div
+                                            key={value.title}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                                            className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300"
+                                        >
+                                            <div className="flex items-start space-x-4">
+                                                <span className="text-2xl">{value.icon}</span>
+                                                <div>
+                                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                                                        {value.title}
+                                                    </h3>
+                                                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                                                        {value.description}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Visual Element */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="relative"
+                            >
+                                <div className="relative">
+                                    {/* Main Card */}
+                                    <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-gray-200/50 dark:border-gray-700/50">
+                                        <div className="text-center space-y-6">
+                                            <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto">
+                                                <span className="text-white text-3xl font-bold">MA</span>
+                                            </div>
+
+                                            <div>
+                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                                                    Mahmoud Ahmed
+                                                </h3>
+                                                <p className="text-lg text-blue-600 dark:text-blue-400 font-medium">
+                                                    Flutter Developer
+                                                </p>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                <div className="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-400">
+                                                    <MapPin className="w-4 h-4" />
+                                                    <span>Mansoura, Egypt</span>
+                                                </div>
+                                                <div className="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-400">
+                                                    <Mail className="w-4 h-4" />
+                                                    <span>mahmoudabuelazem2467@gmail.com</span>
+                                                </div>
+                                                <div className="flex items-center justify-center space-x-3 text-gray-600 dark:text-gray-400">
+                                                    <Phone className="w-4 h-4" />
+                                                    <span>01021288238</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Floating Elements */}
+                                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg animate-float">
+                                        <Star className="w-6 h-6 text-white animate-spin-slow" />
+                                    </div>
+
+                                    <div className="absolute -bottom-4 -left-4 w-10 h-10 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center shadow-lg animate-float delay-500">
+                                        <Award className="w-5 h-5 text-white" />
+                                    </div>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
                 </section>
@@ -925,6 +1072,128 @@ const HomeAnimated: React.FC = () => {
                                 <ArrowRight className="relative z-10 ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform duration-500" />
                             </a>
                         </div>
+                    </div>
+                </section>
+
+                {/* Contact CTA Section */}
+                <section className="py-20 lg:py-32 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
+                    {/* Background Elements */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse-slow"></div>
+                        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse-slow delay-500"></div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="text-center space-y-8"
+                        >
+                            <div className="space-y-6">
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                    className="inline-flex items-center space-x-2 px-6 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white font-semibold"
+                                >
+                                    <MessageCircle className="w-5 h-5" />
+                                    <span className="text-sm uppercase tracking-wider">Let's Work Together</span>
+                                </motion.div>
+
+                                <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                                    Ready to Build Something
+                                    <br />
+                                    <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+                                        Amazing?
+                                    </span>
+                                </h2>
+
+                                <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+                                    I'm always excited to work on new projects and collaborate with amazing people.
+                                    Whether you have a mobile app idea, need consultation, or want to discuss
+                                    potential opportunities, I'd love to hear from you!
+                                </p>
+                            </div>
+
+                            {/* Contact Methods */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                                className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+                            >
+                                {[
+                                    {
+                                        icon: Mail,
+                                        title: 'Email Me',
+                                        description: 'mahmoudabuelazem2467@gmail.com',
+                                        action: 'mailto:mahmoudabuelazem2467@gmail.com',
+                                        color: 'from-blue-500 to-cyan-500'
+                                    },
+                                    {
+                                        icon: Phone,
+                                        title: 'Call Me',
+                                        description: '+20 102 128 8238',
+                                        action: 'tel:+201021288238',
+                                        color: 'from-green-500 to-teal-500'
+                                    },
+                                    {
+                                        icon: MessageCircle,
+                                        title: 'WhatsApp',
+                                        description: 'Quick chat available',
+                                        action: 'https://wa.me/201021288238',
+                                        color: 'from-purple-500 to-pink-500'
+                                    }
+                                ].map((method, index) => (
+                                    <motion.a
+                                        key={method.title}
+                                        href={method.action}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                                        whileHover={{ scale: 1.05, y: -5 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="group bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 text-center"
+                                    >
+                                        <div className={`w-16 h-16 bg-gradient-to-r ${method.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                                            <method.icon className="w-8 h-8 text-white" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white mb-2">
+                                            {method.title}
+                                        </h3>
+                                        <p className="text-white/80 text-sm">
+                                            {method.description}
+                                        </p>
+                                    </motion.a>
+                                ))}
+                            </motion.div>
+
+                            {/* CTA Buttons */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.8 }}
+                                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                            >
+                                <Link
+                                    to="/contact"
+                                    className="group inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold text-lg rounded-2xl hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105"
+                                >
+                                    <span>Get In Touch</span>
+                                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                                </Link>
+
+                                <a
+                                    href="/cv.pdf"
+                                    download="Mahmoud_Ahmed_CV.pdf"
+                                    className="group inline-flex items-center px-8 py-4 border-2 border-white text-white font-bold text-lg rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105"
+                                >
+                                    <Download className="mr-2 w-5 h-5 group-hover:animate-bounce" />
+                                    Download CV
+                                </a>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </section>
             </div>
