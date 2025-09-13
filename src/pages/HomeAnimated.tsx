@@ -336,9 +336,10 @@ const HomeAnimated: React.FC = () => {
                                 ))
                             ) : featuredProjects.length > 0 ? (
                                 featuredProjects.slice(0, 3).map((project, index) => (
-                                    <div
+                                    <Link
                                         key={project._id}
-                                        className={`group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2 ${scaleIn}`}
+                                        to={`/projects/${project.slug || project._id}`}
+                                        className={`group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200/50 dark:border-gray-700/50 hover:-translate-y-2 cursor-pointer block ${scaleIn}`}
                                         style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                                     >
                                         <div className="h-56 relative overflow-hidden">
@@ -356,11 +357,11 @@ const HomeAnimated: React.FC = () => {
                                                                 x: [100, 0, 0, -100]
                                                             }}
                                                             transition={{
-                                                                duration: 4,
-                                                                times: [0, 0.1, 0.7, 1],
+                                                                duration: 6,
+                                                                times: [0, 0.1, 0.8, 1],
                                                                 delay: index * 0.5 + 0.2,
                                                                 repeat: Infinity,
-                                                                repeatDelay: 1
+                                                                repeatDelay: 2
                                                             }}
                                                         >
                                                             <OptimizedImage
@@ -384,11 +385,11 @@ const HomeAnimated: React.FC = () => {
                                                                 x: [100, 0, 0, -100]
                                                             }}
                                                             transition={{
-                                                                duration: 4,
-                                                                times: [0, 0.1, 0.7, 1],
-                                                                delay: index * 0.5 + 0.5 + (imageIndex * 0.8),
+                                                                duration: 5,
+                                                                times: [0, 0.1, 0.8, 1],
+                                                                delay: index * 0.5 + 0.5 + (imageIndex * 1.2),
                                                                 repeat: Infinity,
-                                                                repeatDelay: 1
+                                                                repeatDelay: 1.5
                                                             }}
                                                         >
                                                             <OptimizedImage
@@ -437,6 +438,7 @@ const HomeAnimated: React.FC = () => {
                                                             href={project.links.find(link => link.key === 'github')?.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
                                                             className="flex items-center space-x-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all duration-200 hover:scale-105"
                                                         >
                                                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -452,6 +454,7 @@ const HomeAnimated: React.FC = () => {
                                                             href={project.links.find(link => link.key === 'demo')?.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
                                                             className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 hover:scale-105"
                                                         >
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -467,6 +470,7 @@ const HomeAnimated: React.FC = () => {
                                                             href={project.links.find(link => link.key === 'appStore')?.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
                                                             className="flex items-center space-x-2 px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-lg transition-all duration-200 hover:scale-105"
                                                         >
                                                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -482,6 +486,7 @@ const HomeAnimated: React.FC = () => {
                                                             href={project.links.find(link => link.key === 'playStore')?.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
                                                             className="flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-200 hover:scale-105"
                                                         >
                                                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -497,6 +502,7 @@ const HomeAnimated: React.FC = () => {
                                                             href={project.links.find(link => link.key === 'website')?.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
                                                             className="flex items-center space-x-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all duration-200 hover:scale-105"
                                                         >
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -512,6 +518,7 @@ const HomeAnimated: React.FC = () => {
                                                             href={project.links.find(link => link.key === 'documentation')?.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
                                                             className="flex items-center space-x-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all duration-200 hover:scale-105"
                                                         >
                                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -521,17 +528,6 @@ const HomeAnimated: React.FC = () => {
                                                         </a>
                                                     )}
 
-                                                    {/* View Details Button */}
-                                                    <Link
-                                                        to={`/projects/${project.slug || project._id}`}
-                                                        className="flex items-center space-x-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all duration-200 hover:scale-105 backdrop-blur-sm"
-                                                    >
-                                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                        </svg>
-                                                        <span className="text-sm font-medium">View Details</span>
-                                                    </Link>
                                                 </div>
                                             </div>
 
@@ -567,6 +563,7 @@ const HomeAnimated: React.FC = () => {
                                                         href={project.links.find(link => link.key === 'github')?.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
                                                         className="flex items-center space-x-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white text-sm rounded-lg transition-all duration-200 hover:scale-105"
                                                     >
                                                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -582,6 +579,7 @@ const HomeAnimated: React.FC = () => {
                                                         href={project.links.find(link => link.key === 'demo')?.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
                                                         className="flex items-center space-x-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-lg transition-all duration-200 hover:scale-105"
                                                     >
                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -597,6 +595,7 @@ const HomeAnimated: React.FC = () => {
                                                         href={project.links.find(link => link.key === 'appStore')?.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
                                                         className="flex items-center space-x-2 px-3 py-2 bg-black hover:bg-gray-800 text-white text-sm rounded-lg transition-all duration-200 hover:scale-105"
                                                     >
                                                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -612,6 +611,7 @@ const HomeAnimated: React.FC = () => {
                                                         href={project.links.find(link => link.key === 'playStore')?.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
                                                         className="flex items-center space-x-2 px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition-all duration-200 hover:scale-105"
                                                     >
                                                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -627,6 +627,7 @@ const HomeAnimated: React.FC = () => {
                                                         href={project.links.find(link => link.key === 'website')?.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
                                                         className="flex items-center space-x-2 px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-lg transition-all duration-200 hover:scale-105"
                                                     >
                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -642,6 +643,7 @@ const HomeAnimated: React.FC = () => {
                                                         href={project.links.find(link => link.key === 'documentation')?.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
                                                         className="flex items-center space-x-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg transition-all duration-200 hover:scale-105"
                                                     >
                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -651,17 +653,6 @@ const HomeAnimated: React.FC = () => {
                                                     </a>
                                                 )}
 
-                                                {/* View Details Button */}
-                                                <Link
-                                                    to={`/projects/${project.slug || project._id}`}
-                                                    className="flex items-center space-x-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-lg transition-all duration-200 hover:scale-105"
-                                                >
-                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                    </svg>
-                                                    <span className="font-medium">View Details</span>
-                                                </Link>
                                             </div>
 
                                             <div className="flex flex-wrap gap-2 mb-6">
@@ -699,7 +690,7 @@ const HomeAnimated: React.FC = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))
                             ) : (
                                 // No projects message
