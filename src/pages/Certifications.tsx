@@ -307,25 +307,31 @@ const Certifications: React.FC = () => {
 
                                             {/* Action Button */}
                                             {certification.credentialUrl && (
-                                                <motion.a
-                                                    href={convertGoogleDriveUrl(certification.credentialUrl)}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                                <motion.button
                                                     initial={{ opacity: 0, y: 10 }}
                                                     animate={{ opacity: 1, y: 0 }}
                                                     transition={{ duration: 0.4, delay: 1.0 + index * 0.1 }}
                                                     whileHover={{ scale: 1.05 }}
                                                     whileTap={{ scale: 0.95 }}
-                                                    className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+                                                    className="relative z-10 inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        if (certification.credentialUrl) {
+                                                            const url = convertGoogleDriveUrl(certification.credentialUrl);
+                                                            console.log('Opening URL:', url);
+                                                            window.open(url, '_blank', 'noopener,noreferrer');
+                                                        }
+                                                    }}
                                                 >
                                                     <ExternalLink className="w-4 h-4" />
                                                     <span>View Certificate</span>
-                                                </motion.a>
+                                                </motion.button>
                                             )}
                                         </div>
 
                                         {/* Hover Effect Overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
                                     </div>
 
                                     {/* Floating Elements */}
