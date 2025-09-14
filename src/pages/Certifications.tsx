@@ -84,6 +84,17 @@ const Certifications: React.FC = () => {
         });
     };
 
+    const convertGoogleDriveUrl = (url: string) => {
+        // Convert Google Drive sharing URL to direct download URL
+        if (url.includes('drive.google.com/file/d/')) {
+            const fileId = url.match(/\/file\/d\/([a-zA-Z0-9-_]+)/)?.[1];
+            if (fileId) {
+                return `https://drive.google.com/uc?export=download&id=${fileId}`;
+            }
+        }
+        return url;
+    };
+
     if (loading) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 pt-24 lg:pt-32 pb-12 flex items-center justify-center">
@@ -297,7 +308,7 @@ const Certifications: React.FC = () => {
                                             {/* Action Button */}
                                             {certification.credentialUrl && (
                                                 <motion.a
-                                                    href={certification.credentialUrl}
+                                                    href={convertGoogleDriveUrl(certification.credentialUrl)}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     initial={{ opacity: 0, y: 10 }}
