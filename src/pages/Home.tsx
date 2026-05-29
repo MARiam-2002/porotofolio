@@ -171,7 +171,7 @@ const Home: React.FC = () => {
 
                                 <a
                                     href="/cv.pdf"
-                                    download="Mahmoud_Ahmed_CV.pdf"
+                                    download="Mahmoud_Ahmed_Flutter_Developer_CV.pdf"
                                     className="group inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                                 >
                                     <Download className="mr-2 w-5 h-5 group-hover:animate-bounce" />
